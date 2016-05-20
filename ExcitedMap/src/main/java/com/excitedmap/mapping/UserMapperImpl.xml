@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.UserMapperImpl" >
+  <resultMap id="BaseResultMap" type="User" extends="com.excitedmap.dao.UserMapper.BaseResultMap" >
+  </resultMap>
+  <select id="selectByEmailAndPassword" resultMap="BaseResultMap" parameterType="User" >
+    select *
+    from user
+    where user_email = #{userEmail,jdbcType=LONGVARCHAR} and user_password = #{userPassword,jdbcType=VARCHAR}
+  </select>
+</mapper>
