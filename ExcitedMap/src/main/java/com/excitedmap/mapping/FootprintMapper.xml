@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.FootprintMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.Footprint" >
+    <id column="footprint_id" property="footprintId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="spot_id" property="spotId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    footprint_id, user_id, spot_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from footprint
+    where footprint_id = #{footprintId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from footprint
+    where footprint_id = #{footprintId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.Footprint" >
+    <selectKey resultType="java.lang.Integer" keyProperty="footprintId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into footprint (user_id, spot_id)
+    values (#{userId,jdbcType=INTEGER}, #{spotId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.Footprint" >
+    <selectKey resultType="java.lang.Integer" keyProperty="footprintId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into footprint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="spotId != null" >
+        spot_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="spotId != null" >
+        #{spotId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.Footprint" >
+    update footprint
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="spotId != null" >
+        spot_id = #{spotId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where footprint_id = #{footprintId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.Footprint" >
+    update footprint
+    set user_id = #{userId,jdbcType=INTEGER},
+      spot_id = #{spotId,jdbcType=INTEGER}
+    where footprint_id = #{footprintId,jdbcType=INTEGER}
+  </update>
+</mapper>

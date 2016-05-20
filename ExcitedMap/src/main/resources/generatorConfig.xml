@@ -29,5 +29,23 @@
         <table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="spot" domainObjectName="Spot" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="search_history" domainObjectName="SearchHistory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="search_history_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="review" domainObjectName="Review" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="review_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="favorite" domainObjectName="Favorite" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="favorite_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="wish" domainObjectName="Wish" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="wish_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="footprint" domainObjectName="Footprint" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="footprint_id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>
