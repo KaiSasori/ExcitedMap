@@ -3,7 +3,9 @@ CREATE TABLE `user` (
   `user_name` varchar(20) NOT NULL,
   `user_password` varchar(20) NOT NULL,
   `user_avatar_path` varchar(50) NOT NULL,
-  PRIMARY KEY (`user_id`)
+  `user_email` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_email` (`user_email`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `spot` (
