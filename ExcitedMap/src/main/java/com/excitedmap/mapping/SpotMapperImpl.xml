@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotMapperImpl" >
+  <resultMap id="ResultMapWithBLOBs" type="Spot" extends="com.excitedmap.dao.SpotMapper.ResultMapWithBLOBs" >
+  </resultMap>
+  <select id="selectBySpotCategoryId" resultMap="ResultMapWithBLOBs" >
+    select *
+    from spot
+    where spot_category_id = #{spotCategoryId};
+  </select>
+</mapper>
