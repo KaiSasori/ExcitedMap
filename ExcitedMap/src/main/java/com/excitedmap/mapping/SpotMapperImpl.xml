@@ -8,4 +8,14 @@
     from spot
     where spot_category_id = #{spotCategoryId};
   </select>
+  <select id="selectByOrderByFavoriteCountWithLimit" resultMap="ResultMapWithBLOBs" >
+    select * from spot
+    natural join (SELECT spot_id, COUNT(*) as spot_id_favorite_count from favorite GROUP BY spot_id) as A
+    order by spot_id_favorite_count DESC LIMIT #{limit};
+  </select>
+  <select id="selectByOrderByWishCountWithLimit" resultMap="ResultMapWithBLOBs" >
+    select * from spot
+    natural join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as A
+    order by spot_id_wish_count DESC LIMIT #{limit};
+  </select>
 </mapper>
