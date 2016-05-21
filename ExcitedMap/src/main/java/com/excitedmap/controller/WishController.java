@@ -22,22 +22,26 @@ public class WishController {
 	@Resource
 	private WishService wishService;
 
-	//插入心愿
+	// 插入心愿，SQL处还没有做Duplicate限制，先假装有限制。
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> executeSetWish(@RequestBody Wish wish) {
+	public ResponseEntity<Void> executeAddWish(@RequestBody Wish wish) {
 		try {
-			wishService.setWish(wish);
+			wishService.addWish(wish);
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (DuplicateKeyException e) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 	}
-	//读取心愿，但心愿会有重复，仍需修改！！！！！
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity <List<Wish>> executeGetWishByUserId(@RequestParam int userId) {
-			
-			return new ResponseEntity<List<Wish>>(wishService.getWishByUserId(userId),HttpStatus.OK);
+	public ResponseEntity<List<Wish>> executeGetWishByUserId(@RequestParam int userId) {
+		return new ResponseEntity<List<Wish>>(wishService.getWishByUserId(userId), HttpStatus.OK);
 	}
-	
-	
+
+	// 删除Wish等待实现。
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity<Void> executeDeleteWish(@RequestBody Wish wish) {
+		return null;
+	}
+
 }
