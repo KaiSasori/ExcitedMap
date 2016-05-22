@@ -50,5 +50,14 @@
         <table tableName="spot_category" domainObjectName="SpotCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="spot_category_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="spot_questionnaire" domainObjectName="SpotQuestionnaire" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_questionnaire_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="spot_questionnaire_question" domainObjectName="SpotQuestionnaireQuestion" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_questionnaire_question_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="spot_questionnaire_question_choice" domainObjectName="SpotQuestionnaireQuestionChoice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_questionnaire_question_choice_id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

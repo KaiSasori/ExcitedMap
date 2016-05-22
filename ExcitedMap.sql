@@ -61,3 +61,25 @@ CREATE TABLE `search_history` (
   `search_text` varchar(50) NOT NULL,
   PRIMARY KEY (`search_history_id`)
 ) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `spot_questionnaire` (
+  `spot_questionnaire_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_id` int(11) NOT NULL,
+  `spot_questionnaire_title` varchar(50) NOT NULL,
+  `spot_questionnaire_description` varchar(100) NOT NULL,
+  PRIMARY KEY (`spot_questionnaire_id`)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `spot_questionnaire_question` (
+  `spot_questionnaire_question_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_questionnaire_id` int(11) NOT NULL,
+  `spot_questionnaire_question_content` varchar(100) NOT NULL,
+  PRIMARY KEY (`spot_questionnaire_question_id`)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `spot_questionnaire_question_choice` (
+  `spot_questionnaire_question_choice_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_questionnaire_question_id` int(11) NOT NULL,
+  `spot_questionnaire_question_choice_content` varchar(100) NOT NULL,
+  PRIMARY KEY (`spot_questionnaire_question_choice_id`)
+) DEFAULT CHARSET=utf8;

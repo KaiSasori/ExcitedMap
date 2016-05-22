@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotQuestionnaireMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.SpotQuestionnaire" >
+    <id column="spot_questionnaire_id" property="spotQuestionnaireId" jdbcType="INTEGER" />
+    <result column="spot_id" property="spotId" jdbcType="INTEGER" />
+    <result column="spot_questionnaire_title" property="spotQuestionnaireTitle" jdbcType="VARCHAR" />
+    <result column="spot_questionnaire_description" property="spotQuestionnaireDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    spot_questionnaire_id, spot_id, spot_questionnaire_title, spot_questionnaire_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from spot_questionnaire
+    where spot_questionnaire_id = #{spotQuestionnaireId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from spot_questionnaire
+    where spot_questionnaire_id = #{spotQuestionnaireId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.SpotQuestionnaire" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotQuestionnaireId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_questionnaire (spot_id, spot_questionnaire_title, spot_questionnaire_description
+      )
+    values (#{spotId,jdbcType=INTEGER}, #{spotQuestionnaireTitle,jdbcType=VARCHAR}, #{spotQuestionnaireDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.SpotQuestionnaire" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotQuestionnaireId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_questionnaire
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        spot_id,
+      </if>
+      <if test="spotQuestionnaireTitle != null" >
+        spot_questionnaire_title,
+      </if>
+      <if test="spotQuestionnaireDescription != null" >
+        spot_questionnaire_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spotQuestionnaireTitle != null" >
+        #{spotQuestionnaireTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="spotQuestionnaireDescription != null" >
+        #{spotQuestionnaireDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.SpotQuestionnaire" >
+    update spot_questionnaire
+    <set >
+      <if test="spotId != null" >
+        spot_id = #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spotQuestionnaireTitle != null" >
+        spot_questionnaire_title = #{spotQuestionnaireTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="spotQuestionnaireDescription != null" >
+        spot_questionnaire_description = #{spotQuestionnaireDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where spot_questionnaire_id = #{spotQuestionnaireId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.SpotQuestionnaire" >
+    update spot_questionnaire
+    set spot_id = #{spotId,jdbcType=INTEGER},
+      spot_questionnaire_title = #{spotQuestionnaireTitle,jdbcType=VARCHAR},
+      spot_questionnaire_description = #{spotQuestionnaireDescription,jdbcType=VARCHAR}
+    where spot_questionnaire_id = #{spotQuestionnaireId,jdbcType=INTEGER}
+  </update>
+</mapper>
