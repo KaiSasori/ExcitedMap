@@ -10,4 +10,6 @@ public interface SpotMapperImpl extends SpotMapper {
 	List<Spot> selectByOrderByFavoriteCountWithLimit(int limit);
 	
 	List<Spot> selectByOrderByWishCountWithLimit(int limit);
+	
+	List<Spot> selectBySpotNameKeyword(String keyword);
 }

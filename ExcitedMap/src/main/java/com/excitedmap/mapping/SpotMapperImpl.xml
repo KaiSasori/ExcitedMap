@@ -18,4 +18,8 @@
     natural join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as A
     order by spot_id_wish_count DESC LIMIT #{limit};
   </select>
+  <select id="selectBySpotNameKeyword" resultMap="ResultMapWithBLOBs" >
+    select * from spot
+    where spot_name like '%${keyword}%';
+  </select>
 </mapper>
