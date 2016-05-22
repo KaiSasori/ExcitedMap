@@ -47,5 +47,8 @@
         <table tableName="footprint" domainObjectName="Footprint" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="footprint_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="spot_category" domainObjectName="SpotCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_category_id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

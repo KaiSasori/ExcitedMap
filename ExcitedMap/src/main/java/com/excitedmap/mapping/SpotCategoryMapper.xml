@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.SpotCategory" >
+    <id column="spot_category_id" property="spotCategoryId" jdbcType="INTEGER" />
+    <result column="spot_category_name" property="spotCategoryName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    spot_category_id, spot_category_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from spot_category
+    where spot_category_id = #{spotCategoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from spot_category
+    where spot_category_id = #{spotCategoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.SpotCategory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotCategoryId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_category (spot_category_name)
+    values (#{spotCategoryName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.SpotCategory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotCategoryId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spotCategoryName != null" >
+        spot_category_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spotCategoryName != null" >
+        #{spotCategoryName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.SpotCategory" >
+    update spot_category
+    <set >
+      <if test="spotCategoryName != null" >
+        spot_category_name = #{spotCategoryName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where spot_category_id = #{spotCategoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.SpotCategory" >
+    update spot_category
+    set spot_category_name = #{spotCategoryName,jdbcType=VARCHAR}
+    where spot_category_id = #{spotCategoryId,jdbcType=INTEGER}
+  </update>
+</mapper>
