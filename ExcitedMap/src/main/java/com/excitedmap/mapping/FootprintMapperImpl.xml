@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.FootprintMapperImpl" >
+  <resultMap id="BaseResultMap" type="Footprint" extends="com.excitedmap.dao.FootprintMapper.BaseResultMap" >
+  </resultMap>
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select *
+    from footprint
+    where user_id = #{userId};
+  </select>
+</mapper>
