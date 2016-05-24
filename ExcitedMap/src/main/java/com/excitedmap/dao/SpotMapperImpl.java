@@ -1,6 +1,7 @@
 package com.excitedmap.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +23,8 @@ public interface SpotMapperImpl extends SpotMapper {
 			@Param("limit") int limit);
 
 	List<Spot> selectBySpotNameKeyword(String keyword);
+	
+	Integer selectAverageReviewRatingForSpot(int spotId);
+	
+	List<Map<String, Integer>> selectReviewRatingCountForSpot(int spotId);
 }
