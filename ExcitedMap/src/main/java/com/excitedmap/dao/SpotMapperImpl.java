@@ -24,7 +24,7 @@ public interface SpotMapperImpl extends SpotMapper {
 
 	List<Spot> selectBySpotNameKeyword(String keyword);
 	
-	Integer selectAverageReviewRatingForSpot(int spotId);
+	Double selectAverageReviewRatingForSpot(int spotId);
 	
 	List<Map<String, Integer>> selectReviewRatingCountForSpot(int spotId);
 }

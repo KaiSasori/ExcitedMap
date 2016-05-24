@@ -36,7 +36,7 @@
     select * from spot
     where spot_name like '%${keyword}%';
   </select>
-  <select id="selectAverageReviewRatingForSpot" resultType="java.lang.Integer" >
+  <select id="selectAverageReviewRatingForSpot" resultType="java.lang.Double" >
     select avg(review_rating) as review_rating_avg from review where spot_id = #{spotId};
   </select>
   <select id="selectReviewRatingCountForSpot" resultType="hashmap" >
