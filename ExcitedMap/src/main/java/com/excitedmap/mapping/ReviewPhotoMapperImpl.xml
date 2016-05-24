@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.ReviewPhotoMapperImpl">
+    <resultMap id="BaseResultMap" type="ReviewPhoto" extends="com.excitedmap.dao.ReviewPhotoMapper.BaseResultMap"></resultMap>
+    <select id="selectByReviewId" resultMap="BaseResultMap">
+        select * from review_photo
+        where review_id = #{reviewId};
+    </select>
+</mapper>
