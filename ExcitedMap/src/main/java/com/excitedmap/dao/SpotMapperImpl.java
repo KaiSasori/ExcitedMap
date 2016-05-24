@@ -13,5 +13,7 @@ public interface SpotMapperImpl extends SpotMapper {
 	
 	List<Spot> selectByOrderByFootprintCountWithLimit(int limit);
 	
+	List<Spot> selectByOrderByAverageReviewRating(int limit);
+	
 	List<Spot> selectBySpotNameKeyword(String keyword);
 }
