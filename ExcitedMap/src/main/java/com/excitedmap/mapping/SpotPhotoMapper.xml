@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotPhotoMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.SpotPhoto" >
+    <id column="spot_photo_id" property="spotPhotoId" jdbcType="INTEGER" />
+    <result column="spot_id" property="spotId" jdbcType="INTEGER" />
+    <result column="spot_photo_path" property="spotPhotoPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    spot_photo_id, spot_id, spot_photo_path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from spot_photo
+    where spot_photo_id = #{spotPhotoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from spot_photo
+    where spot_photo_id = #{spotPhotoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.SpotPhoto" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotPhotoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_photo (spot_id, spot_photo_path)
+    values (#{spotId,jdbcType=INTEGER}, #{spotPhotoPath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.SpotPhoto" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotPhotoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_photo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        spot_id,
+      </if>
+      <if test="spotPhotoPath != null" >
+        spot_photo_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spotPhotoPath != null" >
+        #{spotPhotoPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.SpotPhoto" >
+    update spot_photo
+    <set >
+      <if test="spotId != null" >
+        spot_id = #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spotPhotoPath != null" >
+        spot_photo_path = #{spotPhotoPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where spot_photo_id = #{spotPhotoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.SpotPhoto" >
+    update spot_photo
+    set spot_id = #{spotId,jdbcType=INTEGER},
+      spot_photo_path = #{spotPhotoPath,jdbcType=VARCHAR}
+    where spot_photo_id = #{spotPhotoId,jdbcType=INTEGER}
+  </update>
+</mapper>

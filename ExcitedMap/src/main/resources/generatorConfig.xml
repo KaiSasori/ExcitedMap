@@ -32,6 +32,9 @@
         <table tableName="spot" domainObjectName="Spot" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="spot_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="spot_photo" domainObjectName="SpotPhoto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_photo_id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="search_history" domainObjectName="SearchHistory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="search_history_id" sqlStatement="MySql" identity="true"/>
         </table>
