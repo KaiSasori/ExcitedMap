@@ -38,6 +38,9 @@
         <table tableName="review" domainObjectName="Review" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="review_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="review_photo" domainObjectName="ReviewPhoto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="review_photo_id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="favorite" domainObjectName="Favorite" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="favorite_id" sqlStatement="MySql" identity="true"/>
         </table>

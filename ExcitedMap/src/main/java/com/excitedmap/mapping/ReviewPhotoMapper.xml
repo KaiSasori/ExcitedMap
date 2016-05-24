@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.ReviewPhotoMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.ReviewPhoto" >
+    <id column="review_photo_id" property="reviewPhotoId" jdbcType="INTEGER" />
+    <result column="review_id" property="reviewId" jdbcType="INTEGER" />
+    <result column="review_photo_path" property="reviewPhotoPath" jdbcType="VARCHAR" />
+    <result column="review_photo_description" property="reviewPhotoDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    review_photo_id, review_id, review_photo_path, review_photo_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from review_photo
+    where review_photo_id = #{reviewPhotoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from review_photo
+    where review_photo_id = #{reviewPhotoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.ReviewPhoto" >
+    <selectKey resultType="java.lang.Integer" keyProperty="reviewPhotoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into review_photo (review_id, review_photo_path, review_photo_description
+      )
+    values (#{reviewId,jdbcType=INTEGER}, #{reviewPhotoPath,jdbcType=VARCHAR}, #{reviewPhotoDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.ReviewPhoto" >
+    <selectKey resultType="java.lang.Integer" keyProperty="reviewPhotoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into review_photo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reviewId != null" >
+        review_id,
+      </if>
+      <if test="reviewPhotoPath != null" >
+        review_photo_path,
+      </if>
+      <if test="reviewPhotoDescription != null" >
+        review_photo_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reviewId != null" >
+        #{reviewId,jdbcType=INTEGER},
+      </if>
+      <if test="reviewPhotoPath != null" >
+        #{reviewPhotoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewPhotoDescription != null" >
+        #{reviewPhotoDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.ReviewPhoto" >
+    update review_photo
+    <set >
+      <if test="reviewId != null" >
+        review_id = #{reviewId,jdbcType=INTEGER},
+      </if>
+      <if test="reviewPhotoPath != null" >
+        review_photo_path = #{reviewPhotoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewPhotoDescription != null" >
+        review_photo_description = #{reviewPhotoDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where review_photo_id = #{reviewPhotoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.ReviewPhoto" >
+    update review_photo
+    set review_id = #{reviewId,jdbcType=INTEGER},
+      review_photo_path = #{reviewPhotoPath,jdbcType=VARCHAR},
+      review_photo_description = #{reviewPhotoDescription,jdbcType=VARCHAR}
+    where review_photo_id = #{reviewPhotoId,jdbcType=INTEGER}
+  </update>
+</mapper>

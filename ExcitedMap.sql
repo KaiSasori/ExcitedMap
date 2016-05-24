@@ -29,9 +29,15 @@ CREATE TABLE `review` (
   `spot_id` int(11) NOT NULL,
   `review_content` text,
   `review_rating` int(1) NOT NULL,
+  PRIMARY KEY (`review_id`)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `review_photo` (
+  `review_photo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `review_id` int(11) NOT NULL,
   `review_photo_path` varchar(50),
   `review_photo_description` varchar(100),
-  PRIMARY KEY (`review_id`)
+  PRIMARY KEY (`review_photo_id`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `wish` (
