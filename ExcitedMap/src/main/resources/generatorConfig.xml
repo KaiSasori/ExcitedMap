@@ -62,5 +62,8 @@
         <table tableName="spot_questionnaire_question_choice" domainObjectName="SpotQuestionnaireQuestionChoice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="spot_questionnaire_question_choice_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="spot_error_report" domainObjectName="SpotErrorReport" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_error_report_id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

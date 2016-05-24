@@ -89,3 +89,10 @@ CREATE TABLE `spot_questionnaire_question_choice` (
   `spot_questionnaire_question_choice_content` varchar(100) NOT NULL,
   PRIMARY KEY (`spot_questionnaire_question_choice_id`)
 ) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `spot_error_report` (
+  `spot_error_report_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_id` int(11) NOT NULL,
+  `spot_error_report_text` varchar(100) NOT NULL,
+  PRIMARY KEY (`spot_error_report_id`)
+) DEFAULT CHARSET=utf8;
