@@ -11,5 +11,5 @@ public interface WishService {
 
 	public void addWish(Wish wish) throws DuplicateKeyException;
 	
-	public void deleteWish(int wishId);
+	public void deleteWish(Wish wish);
 }

@@ -6,4 +6,6 @@ import com.excitedmap.pojo.Wish;
 
 public interface WishMapperImpl extends WishMapper {
 	List<Wish> selectByUserId(int userId);
+
+	int deleteWish(Wish wish);
 }

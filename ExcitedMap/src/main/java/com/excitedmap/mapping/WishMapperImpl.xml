@@ -8,4 +8,8 @@
     from wish
     where user_id = #{userId}
   </select>
+  <delete id="deleteWish" parameterType="Wish" >
+    delete from wish
+    where user_id = #{userId} and spot_id = #{spotId};
+  </delete>
 </mapper>

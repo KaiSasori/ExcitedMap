@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.excitedmap.pojo.Wish;
@@ -32,8 +31,8 @@ public class WishController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<Void> executeDeleteWish(@RequestParam int wishId) {
-		wishService.deleteWish(wishId);
+	public ResponseEntity<Void> executeDeleteWish(@RequestBody Wish wish) {
+		wishService.deleteWish(wish);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

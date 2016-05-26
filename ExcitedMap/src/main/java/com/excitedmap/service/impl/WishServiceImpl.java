@@ -25,8 +25,8 @@ public class WishServiceImpl implements WishService {
 		wishDao.insertSelective(wish);
 	}
 
-	public void deleteWish(int wishId) {
-		wishDao.deleteByPrimaryKey(wishId);
+	public void deleteWish(Wish wish) {
+		wishDao.deleteWish(wish);
 	}
 
 }
