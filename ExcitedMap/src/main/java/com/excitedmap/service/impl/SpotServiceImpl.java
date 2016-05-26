@@ -24,9 +24,9 @@ public class SpotServiceImpl implements SpotService {
 		return spotDao.selectBySpotCategoryId(spotCategoryId);
 	}
 	@Override
-	public List<Spot> getSpotBySpotId(int spotId) {
+	public Spot getSpotBySpotId(int spotId) {
 		//dao 里面需增加一个返回list的方法
-		return null;
+		return spotDao.selectByPrimaryKey(spotId);
 	}
 	@Override
 	public List<Spot> getSpotBySpotNameKeyword(String keyword) {
@@ -63,6 +63,7 @@ public class SpotServiceImpl implements SpotService {
 	}
 	@Override
 	public void addPhoto(SpotPhoto spotPhoto) {
+		spotPhoto.setSpotPhotoId(null);
 		spotPhotoDao.insertSelective(spotPhoto);
 		
 	}

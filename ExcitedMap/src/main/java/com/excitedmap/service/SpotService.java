@@ -8,10 +8,9 @@ import com.excitedmap.pojo.SpotPhoto;
 
 
 public interface SpotService {
-	public List<Spot> getSpotBySpotId(int spotId);
+	public Spot getSpotBySpotId(int spotId);
 	public List<Spot> getSpotBySpotNameKeyword(String keyword);
 	public List<Spot> getSpotBySpotCategoryId(int spotCategoryId);
-	
 	//public void addSpot(Spot spot);
 	public List<Spot> getSpotByFavoriteCountWithLimit(int spotCategoryId, int limit);
 	public List<Spot> getSpotByWishCountWithLimit(int spotCategoryId, int limit);
