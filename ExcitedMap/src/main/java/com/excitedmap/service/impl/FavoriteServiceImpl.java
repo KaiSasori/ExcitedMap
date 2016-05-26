@@ -22,11 +22,12 @@ public class FavoriteServiceImpl implements FavoriteService {
 	}
 
 	public void addFavorite(Favorite favorite) throws DuplicateKeyException {
+		favorite.setFavoriteId(null);
 		favoriteDao.insertSelective(favorite);
 	}
 
-	public void deleteFavorite(Favorite favorite) {
-		favoriteDao.deleteByPrimaryKey(favorite.getFavoriteId());
+	public void deleteFavorite(int favoriteId) {
+		favoriteDao.deleteByPrimaryKey(favoriteId);
 	}
 
 }

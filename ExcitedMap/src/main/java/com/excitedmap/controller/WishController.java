@@ -38,10 +38,10 @@ public class WishController {
 		return new ResponseEntity<List<Wish>>(wishService.getWishByUserId(userId), HttpStatus.OK);
 	}
 
-	// 删除Wish等待实现。
 	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<Void> executeDeleteWish(@RequestBody Wish wish) {
-		return null;
+	public ResponseEntity<Void> executeDeleteWish(@RequestParam int wishId) {
+		wishService.deleteWish(wishId);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 }

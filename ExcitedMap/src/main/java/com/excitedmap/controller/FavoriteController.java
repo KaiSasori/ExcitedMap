@@ -40,8 +40,8 @@ public class FavoriteController {
 
 	// 取消收藏,前端传来的favorite对象必须是完整的。
 	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<Void> executeDeleteFavorite(@RequestBody Favorite favorite) {
-		favoriteService.deleteFavorite(favorite);
+	public ResponseEntity<Void> executeDeleteFavorite(@RequestParam int favoriteId) {
+		favoriteService.deleteFavorite(favoriteId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

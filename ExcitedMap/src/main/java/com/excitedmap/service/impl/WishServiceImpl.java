@@ -21,11 +21,12 @@ public class WishServiceImpl implements WishService {
 	}
 
 	public void addWish(Wish wish) throws DuplicateKeyException {
+		wish.setWishId(null);
 		wishDao.insertSelective(wish);
 	}
 
-	public void deleteWish(Wish wish) {
-		wishDao.deleteByPrimaryKey(wish.getWishId());
+	public void deleteWish(int wishId) {
+		wishDao.deleteByPrimaryKey(wishId);
 	}
 
 }
