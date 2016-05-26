@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,11 +35,10 @@ public class SearchHistoryController {
 	}
 
 	// 获得用户的搜索记录，条数限制为limit，string可以为空，
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<SearchHistory>> executeGetSearchHistoryByUserId(@RequestParam int userId, String keyword,
-			int limit) {
+	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<List<SearchHistory>> executeGetSearchHistoryByUserId(@PathVariable int userId,
+			@RequestParam String keyword, int limit) {
 		return new ResponseEntity<List<SearchHistory>>(
 				searchHistoryService.getSearchHistoryByUserId(userId, keyword, limit), HttpStatus.OK);
 	}
-
 }
