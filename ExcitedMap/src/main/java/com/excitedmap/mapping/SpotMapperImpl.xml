@@ -33,8 +33,9 @@
   	order by review_rating_avg DESC LIMIT #{limit};
   </select>
   <select id="selectBySpotNameKeyword" resultMap="ResultMapWithBLOBs" >
+  	<bind name="pattern" value="'%' + _parameter + '%'" />
     select * from spot
-    where spot_name like '%${keyword}%';
+    where spot_name like #{pattern};
   </select>
   <select id="selectAverageReviewRatingForSpot" resultType="java.lang.Double" >
     select avg(review_rating) as review_rating_avg from review where spot_id = #{spotId};

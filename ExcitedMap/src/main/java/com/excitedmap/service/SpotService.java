@@ -6,18 +6,24 @@ import java.util.Map;
 import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotPhoto;
 
-
 public interface SpotService {
 	public Spot getSpotBySpotId(int spotId);
-	public List<Spot> getSpotBySpotNameKeyword(String keyword);
-	public List<Spot> getSpotBySpotCategoryId(int spotCategoryId);
-	//public void addSpot(Spot spot);
-	public List<Spot> getSpotByFavoriteCountWithLimit(int spotCategoryId, int limit);
-	public List<Spot> getSpotByWishCountWithLimit(int spotCategoryId, int limit);
-	public List<Spot> getSpotByFootprintCountWithLimit(int spotCategoryId, int limit);
-	public List<Spot> getSpotByAverageReviewRating(int spotCategoryId, int limit);
+
+	public List<Spot> getSpotListBySpotNameKeyword(String keyword);
+
+	public List<Spot> getSpotListBySpotCategoryId(int spotCategoryId);
+
+	public List<Spot> getSpotListOrderByFavoriteCountWithLimit(int spotCategoryId, int limit);
+
+	public List<Spot> getSpotListOrderByWishCountWithLimit(int spotCategoryId, int limit);
+
+	public List<Spot> getSpotListOrderByFootprintCountWithLimit(int spotCategoryId, int limit);
+
+	public List<Spot> getSpotListOrderByAverageReviewRatingWithLimit(int spotCategoryId, int limit);
+
 	public Double getAverageReviewRatingForSpot(int spotId);
+
 	public List<Map<String, Integer>> getReviewRatingCountForSpot(int spotId);
-	public List<SpotPhoto> getPhotoBySpotId(int spotId);
-	public void addPhoto(SpotPhoto spotPhoto);
+
+	public List<SpotPhoto> getPhotoListBySpotId(int spotId);
 }
