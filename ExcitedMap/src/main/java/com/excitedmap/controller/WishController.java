@@ -1,7 +1,5 @@
 package com.excitedmap.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.dao.DuplicateKeyException;
@@ -31,11 +29,6 @@ public class WishController {
 		} catch (DuplicateKeyException e) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
-	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Wish>> executeGetWishByUserId(@RequestParam int userId) {
-		return new ResponseEntity<List<Wish>>(wishService.getWishByUserId(userId), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

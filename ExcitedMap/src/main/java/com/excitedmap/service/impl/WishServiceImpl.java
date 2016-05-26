@@ -16,7 +16,7 @@ public class WishServiceImpl implements WishService {
 	@Resource
 	private WishMapperImpl wishDao;
 
-	public List<Wish> getWishByUserId(int userId) {
+	public List<Wish> getWishListByUserId(int userId) {
 		return wishDao.selectByUserId(userId);
 	}
 

@@ -3,6 +3,7 @@ package com.excitedmap.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.excitedmap.pojo.User;
+import com.excitedmap.pojo.Wish;
 import com.excitedmap.service.UserService;
+import com.excitedmap.service.WishService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 	@Resource
 	private UserService userService;
+	@Resource
+	private WishService wishService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLogin(@RequestBody User user) {
@@ -46,6 +51,11 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/{userId}/wishList", method = RequestMethod.GET)
+	public ResponseEntity<List<Wish>> executeGetWishListByUserId(@PathVariable int userId) {
+		return new ResponseEntity<List<Wish>>(wishService.getWishListByUserId(userId), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.PUT)
 	public String executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
 			@RequestParam("file") MultipartFile file) {
