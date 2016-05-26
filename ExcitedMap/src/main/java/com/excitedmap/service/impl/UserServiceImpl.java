@@ -31,4 +31,11 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(User user) {
 		this.userDao.updateByPrimaryKeySelective(user);
 	}
+
+	public void updateUserAvatarPath(int userId, String avatarPath) {
+		User user = new User();
+		user.setUserId(userId);
+		user.setUserAvatarPath(avatarPath);
+		userDao.updateByPrimaryKeySelective(user);
+	}
 }

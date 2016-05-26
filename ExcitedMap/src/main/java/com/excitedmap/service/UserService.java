@@ -12,4 +12,6 @@ public interface UserService {
 	public void registerUser(User user) throws DuplicateKeyException;
 
 	public void updateUser(User user);
+
+	public void updateUserAvatarPath(int userId, String avatarPath);
 }

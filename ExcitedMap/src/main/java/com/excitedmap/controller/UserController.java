@@ -1,14 +1,22 @@
 package com.excitedmap.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.excitedmap.pojo.User;
 import com.excitedmap.service.UserService;
@@ -36,5 +44,29 @@ public class UserController {
 		} catch (DuplicateKeyException e) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
+	}
+
+	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.PUT)
+	public String executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
+			@RequestParam("file") MultipartFile file) {
+		String uploadRootPath = request.getServletContext().getRealPath("img/avatar");
+		File uploadRootDir = new File(uploadRootPath);
+		if (!uploadRootDir.exists()) {
+			uploadRootDir.mkdirs();
+		}
+		String name = file.getOriginalFilename();
+		if (name != null && name.length() > 0) {
+			try {
+				byte[] bytes = file.getBytes();
+				File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+			} catch (Exception e) {
+				System.out.println("Error Write file: " + name);
+			}
+		}
+		userService.updateUserAvatarPath(userId, name);
+		return uploadRootDir + File.separator + name;
 	}
 }
