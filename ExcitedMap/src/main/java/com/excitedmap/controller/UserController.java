@@ -56,7 +56,7 @@ public class UserController {
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	//不安全的实现
+	
 	@RequestMapping(value = "/loginByQQ", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLoginByQQ(@RequestParam String openId,String accessToken) {
 		User validUser = userService.getUserByOpenId(openId);
