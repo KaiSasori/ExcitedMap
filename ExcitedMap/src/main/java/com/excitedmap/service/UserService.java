@@ -6,7 +6,11 @@ import com.excitedmap.pojo.User;
 
 public interface UserService {
 	public User getUserById(int userId);
-
+	
+	public User getUserByOpenId(String openId);
+	
+	public void autoRegisterUser(String openId,String accessToken);
+	
 	public User getUser(User user);
 
 	public void registerUser(User user) throws DuplicateKeyException;

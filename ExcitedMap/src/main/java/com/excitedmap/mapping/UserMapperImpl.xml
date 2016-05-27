@@ -8,4 +8,11 @@
     from user
     where user_email = #{userEmail,jdbcType=LONGVARCHAR} and user_password = #{userPassword,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="User" >
+    select *
+    from user
+    where user_email = #{userEmail}
+  </select>
+  
 </mapper>

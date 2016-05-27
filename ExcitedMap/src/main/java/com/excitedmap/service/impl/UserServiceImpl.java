@@ -38,4 +38,21 @@ public class UserServiceImpl implements UserService {
 		user.setUserAvatarPath(avatarPath);
 		userDao.updateByPrimaryKeySelective(user);
 	}
+
+	@Override
+	public User getUserByOpenId(String openId) {
+		return userDao.selectByOpenId(openId);
+	}
+
+	@Override
+	public void autoRegisterUser(String openId,String accessToken) {
+		User user = new User();
+		user.setUserId(null);
+		user.setUserName("请修改");
+		user.setUserEmail(openId);
+		user.setUserPassword(accessToken);
+		user.setUserAvatarPath("default.jpg");
+		userDao.insertSelective(user);
+		
+	}
 }
