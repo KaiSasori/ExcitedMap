@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.excitedmap.pojo.Favorite;
+import com.excitedmap.pojo.Footprint;
 import com.excitedmap.pojo.User;
 import com.excitedmap.pojo.Wish;
 import com.excitedmap.service.FavoriteService;
+import com.excitedmap.service.FootprintService;
 import com.excitedmap.service.UserService;
 import com.excitedmap.service.WishService;
 
@@ -35,6 +37,8 @@ public class UserController {
 	private WishService wishService;
 	@Resource
 	private FavoriteService favoriteService;
+	@Resource
+	private FootprintService footprintService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLogin(@RequestBody User user) {
@@ -63,6 +67,11 @@ public class UserController {
 	@RequestMapping(value = "/{userId}/favoriteList", method = RequestMethod.GET)
 	public ResponseEntity<List<Favorite>> executeGetFavoriteListByUserId(@PathVariable int userId) {
 		return new ResponseEntity<List<Favorite>>(favoriteService.getFavoriteListByUserId(userId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{userId}/footprintList", method = RequestMethod.GET)
+	public ResponseEntity<List<Footprint>> executeGetFootprintListByUserId(@PathVariable int userId) {
+		return new ResponseEntity<List<Footprint>>(footprintService.getFootprintListByUserId(userId), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.PUT)
