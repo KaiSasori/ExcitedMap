@@ -24,7 +24,7 @@ public class FavoriteController {
 
 	// 加入收藏，SQL处还没有做Duplicate限制，先假装有限制。
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> executeAddWish(@RequestBody Favorite favorite) {
+	public ResponseEntity<Void> executeAddFavorite(@RequestBody Favorite favorite) {
 		try {
 			favoriteService.addFavorite(favorite);
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
