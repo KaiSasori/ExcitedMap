@@ -16,7 +16,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Resource
 	private FavoriteMapperImpl favoriteDao;
 
-	public List<Favorite> getFavoriteByUserId(int userId) {
+	public List<Favorite> getFavoriteListByUserId(int userId) {
 		return favoriteDao.selectByUserId(userId);
 	}
 

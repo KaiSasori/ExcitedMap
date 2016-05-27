@@ -1,13 +1,10 @@
 package com.excitedmap.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,11 +28,6 @@ public class FavoriteController {
 		} catch (DuplicateKeyException e) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
-	}
-
-	@RequestMapping(value="/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<List<Favorite>> executeGetFavoriteByUserId(@PathVariable int userId) {
-		return new ResponseEntity<List<Favorite>>(favoriteService.getFavoriteByUserId(userId), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

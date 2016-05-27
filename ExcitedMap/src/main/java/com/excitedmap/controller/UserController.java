@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.excitedmap.pojo.Favorite;
 import com.excitedmap.pojo.User;
 import com.excitedmap.pojo.Wish;
+import com.excitedmap.service.FavoriteService;
 import com.excitedmap.service.UserService;
 import com.excitedmap.service.WishService;
 
@@ -31,6 +33,8 @@ public class UserController {
 	private UserService userService;
 	@Resource
 	private WishService wishService;
+	@Resource
+	private FavoriteService favoriteService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLogin(@RequestBody User user) {
@@ -55,7 +59,12 @@ public class UserController {
 	public ResponseEntity<List<Wish>> executeGetWishListByUserId(@PathVariable int userId) {
 		return new ResponseEntity<List<Wish>>(wishService.getWishListByUserId(userId), HttpStatus.OK);
 	}
-	
+
+	@RequestMapping(value = "/{userId}/favoriteList", method = RequestMethod.GET)
+	public ResponseEntity<List<Favorite>> executeGetFavoriteListByUserId(@PathVariable int userId) {
+		return new ResponseEntity<List<Favorite>>(favoriteService.getFavoriteListByUserId(userId), HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.PUT)
 	public String executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
 			@RequestParam("file") MultipartFile file) {
