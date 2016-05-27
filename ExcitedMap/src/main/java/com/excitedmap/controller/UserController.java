@@ -22,11 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.excitedmap.pojo.Favorite;
 import com.excitedmap.pojo.Footprint;
 import com.excitedmap.pojo.Review;
+import com.excitedmap.pojo.SearchHistory;
 import com.excitedmap.pojo.User;
 import com.excitedmap.pojo.Wish;
 import com.excitedmap.service.FavoriteService;
 import com.excitedmap.service.FootprintService;
 import com.excitedmap.service.ReviewService;
+import com.excitedmap.service.SearchService;
 import com.excitedmap.service.UserService;
 import com.excitedmap.service.WishService;
 
@@ -43,6 +45,8 @@ public class UserController {
 	private FootprintService footprintService;
 	@Resource
 	private ReviewService reviewService;
+	@Resource
+	private SearchService searchService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLogin(@RequestBody User user) {
@@ -81,6 +85,14 @@ public class UserController {
 	@RequestMapping(value = "/{userId}/reviewList", method = RequestMethod.GET)
 	public ResponseEntity<List<Review>> executeGetReviewListByUserId(@PathVariable int userId) {
 		return new ResponseEntity<List<Review>>(reviewService.getReviewListByUserId(userId), HttpStatus.OK);
+	}
+
+	// 获得用户的搜索记录，条数限制为limit，string可以为空，
+	@RequestMapping(value = "/{userId}/searchHistoryList", method = RequestMethod.GET)
+	public ResponseEntity<List<SearchHistory>> executeGetSearchHistoryListByUserId(@PathVariable int userId,
+			@RequestParam String keyword, @RequestParam int limit) {
+		return new ResponseEntity<List<SearchHistory>>(
+				searchService.getSearchHistoryListByUserId(userId, keyword, limit), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.PUT)
