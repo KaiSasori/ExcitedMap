@@ -10,20 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.excitedmap.pojo.Favorite;
-import com.excitedmap.service.FavoriteService;
+import com.excitedmap.pojo.Footprint;
+import com.excitedmap.service.FootprintService;
 
 @RestController
-@RequestMapping("/favorite")
-public class FavoriteController {
+@RequestMapping("/footprint")
+public class FootprintController {
 	@Resource
-	private FavoriteService favoriteService;
+	private FootprintService footprintService;
 
-	// 加入收藏，SQL处还没有做Duplicate限制，先假装有限制。
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> executeAddFavorite(@RequestBody Favorite favorite) {
+	public ResponseEntity<Void> executeAddFootprint(@RequestBody Footprint footprint) {
 		try {
-			favoriteService.addFavorite(favorite);
+			footprintService.addFootprint(footprint);
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (DuplicateKeyException e) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
@@ -31,8 +30,8 @@ public class FavoriteController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<Void> executeDeleteFavorite(@RequestBody Favorite favorite) {
-		favoriteService.deleteFavorite(favorite);
+	public ResponseEntity<Void> executeDeleteFootprint(@RequestBody Footprint footprint) {
+		footprintService.deleteFootprint(footprint);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

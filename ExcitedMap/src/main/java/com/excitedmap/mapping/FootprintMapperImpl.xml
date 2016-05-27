@@ -8,4 +8,8 @@
     from footprint
     where user_id = #{userId};
   </select>
+  <delete id="deleteFootprint" parameterType="Footprint" >
+    delete from footprint
+    where user_id = #{userId} and spot_id = #{spotId};
+  </delete>
 </mapper>

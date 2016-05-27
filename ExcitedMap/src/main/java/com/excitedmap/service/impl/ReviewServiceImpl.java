@@ -15,7 +15,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewMapperImpl reviewDao;
 
 	@Override
-	public List<Review> getReviewByUserId(int userId) {
+	public List<Review> getReviewListByUserId(int userId) {
 		return reviewDao.selectByUserId(userId);
 	}
 

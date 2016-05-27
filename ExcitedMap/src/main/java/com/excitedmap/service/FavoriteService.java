@@ -7,9 +7,9 @@ import org.springframework.dao.DuplicateKeyException;
 import com.excitedmap.pojo.Favorite;
 
 public interface FavoriteService {
-	public List<Favorite> getFavoriteByUserId(int userId);
+	public List<Favorite> getFavoriteListByUserId(int userId);
 
 	public void addFavorite(Favorite favorite) throws DuplicateKeyException;
 
-	public void deleteFavorite(int favoriteId);
+	public void deleteFavorite(Favorite favorite);
 }
