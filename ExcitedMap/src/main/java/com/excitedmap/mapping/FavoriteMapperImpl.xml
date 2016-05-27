@@ -8,4 +8,8 @@
     from favorite
     where user_id = #{userId};
   </select>
+  <delete id="deleteFavorite" parameterType="Favorite" >
+    delete from favorite
+    where user_id = #{userId} and spot_id = #{spotId};
+  </delete>
 </mapper>

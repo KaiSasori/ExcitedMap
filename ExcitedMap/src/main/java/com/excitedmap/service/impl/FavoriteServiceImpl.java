@@ -18,7 +18,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 	public List<Favorite> getFavoriteByUserId(int userId) {
 		return favoriteDao.selectByUserId(userId);
-
 	}
 
 	public void addFavorite(Favorite favorite) throws DuplicateKeyException {
@@ -26,8 +25,8 @@ public class FavoriteServiceImpl implements FavoriteService {
 		favoriteDao.insertSelective(favorite);
 	}
 
-	public void deleteFavorite(int favoriteId) {
-		favoriteDao.deleteByPrimaryKey(favoriteId);
+	public void deleteFavorite(Favorite favorite) {
+		favoriteDao.deleteFavorite(favorite);
 	}
 
 }

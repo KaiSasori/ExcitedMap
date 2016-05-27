@@ -11,5 +11,5 @@ public interface FavoriteService {
 
 	public void addFavorite(Favorite favorite) throws DuplicateKeyException;
 
-	public void deleteFavorite(int favoriteId);
+	public void deleteFavorite(Favorite favorite);
 }
