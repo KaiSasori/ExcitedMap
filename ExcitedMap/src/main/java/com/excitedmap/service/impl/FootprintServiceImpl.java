@@ -25,8 +25,8 @@ public class FootprintServiceImpl implements FootprintService {
 		footprintDao.insertSelective(footprint);
 	}
 
-	public void deleteFootprint(Footprint footprint) {
-		footprintDao.deleteFootprint(footprint);
+	public int deleteFootprint(Footprint footprint) {
+		return footprintDao.deleteFootprint(footprint);
 	}
 
 }

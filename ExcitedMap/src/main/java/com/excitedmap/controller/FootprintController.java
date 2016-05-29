@@ -31,8 +31,10 @@ public class FootprintController {
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity<Void> executeDeleteFootprint(@RequestBody Footprint footprint) {
-		footprintService.deleteFootprint(footprint);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		if (footprintService.deleteFootprint(footprint) == 0) {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
 	}
-
 }

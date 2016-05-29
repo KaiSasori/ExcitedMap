@@ -25,8 +25,8 @@ public class FavoriteServiceImpl implements FavoriteService {
 		favoriteDao.insertSelective(favorite);
 	}
 
-	public void deleteFavorite(Favorite favorite) {
-		favoriteDao.deleteFavorite(favorite);
+	public int deleteFavorite(Favorite favorite) {
+		return favoriteDao.deleteFavorite(favorite);
 	}
 
 }

@@ -11,5 +11,5 @@ public interface FootprintService {
 
 	public void addFootprint(Footprint footprint) throws DuplicateKeyException;
 
-	public void deleteFootprint(Footprint footprint);
+	public int deleteFootprint(Footprint footprint);
 }

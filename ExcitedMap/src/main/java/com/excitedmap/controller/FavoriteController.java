@@ -32,8 +32,11 @@ public class FavoriteController {
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity<Void> executeDeleteFavorite(@RequestBody Favorite favorite) {
-		favoriteService.deleteFavorite(favorite);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		if (favoriteService.deleteFavorite(favorite) == 0) {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
 	}
 
 }
