@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.excitedmap.dao.SpotErrorReportMapper;
 import com.excitedmap.dao.SpotMapperImpl;
 import com.excitedmap.pojo.Spot;
+import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotPhoto;
 import com.excitedmap.dao.SpotPhotoMapperImpl;
 import com.excitedmap.service.SpotService;
@@ -19,6 +21,8 @@ public class SpotServiceImpl implements SpotService {
 	private SpotMapperImpl spotDao;
 	@Resource
 	private SpotPhotoMapperImpl spotPhotoDao;
+	@Resource
+	private SpotErrorReportMapper spotErrorReportDao;
 
 	@Override
 	public Spot getSpotBySpotId(int spotId) {
@@ -68,6 +72,12 @@ public class SpotServiceImpl implements SpotService {
 	@Override
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId) {
 		return spotPhotoDao.selectBySpotId(spotId);
+	}
+
+	@Override
+	public void reportSpotError(SpotErrorReport spotErrorReport) {
+		spotErrorReport.setSpotErrorReportId(null);
+		spotErrorReportDao.insertSelective(spotErrorReport);
 	}
 
 }

@@ -17,7 +17,6 @@ public class ReviewController {
 	@Resource
 	private ReviewService reviewService;
 
-	// 插入评论，暂定无Duplicate限制
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Void> executeAddReview(@RequestBody Review review) {
 		reviewService.addReview(review);

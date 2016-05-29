@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.excitedmap.pojo.Spot;
+import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotPhoto;
 
 public interface SpotService {
@@ -26,4 +27,6 @@ public interface SpotService {
 	public List<Map<String, Integer>> getReviewRatingCountForSpot(int spotId);
 
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId);
+
+	void reportSpotError(SpotErrorReport spotErrorReport);
 }
