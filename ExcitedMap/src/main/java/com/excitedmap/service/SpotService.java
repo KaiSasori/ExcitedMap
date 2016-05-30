@@ -29,4 +29,6 @@ public interface SpotService {
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId);
 
 	void reportSpotError(SpotErrorReport spotErrorReport);
+
+	public List<Spot> getSpotListOrderByPopularityWithLimit(int spotCategoryId, int limit);
 }

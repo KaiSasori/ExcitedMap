@@ -87,5 +87,12 @@ public class SpotController {
 		return new ResponseEntity<List<Spot>>(
 				spotService.getSpotListOrderByAverageReviewRatingWithLimit(spotCategoryId, limit), HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/category/{spotCategoryId}/spotListOrderByPopularityWithLimit", method = RequestMethod.GET)
+	public ResponseEntity<List<Spot>> executeGetSpotListOrderByPopularityWithLimit(
+			@PathVariable int spotCategoryId, @RequestParam int limit) {
+		return new ResponseEntity<List<Spot>>(
+				spotService.getSpotListOrderByPopularityWithLimit(spotCategoryId, limit), HttpStatus.OK);
+	}
 
 }

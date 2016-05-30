@@ -21,6 +21,9 @@ public interface SpotMapperImpl extends SpotMapper {
 
 	List<Spot> selectByOrderByAverageReviewRating(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
+	
+	List<Spot> selectByOrderByPopularity(@Param("spotCategoryId") int spotCategoryId,
+			@Param("limit") int limit);
 
 	List<Spot> selectBySpotNameKeyword(String keyword);
 	

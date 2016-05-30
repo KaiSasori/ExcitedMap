@@ -58,6 +58,11 @@ public class SpotServiceImpl implements SpotService {
 	public List<Spot> getSpotListOrderByAverageReviewRatingWithLimit(int spotCategoryId, int limit) {
 		return spotDao.selectByOrderByAverageReviewRating(spotCategoryId, limit);
 	}
+	
+	@Override
+	public List<Spot> getSpotListOrderByPopularityWithLimit(int spotCategoryId, int limit) {
+		return spotDao.selectByOrderByPopularity(spotCategoryId, limit);
+	}
 
 	@Override
 	public Double getAverageReviewRatingForSpot(int spotId) {
