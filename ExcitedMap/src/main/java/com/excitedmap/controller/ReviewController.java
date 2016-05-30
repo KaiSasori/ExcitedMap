@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.excitedmap.pojo.Review;
+import com.excitedmap.pojo.ReviewImpl;
 import com.excitedmap.pojo.ReviewPhoto;
 import com.excitedmap.service.ReviewService;
 
@@ -23,7 +23,7 @@ public class ReviewController {
 	private ReviewService reviewService;
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> executeAddReview(@RequestBody Review review) {
+	public ResponseEntity<Void> executeAddReview(@RequestBody ReviewImpl review) {
 		reviewService.addReview(review);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}

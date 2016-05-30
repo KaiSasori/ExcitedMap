@@ -7,15 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.excitedmap.pojo.Review;
+import com.excitedmap.pojo.ReviewImpl;
 import com.excitedmap.pojo.ReviewPhoto;
 
 public interface ReviewService {
 	public List<Review> getReviewListByUserId(int userId);
 
-	public List<Review> getReviewBySpotId(int spotId);
+	public List<Review> getReviewListBySpotId(int spotId);
 
-	public void addReview(Review review);
+	public ReviewPhoto addReviewPhoto(HttpServletRequest request, MultipartFile file);
 
-	ReviewPhoto addReviewPhoto(HttpServletRequest request, MultipartFile file);
+	void addReview(ReviewImpl review);
 
 }

@@ -31,5 +31,5 @@ public interface SpotService {
 
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId);
 
-	void reportSpotError(SpotErrorReport spotErrorReport);
+	public void reportSpotError(SpotErrorReport spotErrorReport);
 }

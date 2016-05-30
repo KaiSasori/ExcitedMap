@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.excitedmap.dao.ReviewMapperImpl;
 import com.excitedmap.dao.ReviewPhotoMapperImpl;
 import com.excitedmap.pojo.Review;
+import com.excitedmap.pojo.ReviewImpl;
 import com.excitedmap.pojo.ReviewPhoto;
 import com.excitedmap.service.ReviewService;
 
@@ -30,13 +31,21 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getReviewBySpotId(int spotId) {
+	public List<Review> getReviewListBySpotId(int spotId) {
 		return reviewDao.selectBySpotId(spotId);
 	}
 
 	@Override
-	public void addReview(Review review) {
+	public void addReview(ReviewImpl review) {
+		review.setReviewId(null);
 		reviewDao.insertSelective(review);
+		ReviewPhoto reviewPhoto = new ReviewPhoto();
+		reviewPhoto.setReviewId(review.getReviewId());
+		int[] reviewPhotoId = review.getReviewPhotoId();
+		for (int i = 0; i < reviewPhotoId.length; i++) {
+			reviewPhoto.setReviewPhotoId(reviewPhotoId[i]);
+			reviewPhotoDao.updateByPrimaryKeySelective(reviewPhoto);
+		}
 	}
 
 	@Override

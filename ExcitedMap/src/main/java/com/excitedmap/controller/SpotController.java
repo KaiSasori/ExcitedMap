@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.excitedmap.pojo.Review;
 import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotPhoto;
+import com.excitedmap.service.ReviewService;
 import com.excitedmap.service.SpotService;
 
 @RestController
@@ -25,10 +27,17 @@ import com.excitedmap.service.SpotService;
 public class SpotController {
 	@Resource
 	private SpotService spotService;
+	@Resource
+	private ReviewService reviewService;
 
 	@RequestMapping(value = "/{spotId}", method = RequestMethod.GET)
 	public ResponseEntity<Spot> executeGetSpotBySpotId(@PathVariable int spotId) {
 		return new ResponseEntity<Spot>(spotService.getSpotBySpotId(spotId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{spotId}/reviewList", method = RequestMethod.GET)
+	public ResponseEntity<List<Review>> executeGetReviewListBySpotId(@PathVariable int spotId) {
+		return new ResponseEntity<List<Review>>(reviewService.getReviewListBySpotId(spotId), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{spotId}/reviewRating", method = RequestMethod.GET)
