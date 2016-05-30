@@ -1,13 +1,15 @@
 package com.excitedmap.pojo;
 
-public class ReviewImpl extends Review {
-	int[] reviewPhotoId;
+import java.util.List;
 
-	public int[] getReviewPhotoId() {
-		return reviewPhotoId;
+public class ReviewImpl extends Review {
+	List<ReviewPhoto> reviewPhotoList;
+
+	public List<ReviewPhoto> getReviewPhotoList() {
+		return reviewPhotoList;
 	}
 
-	public void setReviewPhotoId(int[] reviewPhotoId) {
-		this.reviewPhotoId = reviewPhotoId;
+	public void setReviewPhotoList(List<ReviewPhoto> reviewPhotoList) {
+		this.reviewPhotoList = reviewPhotoList;
 	}
 }

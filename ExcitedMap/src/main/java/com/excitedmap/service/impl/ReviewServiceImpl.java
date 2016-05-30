@@ -39,11 +39,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public void addReview(ReviewImpl review) {
 		review.setReviewId(null);
 		reviewDao.insertSelective(review);
-		ReviewPhoto reviewPhoto = new ReviewPhoto();
-		reviewPhoto.setReviewId(review.getReviewId());
-		int[] reviewPhotoId = review.getReviewPhotoId();
-		for (int i = 0; i < reviewPhotoId.length; i++) {
-			reviewPhoto.setReviewPhotoId(reviewPhotoId[i]);
+		List<ReviewPhoto> reviewPhotoList = review.getReviewPhotoList();
+		for (int i = 0; i < reviewPhotoList.size(); i++) {
+			ReviewPhoto reviewPhoto = reviewPhotoList.get(i);
+			reviewPhoto.setReviewId(review.getReviewId());
 			reviewPhotoDao.updateByPrimaryKeySelective(reviewPhoto);
 		}
 	}
