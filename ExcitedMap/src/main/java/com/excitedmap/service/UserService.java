@@ -1,6 +1,9 @@
 package com.excitedmap.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.excitedmap.pojo.User;
 
@@ -17,5 +20,5 @@ public interface UserService {
 
 	public void updateUser(User user);
 
-	public void updateUserAvatarPath(int userId, String avatarPath);
+	public void updateUserAvatarPath(HttpServletRequest request, MultipartFile file, int userId);
 }
