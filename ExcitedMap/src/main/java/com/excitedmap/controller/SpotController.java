@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotErrorReport;
+import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotPhoto;
 import com.excitedmap.service.SpotService;
 
@@ -60,38 +61,38 @@ public class SpotController {
 	}
 
 	@RequestMapping(value = "/category/{spotCategoryId}/spotListOrderByFavoriteCountWithLimit", method = RequestMethod.GET)
-	public ResponseEntity<List<Spot>> executeGetSpotListOrderByFavoriteCountWithLimit(@PathVariable int spotCategoryId,
+	public ResponseEntity<List<SpotImpl>> executeGetSpotListOrderByFavoriteCountWithLimit(@PathVariable int spotCategoryId,
 			@RequestParam int limit) {
-		return new ResponseEntity<List<Spot>>(
+		return new ResponseEntity<List<SpotImpl>>(
 				spotService.getSpotListOrderByFavoriteCountWithLimit(spotCategoryId, limit), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/category/{spotCategoryId}/spotListOrderByWishCountWithLimit", method = RequestMethod.GET)
-	public ResponseEntity<List<Spot>> executeGetSpotListOrderByWishCountWithLimit(@PathVariable int spotCategoryId,
+	public ResponseEntity<List<SpotImpl>> executeGetSpotListOrderByWishCountWithLimit(@PathVariable int spotCategoryId,
 			@RequestParam int limit) {
-		return new ResponseEntity<List<Spot>>(spotService.getSpotListOrderByWishCountWithLimit(spotCategoryId, limit),
+		return new ResponseEntity<List<SpotImpl>>(spotService.getSpotListOrderByWishCountWithLimit(spotCategoryId, limit),
 				HttpStatus.OK);
 
 	}
 
 	@RequestMapping(value = "/category/{spotCategoryId}/spotListOrderByFootprintCountWithLimit", method = RequestMethod.GET)
-	public ResponseEntity<List<Spot>> executeGetSpotListOrderByFootprintCountWithLimit(@PathVariable int spotCategoryId,
+	public ResponseEntity<List<SpotImpl>> executeGetSpotListOrderByFootprintCountWithLimit(@PathVariable int spotCategoryId,
 			@RequestParam int limit) {
-		return new ResponseEntity<List<Spot>>(
+		return new ResponseEntity<List<SpotImpl>>(
 				spotService.getSpotListOrderByFootprintCountWithLimit(spotCategoryId, limit), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/category/{spotCategoryId}/spotListOrderByAverageReviewRatingWithLimit", method = RequestMethod.GET)
-	public ResponseEntity<List<Spot>> executeGetSpotListOrderByAverageReviewRatingWithLimit(
+	public ResponseEntity<List<SpotImpl>> executeGetSpotListOrderByAverageReviewRatingWithLimit(
 			@PathVariable int spotCategoryId, @RequestParam int limit) {
-		return new ResponseEntity<List<Spot>>(
+		return new ResponseEntity<List<SpotImpl>>(
 				spotService.getSpotListOrderByAverageReviewRatingWithLimit(spotCategoryId, limit), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/category/{spotCategoryId}/spotListOrderByPopularityWithLimit", method = RequestMethod.GET)
-	public ResponseEntity<List<Spot>> executeGetSpotListOrderByPopularityWithLimit(
+	public ResponseEntity<List<SpotImpl>> executeGetSpotListOrderByPopularityWithLimit(
 			@PathVariable int spotCategoryId, @RequestParam int limit) {
-		return new ResponseEntity<List<Spot>>(
+		return new ResponseEntity<List<SpotImpl>>(
 				spotService.getSpotListOrderByPopularityWithLimit(spotCategoryId, limit), HttpStatus.OK);
 	}
 

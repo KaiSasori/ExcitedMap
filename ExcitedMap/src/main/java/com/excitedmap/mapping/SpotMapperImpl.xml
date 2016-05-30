@@ -3,30 +3,37 @@
 <mapper namespace="com.excitedmap.dao.SpotMapperImpl" >
   <resultMap id="ResultMapWithBLOBs" type="Spot" extends="com.excitedmap.dao.SpotMapper.ResultMapWithBLOBs" >
   </resultMap>
+  <resultMap id="BaseResultMap" type="SpotImpl" extends="com.excitedmap.dao.SpotMapper.BaseResultMap" >
+  	<result column="spot_id_favorite_count" property="spotFavoriteCount" jdbcType="INTEGER" />
+  	<result column="spot_id_wish_count" property="spotWishCount" jdbcType="INTEGER" />
+  	<result column="spot_id_footprint_count" property="spotFootprintCount" jdbcType="INTEGER" />
+  	<result column="spot_popularity" property="spotPopularity" jdbcType="INTEGER" />
+  	<result column="review_rating_avg" property="averageReviewRating" jdbcType="DOUBLE" />
+  </resultMap>
   <select id="selectBySpotCategoryId" resultMap="ResultMapWithBLOBs" >
     select *
     from spot
     where spot_category_id = #{spotCategoryId};
   </select>
-  <select id="selectByOrderByFavoriteCountWithLimit" resultMap="ResultMapWithBLOBs" >
+  <select id="selectByOrderByFavoriteCountWithLimit" resultMap="BaseResultMap" >
     select A.spot_id, spot_name, spot_category_id, ifnull(B.spot_id_favorite_count,0) as spot_id_favorite_count from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_favorite_count from favorite GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where spot_category_id = #{spotCategoryId}
     order by spot_id_favorite_count DESC LIMIT #{limit};
   </select>
-  <select id="selectByOrderByWishCountWithLimit" resultMap="ResultMapWithBLOBs" >
+  <select id="selectByOrderByWishCountWithLimit" resultMap="BaseResultMap" >
     select A.spot_id, spot_name, spot_category_id, ifnull(B.spot_id_wish_count,0) as spot_id_wish_count from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where spot_category_id = #{spotCategoryId}
     order by spot_id_wish_count DESC LIMIT #{limit};
   </select>
-  <select id="selectByOrderByFootprintCountWithLimit" resultMap="ResultMapWithBLOBs" >
+  <select id="selectByOrderByFootprintCountWithLimit" resultMap="BaseResultMap" >
     select A.spot_id, spot_name, spot_category_id, ifnull(B.spot_id_footprint_count, 0) as spot_id_footprint_count from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_footprint_count from footprint GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where spot_category_id = #{spotCategoryId}
     order by spot_id_footprint_count DESC LIMIT #{limit};
   </select>
-  <select id="selectByOrderByAverageReviewRating" resultMap="ResultMapWithBLOBs" >
+  <select id="selectByOrderByAverageReviewRating" resultMap="BaseResultMap" >
   	select A.spot_id, spot_name, spot_category_id, ifnull(B.review_rating_avg, 0) as review_rating_avg from spot as A
   	left join (select spot_id, avg(review_rating) as review_rating_avg from review GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where spot_category_id = #{spotCategoryId}
@@ -43,7 +50,7 @@
   <select id="selectReviewRatingCountForSpot" resultType="hashmap" >
   	select review_rating, count(*) as review_rating_count from review where spot_id = #{spotId} group by review_rating;
   </select>
-  <select id="selectByOrderByPopularity" resultMap="ResultMapWithBLOBs" >
+  <select id="selectByOrderByPopularity" resultMap="BaseResultMap" >
   	select A.spot_id, spot_name, spot_category_id, (ifnull(spot_id_footprint_count,0)+ifnull(spot_id_wish_count,0)+ifnull(spot_id_favorite_count,0)) as spot_popularity from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_footprint_count from footprint GROUP BY spot_id) as B on A.spot_id = B.spot_id
     left join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as C on A.spot_id = C.spot_id
