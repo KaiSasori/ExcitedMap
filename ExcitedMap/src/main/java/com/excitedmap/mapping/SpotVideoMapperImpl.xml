@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotVideoMapperImpl">
+    <resultMap id="ResultMapWithBLOBs" type="SpotVideo" extends="com.excitedmap.dao.SpotVideoMapper.ResultMapWithBLOBs"></resultMap>
+    <select id="selectBySpotId" resultMap="ResultMapWithBLOBs">
+        select * from spot_video
+        where spot_id = #{spotId};
+    </select>
+</mapper>

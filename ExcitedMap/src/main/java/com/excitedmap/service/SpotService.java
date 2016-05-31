@@ -7,6 +7,7 @@ import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotPhoto;
+import com.excitedmap.pojo.SpotVideo;
 
 public interface SpotService {
 	public Spot getSpotBySpotId(int spotId);
@@ -32,4 +33,6 @@ public interface SpotService {
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId);
 
 	public void reportSpotError(SpotErrorReport spotErrorReport);
+
+	public List<SpotVideo> getVideoListBySpotId(int spotId);
 }

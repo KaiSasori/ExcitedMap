@@ -19,6 +19,7 @@ import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotPhoto;
+import com.excitedmap.pojo.SpotVideo;
 import com.excitedmap.service.ReviewService;
 import com.excitedmap.service.SpotService;
 
@@ -51,6 +52,11 @@ public class SpotController {
 	@RequestMapping(value = "/{spotId}/photo", method = RequestMethod.GET)
 	public ResponseEntity<List<SpotPhoto>> executeGetPhotoListBySpotId(@PathVariable int spotId) {
 		return new ResponseEntity<List<SpotPhoto>>(spotService.getPhotoListBySpotId(spotId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{spotId}/video", method = RequestMethod.GET)
+	public ResponseEntity<List<SpotVideo>> executeGetVideoListBySpotId(@PathVariable int spotId) {
+		return new ResponseEntity<List<SpotVideo>>(spotService.getVideoListBySpotId(spotId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/reportError", method = RequestMethod.PUT)

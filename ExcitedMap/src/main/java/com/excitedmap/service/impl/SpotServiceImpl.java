@@ -13,7 +13,9 @@ import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotPhoto;
+import com.excitedmap.pojo.SpotVideo;
 import com.excitedmap.dao.SpotPhotoMapperImpl;
+import com.excitedmap.dao.SpotVideoMapperImpl;
 import com.excitedmap.service.SpotService;
 
 @Service("spotService")
@@ -24,6 +26,8 @@ public class SpotServiceImpl implements SpotService {
 	private SpotPhotoMapperImpl spotPhotoDao;
 	@Resource
 	private SpotErrorReportMapper spotErrorReportDao;
+	@Resource
+	private SpotVideoMapperImpl spotVideoDao;
 
 	@Override
 	public Spot getSpotBySpotId(int spotId) {
@@ -78,6 +82,11 @@ public class SpotServiceImpl implements SpotService {
 	@Override
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId) {
 		return spotPhotoDao.selectBySpotId(spotId);
+	}
+	
+	@Override
+	public List<SpotVideo> getVideoListBySpotId(int spotId) {
+		return spotVideoDao.selectBySpotId(spotId);
 	}
 
 	@Override
