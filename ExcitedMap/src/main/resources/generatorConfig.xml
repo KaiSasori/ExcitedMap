@@ -38,6 +38,9 @@
         <table tableName="spot_video" domainObjectName="SpotVideo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="spot_video_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="spot_label" domainObjectName="SpotLabel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_label_id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="search_history" domainObjectName="SearchHistory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="search_history_id" sqlStatement="MySql" identity="true"/>
         </table>

@@ -37,6 +37,15 @@ CREATE TABLE `spot_category` (
   PRIMARY KEY (`spot_category_id`)
 ) DEFAULT CHARSET=utf8;
 
+CREATE TABLE `spot_label` (
+  `spot_label_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `spot_label_type` int(1) NOT NULL,
+  `spot_label_description` varchar(50) NOT NULL,
+  PRIMARY KEY (`spot_label_id`)
+) DEFAULT CHARSET=utf8;
+
 CREATE TABLE `review` (
   `review_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
