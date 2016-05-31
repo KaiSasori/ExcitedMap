@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotVideoMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.SpotVideo" >
+    <id column="spot_video_id" property="spotVideoId" jdbcType="INTEGER" />
+    <result column="spot_id" property="spotId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.excitedmap.pojo.SpotVideo" extends="BaseResultMap" >
+    <result column="spot_video_link" property="spotVideoLink" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    spot_video_id, spot_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    spot_video_link
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from spot_video
+    where spot_video_id = #{spotVideoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from spot_video
+    where spot_video_id = #{spotVideoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.SpotVideo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotVideoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_video (spot_id, spot_video_link)
+    values (#{spotId,jdbcType=INTEGER}, #{spotVideoLink,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.SpotVideo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotVideoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_video
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        spot_id,
+      </if>
+      <if test="spotVideoLink != null" >
+        spot_video_link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spotVideoLink != null" >
+        #{spotVideoLink,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.SpotVideo" >
+    update spot_video
+    <set >
+      <if test="spotId != null" >
+        spot_id = #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spotVideoLink != null" >
+        spot_video_link = #{spotVideoLink,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where spot_video_id = #{spotVideoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.excitedmap.pojo.SpotVideo" >
+    update spot_video
+    set spot_id = #{spotId,jdbcType=INTEGER},
+      spot_video_link = #{spotVideoLink,jdbcType=LONGVARCHAR}
+    where spot_video_id = #{spotVideoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.SpotVideo" >
+    update spot_video
+    set spot_id = #{spotId,jdbcType=INTEGER}
+    where spot_video_id = #{spotVideoId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -24,6 +24,13 @@ CREATE TABLE `spot_photo` (
   PRIMARY KEY (`spot_photo_id`)
 ) DEFAULT CHARSET=utf8;
 
+CREATE TABLE `spot_video` (
+  `spot_video_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_id` int(11) NOT NULL,
+  `spot_video_link` text NOT NULL,
+  PRIMARY KEY (`spot_video_id`)
+) DEFAULT CHARSET=utf8;
+
 CREATE TABLE `spot_category` (
   `spot_category_id` int(11) NOT NULL AUTO_INCREMENT,
   `spot_category_name` varchar(50) NOT NULL,
