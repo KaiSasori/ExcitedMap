@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotLabelMapperImpl">
+    <resultMap id="BaseResultMap" type="SpotLabel" extends="com.excitedmap.dao.SpotLabelMapper.BaseResultMap"></resultMap>
+    <select id="selectBySpotId" resultMap="BaseResultMap">
+        select * from spot_label
+        where spot_id = #{spotId};
+    </select>
+</mapper>
