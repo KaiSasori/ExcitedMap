@@ -24,10 +24,26 @@ CREATE TABLE `spot_photo` (
   PRIMARY KEY (`spot_photo_id`)
 ) DEFAULT CHARSET=utf8;
 
+CREATE TABLE `spot_video` (
+  `spot_video_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_id` int(11) NOT NULL,
+  `spot_video_link` text NOT NULL,
+  PRIMARY KEY (`spot_video_id`)
+) DEFAULT CHARSET=utf8;
+
 CREATE TABLE `spot_category` (
   `spot_category_id` int(11) NOT NULL AUTO_INCREMENT,
   `spot_category_name` varchar(50) NOT NULL,
   PRIMARY KEY (`spot_category_id`)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `spot_label` (
+  `spot_label_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `spot_label_type` int(1) NOT NULL,
+  `spot_label_description` varchar(50) NOT NULL,
+  PRIMARY KEY (`spot_label_id`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `review` (
@@ -41,7 +57,7 @@ CREATE TABLE `review` (
 
 CREATE TABLE `review_photo` (
   `review_photo_id` int(11) NOT NULL AUTO_INCREMENT,
-  `review_id` int(11) NOT NULL,
+  `review_id` int(11),
   `review_photo_path` varchar(50),
   `review_photo_description` varchar(100),
   PRIMARY KEY (`review_photo_id`)
@@ -79,22 +95,27 @@ CREATE TABLE `spot_questionnaire` (
   `spot_questionnaire_id` int(11) NOT NULL AUTO_INCREMENT,
   `spot_id` int(11) NOT NULL,
   `spot_questionnaire_title` varchar(50) NOT NULL,
-  `spot_questionnaire_description` varchar(100) NOT NULL,
+  `spot_questionnaire_description` varchar(100),
   PRIMARY KEY (`spot_questionnaire_id`)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE `spot_questionnaire_question` (
-  `spot_questionnaire_question_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `spot_question` (
+  `spot_question_id` int(11) NOT NULL AUTO_INCREMENT,
   `spot_questionnaire_id` int(11) NOT NULL,
-  `spot_questionnaire_question_content` varchar(100) NOT NULL,
-  PRIMARY KEY (`spot_questionnaire_question_id`)
+  `spot_question_content` varchar(100) NOT NULL,
+  `spot_question_choice_content_1` varchar(50),
+  `spot_question_choice_content_2` varchar(50),
+  `spot_question_choice_content_3` varchar(50),
+  `spot_question_choice_content_4` varchar(50),
+  PRIMARY KEY (`spot_question_id`)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE `spot_questionnaire_question_choice` (
-  `spot_questionnaire_question_choice_id` int(11) NOT NULL AUTO_INCREMENT,
-  `spot_questionnaire_question_id` int(11) NOT NULL,
-  `spot_questionnaire_question_choice_content` varchar(100) NOT NULL,
-  PRIMARY KEY (`spot_questionnaire_question_choice_id`)
+CREATE TABLE `spot_question_answer` (
+  `spot_question_answer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spot_question_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `choice` int(1) NOT NULL,
+  PRIMARY KEY (`spot_question_answer_id`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `spot_error_report` (

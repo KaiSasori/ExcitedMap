@@ -1,8 +1,5 @@
 package com.excitedmap.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -56,17 +53,16 @@ public class UserController {
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/loginByQQ", method = RequestMethod.POST)
-	public ResponseEntity<Void> executeLoginByQQ(@RequestParam String openId,String accessToken) {
+	public ResponseEntity<Void> executeLoginByQQ(@RequestParam String openId, String accessToken) {
 		User validUser = userService.getUserByOpenId(openId);
 		if (validUser == null) {
-			userService.autoRegisterUser(openId,accessToken);
+			userService.autoRegisterUser(openId, accessToken);
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Void> executeRegister(@RequestBody User user) {
@@ -98,7 +94,6 @@ public class UserController {
 		return new ResponseEntity<List<Review>>(reviewService.getReviewListByUserId(userId), HttpStatus.OK);
 	}
 
-	// 获得用户的搜索记录，条数限制为limit，string可以为空，
 	@RequestMapping(value = "/{userId}/searchHistoryList", method = RequestMethod.GET)
 	public ResponseEntity<List<SearchHistory>> executeGetSearchHistoryListByUserId(@PathVariable int userId,
 			@RequestParam String keyword, @RequestParam int limit) {
@@ -107,26 +102,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.PUT)
-	public String executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
+	public ResponseEntity<Void> executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
 			@RequestParam("file") MultipartFile file) {
-		String uploadRootPath = request.getServletContext().getRealPath("img/avatar");
-		File uploadRootDir = new File(uploadRootPath);
-		if (!uploadRootDir.exists()) {
-			uploadRootDir.mkdirs();
-		}
-		String name = file.getOriginalFilename();
-		if (name != null && name.length() > 0) {
-			try {
-				byte[] bytes = file.getBytes();
-				File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-			} catch (Exception e) {
-				System.out.println("Error Write file: " + name);
-			}
-		}
-		userService.updateUserAvatarPath(userId, name);
-		return uploadRootDir + File.separator + name;
+		userService.updateUserAvatarPath(request, file, userId);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

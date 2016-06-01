@@ -8,11 +8,16 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.excitedmap.dao.SpotErrorReportMapper;
+import com.excitedmap.dao.SpotLabelMapperImpl;
 import com.excitedmap.dao.SpotMapperImpl;
 import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotErrorReport;
+import com.excitedmap.pojo.SpotImpl;
+import com.excitedmap.pojo.SpotLabel;
 import com.excitedmap.pojo.SpotPhoto;
+import com.excitedmap.pojo.SpotVideo;
 import com.excitedmap.dao.SpotPhotoMapperImpl;
+import com.excitedmap.dao.SpotVideoMapperImpl;
 import com.excitedmap.service.SpotService;
 
 @Service("spotService")
@@ -23,6 +28,10 @@ public class SpotServiceImpl implements SpotService {
 	private SpotPhotoMapperImpl spotPhotoDao;
 	@Resource
 	private SpotErrorReportMapper spotErrorReportDao;
+	@Resource
+	private SpotVideoMapperImpl spotVideoDao;
+	@Resource
+	private SpotLabelMapperImpl spotLabelDao;
 
 	@Override
 	public Spot getSpotBySpotId(int spotId) {
@@ -40,27 +49,27 @@ public class SpotServiceImpl implements SpotService {
 	}
 
 	@Override
-	public List<Spot> getSpotListOrderByFavoriteCountWithLimit(int spotCategoryId, int limit) {
+	public List<SpotImpl> getSpotListOrderByFavoriteCountWithLimit(int spotCategoryId, int limit) {
 		return spotDao.selectByOrderByFavoriteCountWithLimit(spotCategoryId, limit);
 	}
 
 	@Override
-	public List<Spot> getSpotListOrderByWishCountWithLimit(int spotCategoryId, int limit) {
+	public List<SpotImpl> getSpotListOrderByWishCountWithLimit(int spotCategoryId, int limit) {
 		return spotDao.selectByOrderByWishCountWithLimit(spotCategoryId, limit);
 	}
 
 	@Override
-	public List<Spot> getSpotListOrderByFootprintCountWithLimit(int spotCategoryId, int limit) {
+	public List<SpotImpl> getSpotListOrderByFootprintCountWithLimit(int spotCategoryId, int limit) {
 		return spotDao.selectByOrderByFootprintCountWithLimit(spotCategoryId, limit);
 	}
 
 	@Override
-	public List<Spot> getSpotListOrderByAverageReviewRatingWithLimit(int spotCategoryId, int limit) {
+	public List<SpotImpl> getSpotListOrderByAverageReviewRatingWithLimit(int spotCategoryId, int limit) {
 		return spotDao.selectByOrderByAverageReviewRating(spotCategoryId, limit);
 	}
 	
 	@Override
-	public List<Spot> getSpotListOrderByPopularityWithLimit(int spotCategoryId, int limit) {
+	public List<SpotImpl> getSpotListOrderByPopularityWithLimit(int spotCategoryId, int limit) {
 		return spotDao.selectByOrderByPopularity(spotCategoryId, limit);
 	}
 
@@ -77,6 +86,16 @@ public class SpotServiceImpl implements SpotService {
 	@Override
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId) {
 		return spotPhotoDao.selectBySpotId(spotId);
+	}
+	
+	@Override
+	public List<SpotVideo> getVideoListBySpotId(int spotId) {
+		return spotVideoDao.selectBySpotId(spotId);
+	}
+	
+	@Override
+	public List<SpotLabel> getSpotLabelListBySpotId(int spotId) {
+		return spotLabelDao.selectBySpotId(spotId);
 	}
 
 	@Override

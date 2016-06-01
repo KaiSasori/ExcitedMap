@@ -6,23 +6,24 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.excitedmap.pojo.Spot;
+import com.excitedmap.pojo.SpotImpl;
 
 public interface SpotMapperImpl extends SpotMapper {
 	List<Spot> selectBySpotCategoryId(int spotCategoryId);
 
-	List<Spot> selectByOrderByFavoriteCountWithLimit(@Param("spotCategoryId") int spotCategoryId,
+	List<SpotImpl> selectByOrderByFavoriteCountWithLimit(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
 
-	List<Spot> selectByOrderByWishCountWithLimit(@Param("spotCategoryId") int spotCategoryId,
+	List<SpotImpl> selectByOrderByWishCountWithLimit(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
 
-	List<Spot> selectByOrderByFootprintCountWithLimit(@Param("spotCategoryId") int spotCategoryId,
+	List<SpotImpl> selectByOrderByFootprintCountWithLimit(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
 
-	List<Spot> selectByOrderByAverageReviewRating(@Param("spotCategoryId") int spotCategoryId,
+	List<SpotImpl> selectByOrderByAverageReviewRating(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
 	
-	List<Spot> selectByOrderByPopularity(@Param("spotCategoryId") int spotCategoryId,
+	List<SpotImpl> selectByOrderByPopularity(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
 
 	List<Spot> selectBySpotNameKeyword(String keyword);

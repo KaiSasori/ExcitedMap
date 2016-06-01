@@ -24,11 +24,11 @@ public class SearchServiceImpl implements SearchService {
 	}
 	
 	public List<Spot> searchSpotByKeyword(String keyword) {
-		SearchHistory searchHistory = new SearchHistory();
-		// 此处暂未设置userId.
-		searchHistory.setUserId(null);
-		searchHistory.setSearchText(keyword);
-		searchHistoryDao.insertSelective(searchHistory);
+//		SearchHistory searchHistory = new SearchHistory();
+//		// 此处暂未设置userId.
+//		searchHistory.setUserId(null);
+//		searchHistory.setSearchText(keyword);
+//		searchHistoryDao.insertSelective(searchHistory);
 		return spotDao.selectBySpotNameKeyword(keyword);
 	}
 

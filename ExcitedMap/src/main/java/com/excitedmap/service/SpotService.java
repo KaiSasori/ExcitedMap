@@ -5,7 +5,10 @@ import java.util.Map;
 
 import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotErrorReport;
+import com.excitedmap.pojo.SpotImpl;
+import com.excitedmap.pojo.SpotLabel;
 import com.excitedmap.pojo.SpotPhoto;
+import com.excitedmap.pojo.SpotVideo;
 
 public interface SpotService {
 	public Spot getSpotBySpotId(int spotId);
@@ -14,13 +17,15 @@ public interface SpotService {
 
 	public List<Spot> getSpotListBySpotCategoryId(int spotCategoryId);
 
-	public List<Spot> getSpotListOrderByFavoriteCountWithLimit(int spotCategoryId, int limit);
+	public List<SpotImpl> getSpotListOrderByFavoriteCountWithLimit(int spotCategoryId, int limit);
 
-	public List<Spot> getSpotListOrderByWishCountWithLimit(int spotCategoryId, int limit);
+	public List<SpotImpl> getSpotListOrderByWishCountWithLimit(int spotCategoryId, int limit);
 
-	public List<Spot> getSpotListOrderByFootprintCountWithLimit(int spotCategoryId, int limit);
+	public List<SpotImpl> getSpotListOrderByFootprintCountWithLimit(int spotCategoryId, int limit);
 
-	public List<Spot> getSpotListOrderByAverageReviewRatingWithLimit(int spotCategoryId, int limit);
+	public List<SpotImpl> getSpotListOrderByAverageReviewRatingWithLimit(int spotCategoryId, int limit);
+
+	public List<SpotImpl> getSpotListOrderByPopularityWithLimit(int spotCategoryId, int limit);
 
 	public Double getAverageReviewRatingForSpot(int spotId);
 
@@ -28,7 +33,9 @@ public interface SpotService {
 
 	public List<SpotPhoto> getPhotoListBySpotId(int spotId);
 
-	void reportSpotError(SpotErrorReport spotErrorReport);
+	public void reportSpotError(SpotErrorReport spotErrorReport);
 
-	public List<Spot> getSpotListOrderByPopularityWithLimit(int spotCategoryId, int limit);
+	public List<SpotVideo> getVideoListBySpotId(int spotId);
+
+	List<SpotLabel> getSpotLabelListBySpotId(int spotId);
 }

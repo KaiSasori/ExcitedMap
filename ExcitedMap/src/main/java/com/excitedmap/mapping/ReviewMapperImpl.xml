@@ -8,4 +8,9 @@
     from review
     where user_id = #{userId};
   </select>
+  <select id="selectBySpotId" resultMap="ResultMapWithBLOBs" >
+    select *
+    from review
+    where spot_id = #{spotId};
+  </select>
 </mapper>

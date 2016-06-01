@@ -12,7 +12,7 @@
   <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="User" >
     select *
     from user
-    where user_email = #{userEmail}
+    where user_email = #{openId}
   </select>
   
 </mapper>
