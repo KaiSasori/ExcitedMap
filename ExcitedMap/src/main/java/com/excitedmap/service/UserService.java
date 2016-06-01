@@ -14,7 +14,7 @@ public interface UserService {
 	
 	public void autoRegisterUser(String openId,String accessToken);
 	
-	public User getUser(User user);
+	public User getValidUser(User user);
 
 	public void registerUser(User user) throws DuplicateKeyException;
 

@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(User user) {
+	public User getValidUser(User user) {
 		return userDao.selectByEmailAndPassword(user);
 	}
 

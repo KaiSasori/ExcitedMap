@@ -46,12 +46,13 @@ public class UserController {
 	private SearchService searchService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<Void> executeLogin(@RequestBody User user) {
-		User validUser = userService.getUser(user);
+	public ResponseEntity<User> executeLogin(HttpServletRequest request, @RequestBody User user) {
+		User validUser = userService.getValidUser(user);
 		if (validUser == null) {
-			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		request.getSession().setAttribute("loggedInUser", validUser);
+		return new ResponseEntity<User>(validUser, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/loginByQQ", method = RequestMethod.POST)
