@@ -65,11 +65,11 @@
         <table tableName="spot_questionnaire" domainObjectName="SpotQuestionnaire" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="spot_questionnaire_id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="spot_questionnaire_question" domainObjectName="SpotQuestionnaireQuestion" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <generatedKey column="spot_questionnaire_question_id" sqlStatement="MySql" identity="true"/>
+        <table tableName="spot_question" domainObjectName="SpotQuestion" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_question_id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="spot_questionnaire_question_choice" domainObjectName="SpotQuestionnaireQuestionChoice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <generatedKey column="spot_questionnaire_question_choice_id" sqlStatement="MySql" identity="true"/>
+        <table tableName="spot_question_answer" domainObjectName="SpotQuestionAnswer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="spot_question_answer_id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="spot_error_report" domainObjectName="SpotErrorReport" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="spot_error_report_id" sqlStatement="MySql" identity="true"/>
