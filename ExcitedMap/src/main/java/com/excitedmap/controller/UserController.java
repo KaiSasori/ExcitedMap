@@ -71,12 +71,13 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> executeRegister(@RequestBody User user) {
+	public ResponseEntity<User> executeRegister(HttpServletRequest request, @RequestBody User user) {
 		try {
 			userService.registerUser(user);
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
+			request.getSession().setAttribute("loggedInUser", user);
+			return new ResponseEntity<User>(user, HttpStatus.CREATED);
 		} catch (DuplicateKeyException e) {
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
 		}
 	}
 
