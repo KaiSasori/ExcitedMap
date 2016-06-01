@@ -55,6 +55,11 @@ public class UserController {
 		return new ResponseEntity<User>(validUser, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void executeLogout(HttpServletRequest request) {
+		request.getSession().setAttribute("loggedInUser", null);
+	}
+	
 	@RequestMapping(value = "/loginByQQ", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLoginByQQ(@RequestParam String openId, String accessToken) {
 		User validUser = userService.getUserByOpenId(openId);
