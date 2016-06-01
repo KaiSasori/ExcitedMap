@@ -20,8 +20,10 @@ import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotLabel;
 import com.excitedmap.pojo.SpotPhoto;
+import com.excitedmap.pojo.SpotQuestionnaire;
 import com.excitedmap.pojo.SpotVideo;
 import com.excitedmap.service.ReviewService;
+import com.excitedmap.service.SpotQuestionnaireService;
 import com.excitedmap.service.SpotService;
 
 @RestController
@@ -31,6 +33,8 @@ public class SpotController {
 	private SpotService spotService;
 	@Resource
 	private ReviewService reviewService;
+	@Resource
+	private SpotQuestionnaireService spotQuestionnaireService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Spot>> executeGetSpotListBySpotNameKeyword(@RequestParam String keyword) {
@@ -68,6 +72,11 @@ public class SpotController {
 	@RequestMapping(value = "/{spotId}/label", method = RequestMethod.GET)
 	public ResponseEntity<List<SpotLabel>> executeGetSpotLabelListBySpotId(@PathVariable int spotId) {
 		return new ResponseEntity<List<SpotLabel>>(spotService.getSpotLabelListBySpotId(spotId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{spotId}/questionnaireList", method = RequestMethod.GET)
+	public ResponseEntity<List<SpotQuestionnaire>> executeGetSpotQuestionnaireListBySpotId(@PathVariable int spotId) {
+		return new ResponseEntity<List<SpotQuestionnaire>>(spotQuestionnaireService.getSpotQuestionnaireListBySpotId(spotId), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/reportError", method = RequestMethod.PUT)
