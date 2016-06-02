@@ -39,11 +39,6 @@ public class SpotServiceImpl implements SpotService {
 	}
 
 	@Override
-	public List<Spot> getSpotListBySpotNameKeyword(String keyword) {
-		return spotDao.selectBySpotNameKeyword(keyword);
-	}
-
-	@Override
 	public List<Spot> getSpotListBySpotCategoryId(int spotCategoryId) {
 		return spotDao.selectBySpotCategoryId(spotCategoryId);
 	}

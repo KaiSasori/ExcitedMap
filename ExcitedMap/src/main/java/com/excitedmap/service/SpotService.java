@@ -12,9 +12,7 @@ import com.excitedmap.pojo.SpotVideo;
 
 public interface SpotService {
 	public Spot getSpotBySpotId(int spotId);
-
-	public List<Spot> getSpotListBySpotNameKeyword(String keyword);
-
+	
 	public List<Spot> getSpotListBySpotCategoryId(int spotCategoryId);
 
 	public List<SpotImpl> getSpotListOrderByFavoriteCountWithLimit(int spotCategoryId, int limit);
