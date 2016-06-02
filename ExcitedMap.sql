@@ -58,7 +58,7 @@ CREATE TABLE `review` (
 CREATE TABLE `review_photo` (
   `review_photo_id` int(11) NOT NULL AUTO_INCREMENT,
   `review_id` int(11),
-  `review_photo_path` varchar(50),
+  `review_photo_path` varchar(150),
   `review_photo_description` varchar(100),
   PRIMARY KEY (`review_photo_id`)
 ) DEFAULT CHARSET=utf8;

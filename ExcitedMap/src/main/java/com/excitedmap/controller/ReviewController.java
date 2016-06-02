@@ -28,7 +28,7 @@ public class ReviewController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/photo", method = RequestMethod.PUT)
+	@RequestMapping(value = "/photo", method = RequestMethod.POST)
 	public ReviewPhoto executeUploadReviewPhoto(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
 		return reviewService.addReviewPhoto(request, file);
 	}

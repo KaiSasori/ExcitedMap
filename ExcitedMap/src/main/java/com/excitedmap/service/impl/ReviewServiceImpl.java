@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -54,17 +55,15 @@ public class ReviewServiceImpl implements ReviewService {
 		if (!uploadRootDir.exists()) {
 			uploadRootDir.mkdirs();
 		}
-		String name = file.getOriginalFilename();
-		if (name != null && name.length() > 0) {
-			try {
-				byte[] bytes = file.getBytes();
-				File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-			} catch (Exception e) {
-				System.out.println("Error Write file: " + name);
-			}
+		String name = UUID.randomUUID().toString();
+		try {
+			byte[] bytes = file.getBytes();
+			File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
+			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+			stream.write(bytes);
+			stream.close();
+		} catch (Exception e) {
+			System.out.println("Error Write file: " + name);
 		}
 		ReviewPhoto reviewPhoto = new ReviewPhoto();
 		reviewPhoto.setReviewPhotoPath(uploadRootDir + File.separator + name);
