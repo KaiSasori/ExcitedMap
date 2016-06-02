@@ -46,14 +46,20 @@ public class UserController {
 	private SearchService searchService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<Void> executeLogin(@RequestBody User user) {
-		User validUser = userService.getUser(user);
+	public ResponseEntity<User> executeLogin(HttpServletRequest request, @RequestBody User user) {
+		User validUser = userService.getValidUser(user);
 		if (validUser == null) {
-			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		request.getSession().setAttribute("loggedInUser", validUser);
+		return new ResponseEntity<User>(validUser, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void executeLogout(HttpServletRequest request) {
+		request.getSession().setAttribute("loggedInUser", null);
+	}
+	
 	@RequestMapping(value = "/loginByQQ", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLoginByQQ(@RequestParam String openId, String accessToken) {
 		User validUser = userService.getUserByOpenId(openId);
@@ -65,12 +71,13 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Void> executeRegister(@RequestBody User user) {
+	public ResponseEntity<User> executeRegister(HttpServletRequest request, @RequestBody User user) {
 		try {
 			userService.registerUser(user);
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
+			request.getSession().setAttribute("loggedInUser", user);
+			return new ResponseEntity<User>(user, HttpStatus.CREATED);
 		} catch (DuplicateKeyException e) {
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
 		}
 	}
 

@@ -36,11 +36,6 @@ public class SpotController {
 	@Resource
 	private SpotQuestionnaireService spotQuestionnaireService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Spot>> executeGetSpotListBySpotNameKeyword(@RequestParam String keyword) {
-		return new ResponseEntity<List<Spot>>(spotService.getSpotListBySpotNameKeyword(keyword), HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/{spotId}", method = RequestMethod.GET)
 	public ResponseEntity<Spot> executeGetSpotBySpotId(@PathVariable int spotId) {
 		return new ResponseEntity<Spot>(spotService.getSpotBySpotId(spotId), HttpStatus.OK);

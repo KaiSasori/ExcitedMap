@@ -26,13 +26,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(User user) {
+	public User getValidUser(User user) {
 		return userDao.selectByEmailAndPassword(user);
 	}
 
 	@Override
 	public void registerUser(User user) throws DuplicateKeyException {
-		user.setUserId(null);
 		user.setUserAvatarPath("default.jpg");
 		userDao.insertSelective(user);
 	}
