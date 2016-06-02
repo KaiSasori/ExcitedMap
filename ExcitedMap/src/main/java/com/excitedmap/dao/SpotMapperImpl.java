@@ -20,15 +20,27 @@ public interface SpotMapperImpl extends SpotMapper {
 	List<SpotImpl> selectByOrderByFootprintCountWithLimit(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
 
-	List<SpotImpl> selectByOrderByAverageReviewRating(@Param("spotCategoryId") int spotCategoryId,
-			@Param("limit") int limit);
-	
-	List<SpotImpl> selectByOrderByPopularity(@Param("spotCategoryId") int spotCategoryId,
+	List<SpotImpl> selectByOrderByAverageReviewRatingWithLimit(@Param("spotCategoryId") int spotCategoryId,
 			@Param("limit") int limit);
 
-	List<Spot> selectBySpotNameKeyword(String keyword);
-	
+	List<SpotImpl> selectByOrderByPopularity(@Param("spotCategoryId") int spotCategoryId, @Param("limit") int limit);
+
+	List<SpotImpl> selectBySpotNameKeywordOrderByPopularityWithLimit(@Param("keyword") String keyword,
+			@Param("limit") int limit);
+
+	List<SpotImpl> selectBySpotNameKeywordOrderByFavoriteCountWithLimit(@Param("keyword") String keyword,
+			@Param("limit") int limit);
+
+	List<SpotImpl> selectBySpotNameKeywordOrderByWishCountWithLimit(@Param("keyword") String keyword,
+			@Param("limit") int limit);
+
+	List<SpotImpl> selectBySpotNameKeywordOrderByFootprintCountWithLimit(@Param("keyword") String keyword,
+			@Param("limit") int limit);
+
+	List<SpotImpl> selectBySpotNameKeywordOrderByAverageReviewRatingWithLimit(@Param("keyword") String keyword,
+			@Param("limit") int limit);
+
 	Double selectAverageReviewRatingForSpot(int spotId);
-	
+
 	List<Map<String, Integer>> selectReviewRatingCountForSpot(int spotId);
 }
