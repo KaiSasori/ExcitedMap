@@ -493,6 +493,35 @@ function deleteFavorite(favoriteId, userId, spotId) {
 }
 
 
+//上传图片文件form和upload()函数
+//<script src="./lib/jquery/jquery-2.2.3.min.js" type="text/javascript"></script>
+//html form
+//<form id="ajaxForm">
+//<input type="file" id="file" name="myfile" />
+//<input type="button" onclick="UpladFile()" value="上传" />
+//</form>
+
+function UpladFile() {
+	var file = document.getElementById('file').files[0];
+	
+	var form = new FormData();
+	form.append("file", file);
+
+	var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": "http://localhost:8080/review/photo",
+	  "method": "POST",
+	  "processData": false,
+	  "contentType": false,
+	  "mimeType": "multipart/form-data",
+	  "data": form
+	}
+
+	$.ajax(settings).done(function (response) {
+	  console.log(response);
+	});
+}
 
 
 
