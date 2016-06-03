@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.SpotMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.Spot" >
+    <id column="spot_id" property="spotId" jdbcType="INTEGER" />
+    <result column="spot_category_id" property="spotCategoryId" jdbcType="INTEGER" />
+    <result column="spot_name" property="spotName" jdbcType="VARCHAR" />
+    <result column="spot_address" property="spotAddress" jdbcType="VARCHAR" />
+    <result column="spot_coordinate_x" property="spotCoordinateX" jdbcType="DOUBLE" />
+    <result column="spot_coordinate_y" property="spotCoordinateY" jdbcType="DOUBLE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.excitedmap.pojo.Spot" extends="BaseResultMap" >
+    <result column="spot_description" property="spotDescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    spot_id, spot_category_id, spot_name, spot_address, spot_coordinate_x, spot_coordinate_y
+  </sql>
+  <sql id="Blob_Column_List" >
+    spot_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from spot
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from spot
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.Spot" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot (spot_category_id, spot_name, spot_address, 
+      spot_coordinate_x, spot_coordinate_y, spot_description
+      )
+    values (#{spotCategoryId,jdbcType=INTEGER}, #{spotName,jdbcType=VARCHAR}, #{spotAddress,jdbcType=VARCHAR}, 
+      #{spotCoordinateX,jdbcType=DOUBLE}, #{spotCoordinateY,jdbcType=DOUBLE}, #{spotDescription,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.Spot" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spotId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spotCategoryId != null" >
+        spot_category_id,
+      </if>
+      <if test="spotName != null" >
+        spot_name,
+      </if>
+      <if test="spotAddress != null" >
+        spot_address,
+      </if>
+      <if test="spotCoordinateX != null" >
+        spot_coordinate_x,
+      </if>
+      <if test="spotCoordinateY != null" >
+        spot_coordinate_y,
+      </if>
+      <if test="spotDescription != null" >
+        spot_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spotCategoryId != null" >
+        #{spotCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="spotName != null" >
+        #{spotName,jdbcType=VARCHAR},
+      </if>
+      <if test="spotAddress != null" >
+        #{spotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCoordinateX != null" >
+        #{spotCoordinateX,jdbcType=DOUBLE},
+      </if>
+      <if test="spotCoordinateY != null" >
+        #{spotCoordinateY,jdbcType=DOUBLE},
+      </if>
+      <if test="spotDescription != null" >
+        #{spotDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.Spot" >
+    update spot
+    <set >
+      <if test="spotCategoryId != null" >
+        spot_category_id = #{spotCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="spotName != null" >
+        spot_name = #{spotName,jdbcType=VARCHAR},
+      </if>
+      <if test="spotAddress != null" >
+        spot_address = #{spotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="spotCoordinateX != null" >
+        spot_coordinate_x = #{spotCoordinateX,jdbcType=DOUBLE},
+      </if>
+      <if test="spotCoordinateY != null" >
+        spot_coordinate_y = #{spotCoordinateY,jdbcType=DOUBLE},
+      </if>
+      <if test="spotDescription != null" >
+        spot_description = #{spotDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.excitedmap.pojo.Spot" >
+    update spot
+    set spot_category_id = #{spotCategoryId,jdbcType=INTEGER},
+      spot_name = #{spotName,jdbcType=VARCHAR},
+      spot_address = #{spotAddress,jdbcType=VARCHAR},
+      spot_coordinate_x = #{spotCoordinateX,jdbcType=DOUBLE},
+      spot_coordinate_y = #{spotCoordinateY,jdbcType=DOUBLE},
+      spot_description = #{spotDescription,jdbcType=LONGVARCHAR}
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.Spot" >
+    update spot
+    set spot_category_id = #{spotCategoryId,jdbcType=INTEGER},
+      spot_name = #{spotName,jdbcType=VARCHAR},
+      spot_address = #{spotAddress,jdbcType=VARCHAR},
+      spot_coordinate_x = #{spotCoordinateX,jdbcType=DOUBLE},
+      spot_coordinate_y = #{spotCoordinateY,jdbcType=DOUBLE}
+    where spot_id = #{spotId,jdbcType=INTEGER}
+  </update>
+</mapper>

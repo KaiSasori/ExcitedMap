@@ -14,6 +14,8 @@ CREATE TABLE `spot` (
   `spot_name` varchar(50) NOT NULL,
   `spot_address` varchar(100) NOT NULL,
   `spot_description` text,
+  `spot_coordinate_x` DOUBLE PRECISION,
+  `spot_coordinate_y` DOUBLE PRECISION,
   PRIMARY KEY (`spot_id`)
 ) DEFAULT CHARSET=utf8;
 
