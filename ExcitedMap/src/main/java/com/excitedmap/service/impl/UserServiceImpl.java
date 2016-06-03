@@ -3,6 +3,7 @@ package com.excitedmap.service.impl;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,21 +49,19 @@ public class UserServiceImpl implements UserService {
 		if (!uploadRootDir.exists()) {
 			uploadRootDir.mkdirs();
 		}
-		String name = file.getOriginalFilename();
-		if (name != null && name.length() > 0) {
-			try {
-				byte[] bytes = file.getBytes();
-				File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-			} catch (Exception e) {
-				System.out.println("Error Write file: " + name);
-			}
+		String name = UUID.randomUUID().toString();
+		try {
+			byte[] bytes = file.getBytes();
+			File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
+			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+			stream.write(bytes);
+			stream.close();
+		} catch (Exception e) {
+			System.out.println("Error Write file: " + name);
 		}
 		User user = new User();
 		user.setUserId(userId);
-		user.setUserAvatarPath(uploadRootDir + File.separator + name);
+		user.setUserAvatarPath("img/avatar" + File.separator + name);
 		userDao.updateByPrimaryKeySelective(user);
 	}
 

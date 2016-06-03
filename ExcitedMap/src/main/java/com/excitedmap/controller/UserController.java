@@ -108,7 +108,7 @@ public class UserController {
 				searchService.getSearchHistoryListByUserId(userId, keyword, limit), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
 			@RequestParam("file") MultipartFile file) {
 		userService.updateUserAvatarPath(request, file, userId);

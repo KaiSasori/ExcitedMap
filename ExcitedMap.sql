@@ -2,7 +2,7 @@ CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(20) NOT NULL,
   `user_password` varchar(20) NOT NULL,
-  `user_avatar_path` varchar(50) NOT NULL,
+  `user_avatar_path` varchar(150) NOT NULL,
   `user_email` varchar(50) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`)

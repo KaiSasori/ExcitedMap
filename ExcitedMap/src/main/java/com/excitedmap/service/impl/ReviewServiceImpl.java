@@ -66,7 +66,7 @@ public class ReviewServiceImpl implements ReviewService {
 			System.out.println("Error Write file: " + name);
 		}
 		ReviewPhoto reviewPhoto = new ReviewPhoto();
-		reviewPhoto.setReviewPhotoPath(uploadRootDir + File.separator + name);
+		reviewPhoto.setReviewPhotoPath("img/upload" + File.separator + name);
 		reviewPhotoDao.insertSelective(reviewPhoto);
 		return reviewPhoto;
 	}
