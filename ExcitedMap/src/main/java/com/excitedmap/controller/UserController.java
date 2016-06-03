@@ -111,7 +111,8 @@ public class UserController {
 	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
 			@RequestParam("file") MultipartFile file) {
-		userService.updateUserAvatarPath(request, file, userId);
+		User user = (User) request.getSession().getAttribute("loggedInUser");
+		userService.updateUserAvatarPath(request, file, user);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

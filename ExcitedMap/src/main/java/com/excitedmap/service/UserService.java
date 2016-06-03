@@ -20,5 +20,5 @@ public interface UserService {
 
 	public void updateUser(User user);
 
-	public void updateUserAvatarPath(HttpServletRequest request, MultipartFile file, int userId);
+	void updateUserAvatarPath(HttpServletRequest request, MultipartFile file, User user);
 }
