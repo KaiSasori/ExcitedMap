@@ -26,12 +26,11 @@ function login(email, password) {
 	$.ajax({
 		type : "POST",
 		url : "/user/login",
-		data : JSON.stringify({
-			"userEmail" : email,
-			"userPassword" : password
-		}),
-		contentType : "application/json; charset=utf-8",
-		dataType : "json",
+		data : {
+			"userEmail" : $("#userEmail").val(),
+			"userPassword" : $("#userPassword").val(),
+			"userCaptchaCode" : $("#userCaptchaCode").val()
+		},
 		success : function(data) {
 			console.log(data);
 		},

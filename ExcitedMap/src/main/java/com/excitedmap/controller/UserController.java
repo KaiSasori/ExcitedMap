@@ -29,6 +29,8 @@ import com.excitedmap.service.SearchService;
 import com.excitedmap.service.UserService;
 import com.excitedmap.service.WishService;
 
+import nl.captcha.Captcha;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -46,20 +48,35 @@ public class UserController {
 	private SearchService searchService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<User> executeLogin(HttpServletRequest request, @RequestBody User user) {
-		User validUser = userService.getValidUser(user);
-		if (validUser == null) {
-			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+	public ResponseEntity<User> executeLogin(HttpServletRequest request, @RequestParam String userEmail,
+			@RequestParam String userPassword, @RequestParam String userCaptchaCode) {
+		try {
+			Captcha captcha = (Captcha) request.getSession().getAttribute(Captcha.NAME);
+			if (captcha == null) {
+				return new ResponseEntity<User>(HttpStatus.REQUEST_TIMEOUT);
+			}
+			if (!captcha.isCorrect(userCaptchaCode)) {
+				return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+			}
+			User user = new User();
+			user.setUserEmail(userEmail);
+			user.setUserPassword(userPassword);
+			User validUser = userService.getValidUser(user);
+			if (validUser == null) {
+				return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+			}
+			request.getSession().setAttribute("loggedInUser", validUser);
+			return new ResponseEntity<User>(validUser, HttpStatus.OK);
+		} finally {
+			request.getSession().setAttribute(Captcha.NAME, null);
 		}
-		request.getSession().setAttribute("loggedInUser", validUser);
-		return new ResponseEntity<User>(validUser, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public void executeLogout(HttpServletRequest request) {
 		request.getSession().setAttribute("loggedInUser", null);
 	}
-	
+
 	@RequestMapping(value = "/loginByQQ", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeLoginByQQ(@RequestParam String openId, String accessToken) {
 		User validUser = userService.getUserByOpenId(openId);
