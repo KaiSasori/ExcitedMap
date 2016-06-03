@@ -524,6 +524,87 @@ function UpladFile() {
 }
 
 
+//问卷controller接口
+//SpotQuestionnaireController
+
+//根据spotQuestionnaireId获取spotQuestionList
+function getSpotQuestionListBySpotQuestionnaireId(spotQuestionnaireId){
+	$.ajax({
+		type : "GET",
+		url : "/spotQuestionnaire/" + spotQuestionnaireId + "/questionList",
+		data : JSON.stringify({
+			"spotQuestionnaireId" : spotQuestionnaireId
+		}),
+		contentType : "application/json; charset=utf-8",
+		dataType : "json",
+		success : function(data) {// data is List<SpotQuestion>
+            for(var i=0; i<data.length; i++){
+            	var spotQuestionId = data[i].spotQuestionId;
+            	var spotQuestionContent = data[i].spotQuestionContent;
+            	var spotQuestionChoiceContent1 = data[i].spotQuestionChoiceContent1;
+            	var spotQuestionChoiceContent2 = data[i].spotQuestionChoiceContent2;
+            	var spotQuestionChoiceContent3 = data[i].spotQuestionChoiceContent3;
+            	var spotQuestionChoiceContent4 = data[i].spotQuestionChoiceContent4;
+                // TODO
+                //addQueryApplicationBySearch(i,projectName,applicationID,predictTime,dayNumber,stuffNumber,applicationState,workDescription,rejectNumber);
+            }
+		},
+	});
+}
+//List<SpotQuestion>格式
+// [
+//   {
+//     "spotQuestionId": 1,
+//     "spotQuestionnaireId": 1,
+//     "spotQuestionContent": "最近情况",
+//     "spotQuestionChoiceContent1": "很好",
+//     "spotQuestionChoiceContent2": "一般",
+//     "spotQuestionChoiceContent3": "看情况",
+//     "spotQuestionChoiceContent4": "不好"
+//   },
+//   {
+//     "spotQuestionId": 2,
+//     "spotQuestionnaireId": 1,
+//     "spotQuestionContent": "累吗",
+//     "spotQuestionChoiceContent1": "不累",
+//     "spotQuestionChoiceContent2": "还好",
+//     "spotQuestionChoiceContent3": "看情况",
+//     "spotQuestionChoiceContent4": "很累"
+//   }
+// ]
+
+
+//SpotQuestionAnswerController
+//通过List<SpotQuestionAnswer>上传SpotQuestionAnswer
+//function getAnswerList
+//此函数中变量值仅仅测试使用，具体会从前端获取
+function getSpotQusertionAnswerList(){
+	var answerList = [];
+	var answer = {};
+	answer.spotQuestionId = 1;
+	answer.userId = 1;
+	answer.choice = 4;
+	answerList.push(answer);
+	answer.spotQuestionId = 2;
+	answer.userId = 1;
+	answer.choice = 4;
+	answerList.push(answer);
+
+	addSpotQuestionAnswerList(answerList);
+}
+
+function addSpotQuestionAnswerList(answerList) {
+	$.ajax({
+		type : "PUT",
+		url : "/spotQuestionAnswer",
+		data : JSON.stringify(answerList),
+		contentType : "application/json; charset=utf-8",
+		dataType : "json",
+		success : function(data) {
+			console.log(data);
+		},
+	});
+}
 
 
 
