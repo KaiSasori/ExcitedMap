@@ -1,0 +1,57 @@
+<ion-view title="Detail">
+    <!--<ion-content class="padding">
+        <h1>项目详情界面：</h1>
+        <p>1、返回按钮</p>
+        <p>2、显示百度地图，并将所选区域标示出来</p>
+        <p>3、增加一个下滑上拉界面，增加相应控件以显示相应资料</p>
+        <p>4、底部显示详细资料，评价，到这去，添加评论功能</p>
+    </ion-content>-->
+
+    <ion-content class="padding" id="detailmap"></ion-content>
+
+    <div class="button button-assertive" id="plus_button">
+        <div class="icon icon-mini ion-plus"></div>
+    </div>
+
+    <ion-scroll zooming="true" direction="xy" id="plus_pane">
+        <div id="detail_des">
+            <div class="choice" style="height: 300px">
+                <button class="button button-positive">+ 收藏</button>
+                <button class="button button-positive">+ 分享</button>
+                <button class="button button-positive">+ 足迹</button>
+                <button class="button button-positive">+ 心愿单</button>
+
+                <ul class="rating onestar">
+                    <li class="one"><a href="#" title="1 Star">1</a></li>
+                    <li class="two"><a href="#" title="2 Stars">2</a></li>
+                    <li class="three"><a href="#" title="3 Stars">3</a></li>
+                    <li class="four"><a href="#" title="4 Stars">4</a></li>
+                    <li class="five"><a href="#" title="5 Stars">5</a></li>
+                </ul>
+                <ul class="rating twostar">
+                    <li class="one"><a href="#" title="1 Star">1</a></li>
+                    <li class="two"><a href="#" title="2 Stars">2</a></li>
+                    <li class="three"><a href="#" title="3 Stars">3</a></li>
+                    <li class="four"><a href="#" title="4 Stars">4</a></li>
+                    <li class="five"><a href="#" title="5 Stars">5</a></li>
+                </ul>
+                <ul class="rating threestar">
+                    <li class="one"><a href="#" title="1 Star">1</a></li>
+                    <li class="two"><a href="#" title="2 Stars">2</a></li>
+                    <li class="three"><a href="#" title="3 Stars">3</a></li>
+                    <li class="four"><a href="#" title="4 Stars">4</a></li>
+                    <li class="five"><a href="#" title="5 Stars">5</a></li>
+                </ul>
+
+            </div>
+            <div class="information">
+                <p>基本信息</p>
+            </div>
+            <div class="command" style="height: 300px">
+                <p>其他评论</p>
+            </div>
+        </div>
+    </ion-scroll>
+
+</ion-view>
+
