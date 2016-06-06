@@ -1,6 +1,8 @@
 /**
  * Created by Jinkai on 2016/5/20.
  */
+var spotCategoryId = 0;
+
 angular.module('myApp.controllers', [])
 .controller('TutorialCtrl', function($scope, $state, $ionicViewService) {
         //首次登陆
@@ -73,4 +75,11 @@ angular.module('myApp.controllers', [])
         map.addControl(new BMap.MapTypeControl());
         map.setCurrentCity("上海");
         map.enableScrollWheelZoom(true);
+})
+
+.controller('ListCtrl', function($scope){
+        $scope.onTabSelected = function(index){
+            spotCategoryId = index;
+            console.log("success! : " + spotCategoryId);
+        };
 })

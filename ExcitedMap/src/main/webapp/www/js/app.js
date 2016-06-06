@@ -64,7 +64,8 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
             url: "/list",
             views: {
                 'list-tab': {
-                    templateUrl: "partials/list.html"
+                    templateUrl: "partials/list.html",
+                    controller: 'ListCtrl'
                 }
             }
         })
