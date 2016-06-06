@@ -126,3 +126,7 @@ CREATE TABLE `spot_error_report` (
   `spot_error_report_text` varchar(100) NOT NULL,
   PRIMARY KEY (`spot_error_report_id`)
 ) DEFAULT CHARSET=utf8;
+
+ALTER TABLE wish ADD CONSTRAINT unique_constraint UNIQUE (user_id,spot_id);
+ALTER TABLE favorite ADD CONSTRAINT unique_constraint UNIQUE (user_id,spot_id);
+ALTER TABLE footprint ADD CONSTRAINT unique_constraint UNIQUE (user_id,spot_id);
