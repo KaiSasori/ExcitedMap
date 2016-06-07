@@ -113,3 +113,115 @@ function getSpotListOrderByWishCount(){
 		},
 	});
 }
+
+
+//图层标志显示js
+var button1ClickTime = 0;
+var button2ClickTime = 0;
+var keys1 = [];
+var keys2 = [];
+function showPrintSpot(index){
+	if (index == 1){
+		if (button1ClickTime == 0){
+			//从数据库中提取categoryId为1的spot
+			//categoryId搜索spot
+			keys1 = [];
+			$.ajax({
+				type : "GET",
+				url : "/spot/category/1",
+				processData : false,
+				contentType : "application/json; charset=utf-8",
+				success : function(data) {// data is list<spot>
+            		for(var i=0; i<data.length; i++){
+            			var spotName = data[i].spotName;
+                		// TODO
+               			keys1.push(spotName);
+               		}
+					// 百度地图API功能
+					var map = new BMap.Map("allmap");            // 创建Map实例
+					map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+					var local = new BMap.LocalSearch(map, {
+						renderOptions:{map: map},
+						pageCapacity:1
+					});
+					local.searchInBounds(keys1, map.getBounds());
+					button1ClickTime = 1;
+				},
+			});	
+		}
+		else{
+			if (button2ClickTime == 1){
+				// 百度地图API功能
+				var map = new BMap.Map("allmap");            // 创建Map实例
+				map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+				//var myKeys = ["中山公园", "世纪公园", "锦江乐园", "复兴公园"];
+				var local = new BMap.LocalSearch(map, {
+					renderOptions:{map: map},
+					pageCapacity:1
+				});
+				local.searchInBounds(keys2, map.getBounds());
+				button1ClickTime = 0;
+			}
+			else{
+				// 百度地图API功能
+				var map = new BMap.Map("allmap");
+        		map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+        		map.addControl(new BMap.MapTypeControl());
+        		map.setCurrentCity("上海");
+        		map.enableScrollWheelZoom(true);
+				button1ClickTime = 0;
+			}
+		}
+	}else if (index == 2){
+		if (button2ClickTime == 0){
+			//从数据库中提取categoryId为1的spot
+			//categoryId搜索spot
+			keys2 = [];
+			$.ajax({
+				type : "GET",
+				url : "/spot/category/2",
+				processData : false,
+				contentType : "application/json; charset=utf-8",
+				success : function(data) {// data is list<spot>
+            		for(var i=0; i<data.length; i++){
+            			var spotName = data[i].spotName;
+                		// TODO
+               			keys2.push(spotName);
+               		}
+					// 百度地图API功能
+					var map = new BMap.Map("allmap");            // 创建Map实例
+					map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+					var local = new BMap.LocalSearch(map, {
+						renderOptions:{map: map},
+						pageCapacity:1
+					});
+					local.searchInBounds(keys2, map.getBounds());
+					button2ClickTime = 1;
+				},
+			});	
+		}
+		else{
+			if (button1ClickTime == 1){
+				// 百度地图API功能
+				var map = new BMap.Map("allmap");            // 创建Map实例
+				map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+				var local = new BMap.LocalSearch(map, {
+					renderOptions:{map: map},
+					pageCapacity:1
+				});
+				local.searchInBounds(keys1, map.getBounds());
+				button2ClickTime = 0;
+			}
+			else{
+				// 百度地图API功能
+				var map = new BMap.Map("allmap");
+        		map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+        		map.addControl(new BMap.MapTypeControl());
+        		map.setCurrentCity("上海");
+        		map.enableScrollWheelZoom(true);
+				button2ClickTime = 0;
+			}
+		}
+	}
+}
+
