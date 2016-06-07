@@ -83,3 +83,13 @@ angular.module('myApp.controllers', [])
             console.log("success! : " + spotCategoryId);
         };
 })
+
+.controller('ManagementCtrl', function($scope) {
+
+        // 百度地图API功能
+        var map = new BMap.Map("manage_map");
+        map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+        map.addControl(new BMap.MapTypeControl());
+        map.setCurrentCity("上海");
+        map.enableScrollWheelZoom(true);
+})

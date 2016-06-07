@@ -39,10 +39,18 @@
 
 .list-inset{
     margin-left: 15px;
-    margin-right: 220px;
+    margin-right: 305px;
 }
 
-#allmap,#nearmap{
+.list-button{
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    right: 220px;
+    z-index: 100;
+}
+
+#allmap,#nearmap,#manage_map{
     margin:12px;
     box-shadow:0 3px 25px black;
 }
@@ -168,4 +176,23 @@ ul.rating li.five a:hover {background-position:0 -160px}
 #near_des{
     background-color: #ffffff;
     height: 1000px;
+}
+
+.management{
+    display: inline-flex;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+#manage_start{
+    width: 600px;
+}
+
+#manage_stop{
+    width: 600px;
+}
+
+#manage_button{
+    right: 15px;
 }

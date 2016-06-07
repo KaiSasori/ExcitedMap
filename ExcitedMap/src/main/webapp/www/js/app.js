@@ -133,6 +133,16 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
                     controller: 'NearByTabCtrl'
                 }
             }
+        })
+
+        .state('tabs.management',{
+            url:'/management',
+            views: {
+                'menuContent': {
+                    templateUrl: "partials/management.html",
+                    controller: 'ManagementCtrl'
+                }
+            }
         });
         $urlRouterProvider.otherwise('/');
 });
