@@ -26,8 +26,9 @@ public class SpotQuestionnaireServiceImpl implements SpotQuestionnaireService {
 
 	@Override
 	@Transactional
-	public void addSpotQuestionAnswerList(List<SpotQuestionAnswer> spotQuestionAnswerList) {
+	public void addSpotQuestionAnswerList(int userId, List<SpotQuestionAnswer> spotQuestionAnswerList) {
 		for (SpotQuestionAnswer spotQuestionAnswer : spotQuestionAnswerList) {
+			spotQuestionAnswer.setUserId(userId);
 			spotQuestionAnswerDao.insertSelective(spotQuestionAnswer);
 		}
 	}

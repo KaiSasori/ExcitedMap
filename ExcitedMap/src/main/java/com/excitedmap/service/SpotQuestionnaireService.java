@@ -7,7 +7,7 @@ import com.excitedmap.pojo.SpotQuestionAnswer;
 import com.excitedmap.pojo.SpotQuestionnaire;
 
 public interface SpotQuestionnaireService {
-	void addSpotQuestionAnswerList(List<SpotQuestionAnswer> spotQuestionAnswerList);
+	void addSpotQuestionAnswerList(int userId, List<SpotQuestionAnswer> spotQuestionAnswerList);
 
 	List<SpotQuestionnaire> getSpotQuestionnaireListBySpotId(int spotId);
 
