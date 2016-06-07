@@ -4,16 +4,16 @@
         <div class="management">
             <label class="item item-input" id="manage_start">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="起点">
+                <input type="text" placeholder="起点" id="startPlace">
             </label>
             <ion-item style="width: 50px;background-color: transparent">
                 <i class="icon ion-arrow-right-a"></i>
             </ion-item>
             <label class="item item-input" id="manage_stop">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="终点">
+                <input type="text" placeholder="终点" id="endPlace">
             </label>
-            <button class="button button-positive list-button" id="manage_button">Search</button>
+            <button class="button button-positive list-button" id="manage_button" onclick="showManagementBetweenSpots()">Search</button>
         </div>
     </div>
 
