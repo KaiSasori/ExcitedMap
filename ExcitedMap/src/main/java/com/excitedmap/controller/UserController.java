@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -138,11 +139,12 @@ public class UserController {
 		return new ResponseEntity<List<Review>>(reviewService.getReviewListByUserId(userId), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{userId}/searchHistoryList", method = RequestMethod.GET)
-	public ResponseEntity<List<SearchHistory>> executeGetSearchHistoryListByUserId(@PathVariable int userId,
+	@RequestMapping(value = "/searchHistoryList", method = RequestMethod.GET)
+	public ResponseEntity<List<SearchHistory>> executeGetSearchHistoryList(HttpServletRequest request,
 			@RequestParam String keyword, @RequestParam int limit) {
+		User user = (User) request.getSession().getAttribute("loggedInUser");
 		return new ResponseEntity<List<SearchHistory>>(
-				searchService.getSearchHistoryListByUserId(userId, keyword, limit), HttpStatus.OK);
+				searchService.getSearchHistoryListByUserId(user.getUserId(), keyword, limit), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.POST)
