@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -147,8 +146,8 @@ public class UserController {
 				searchService.getSearchHistoryListByUserId(user.getUserId(), keyword, limit), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{userId}/avatar", method = RequestMethod.POST)
-	public ResponseEntity<Void> executeUploadAvatar(HttpServletRequest request, @PathVariable int userId,
+	@RequestMapping(value = "/avatar", method = RequestMethod.POST)
+	public ResponseEntity<Void> executeUploadAvatar(HttpServletRequest request,
 			@RequestParam("file") MultipartFile file) {
 		User user = (User) request.getSession().getAttribute("loggedInUser");
 		userService.updateUserAvatarPath(request, file, user);
