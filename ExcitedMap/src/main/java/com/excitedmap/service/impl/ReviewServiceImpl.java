@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.excitedmap.dao.ReviewMapperImpl;
@@ -37,6 +38,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional
 	public void addReview(ReviewImpl review) {
 		reviewDao.insertSelective(review);
 		List<ReviewPhoto> reviewPhotoList = review.getReviewPhotoList();
