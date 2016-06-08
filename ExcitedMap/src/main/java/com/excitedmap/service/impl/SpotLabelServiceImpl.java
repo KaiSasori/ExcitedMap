@@ -15,7 +15,6 @@ public class SpotLabelServiceImpl implements SpotLabelService {
 
 	@Override
 	public void addSpotLabel(SpotLabel spotLabel) {
-		spotLabel.setSpotLabelId(null);
 		spotLabelDao.insertSelective(spotLabel);
 	}
 

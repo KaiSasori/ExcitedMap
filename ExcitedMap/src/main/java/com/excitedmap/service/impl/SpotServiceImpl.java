@@ -95,7 +95,6 @@ public class SpotServiceImpl implements SpotService {
 
 	@Override
 	public void reportSpotError(SpotErrorReport spotErrorReport) {
-		spotErrorReport.setSpotErrorReportId(null);
 		spotErrorReportDao.insertSelective(spotErrorReport);
 	}
 

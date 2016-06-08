@@ -21,7 +21,6 @@ public class FootprintServiceImpl implements FootprintService {
 	}
 
 	public void addFootprint(Footprint footprint) throws DuplicateKeyException {
-		footprint.setFootprintId(null);
 		footprintDao.insertSelective(footprint);
 	}
 

@@ -21,7 +21,6 @@ public class WishServiceImpl implements WishService {
 	}
 
 	public void addWish(Wish wish) throws DuplicateKeyException {
-		wish.setWishId(null);
 		wishDao.insertSelective(wish);
 	}
 

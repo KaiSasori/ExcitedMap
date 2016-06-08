@@ -21,7 +21,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 	}
 
 	public void addFavorite(Favorite favorite) throws DuplicateKeyException {
-		favorite.setFavoriteId(null);
 		favoriteDao.insertSelective(favorite);
 	}
 

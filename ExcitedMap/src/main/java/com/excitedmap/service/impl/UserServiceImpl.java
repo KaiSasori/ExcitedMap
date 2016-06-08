@@ -71,7 +71,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void autoRegisterUser(String openId, String accessToken) {
 		User user = new User();
-		user.setUserId(null);
 		user.setUserName("请修改");
 		user.setUserEmail(openId);
 		user.setUserPassword(accessToken);
