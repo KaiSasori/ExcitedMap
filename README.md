@@ -20,4 +20,11 @@ A map that makes you Excited!
 由于大型工程要使用大量的依赖包，依靠手动下载各个包再手动添加到Build Path的方法不能满足组员们之间协作的需求，因为组员们使用不同的平台和不同的IDE。更重要的是，这样不易于在多平台上移植本项目，也不易于管理依赖包的版本。所以，本项目采用了Maven来管理依赖包。在[pom.xml](./ExcitedMap/pom.xml)中，通过添加需要的依赖包名字及其版本，Maven就可以自动通过Maven Central Repository获取到依赖包并添加到工程中。这样，就避免了依赖包和项目文件一起打包占用额外空间，而且代码在多平台上移植困难的问题。
 
 本项目中，组员们使用Github进行协作。一些组员第一次接触Github和git，在组员的互相帮助下，学会了Github和git的基本使用方法，为项目的顺利完成节约了大量的时间和精力。
+
+## 部署方式
++ 首先，在你的MySQL数据库中创建一个名为`ExcitedMap`的Database Schema，并导入[SQL表结构](./ExcitedMap.sql)到这个Schema中（更推荐导入[带演示数据的SQL表结构](./ExcitedMapWithData.sql)，便于演示网站功能），并在[配置文件](./ExcitedMap/src/main/resources/jdbc.properties)中设定好数据库连接地址、数据库用户名和密码。
++ 然后，用Java EE 版Eclipse将[ExcitedMap文件夹](./ExcitedMap)作为一个工程打开或导入。（请使用最新版Eclipse，这样可以不用另外安装Maven。）
++ 接着，可能需要让Maven下载项目的依赖包（在Eclipse中右击已导入的工程->Maven->Update Project）。
++ 最后，在Eclipse中打开[Application.java](./ExcitedMap/src/main/java/com/excitedmap/Application.java)，点击Run即可。
+
 ## 心得体会
