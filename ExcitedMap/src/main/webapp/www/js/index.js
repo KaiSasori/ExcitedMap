@@ -225,7 +225,7 @@ function showPrintSpot(index){
 	}
 }
 
-//线路规划
+//线路规划，目前会有不稳定错误，是百度api问题，不知如何解决
 function showManagementBetweenSpots(){
 	// 百度地图API功能
 	var map = new BMap.Map("manage_map");
@@ -236,6 +236,98 @@ function showManagementBetweenSpots(){
 	driving.search(start,end);
 }
 
+//search框功能
+var searchString = "wishCount";
+
+//判断根据什么条件搜索，默认是根据wish
+function searchStringNum(index){
+	console.log(index);
+	if (index == 1)
+		searchString = "averageReviewRating";
+	else if(index == 2)
+		searchString = "favoriteCount";
+	else if(index == 3)
+		searchString = "footprintCount";
+	else if(index == 4)
+		searchString = "wishCount";
+}
+
+//是否显示搜索结果
+function clearResult(){
+	console.log("2222222");
+	document.getElementById("keyword").innerHTML='';
+
+	document.getElementById("showSearchTable").innerHTML='';
+}
+
+//根据关键字进行搜索
+function doSearch(){
+	var keyword = $("#keyword").val();
+	console.log(keyword);
+
+	//清空div结果
+	var currentTable = document.getElementById("showSearchTable");
+	currentTable.innerHTML='';
+
+	var mode = 0;
+	if (searchString == "averageReviewRating")
+		mode = 1;
+	else if (searchString == "favoriteCount")
+		mode = 2;
+	else if (searchString == "footprintCount")
+		mode = 3;
+	else if (searchString == "wishCount")
+		mode = 4;
 
 
+	$.ajax({
+		type : "GET",
+		url : "/search/spotList?keyword="+ keyword +"&limit=3&orderby="+ searchString,
+		processData : false,
+		contentType : "application/json; charset=utf-8",
+		success : function(data) {// data is list<spot>
+			console.log("00990909090");
+            for(var i=0; i<data.length; i++){
+            	var spotId = data[i].spotId;
+            	var spotName = data[i].spotName;
 
+            	if (mode == 1){
+            		var Rating = data[i].averageReviewRating;
+            		var nameString = "评分：";
+                	// TODO
+                	addSearchResult(spotId, spotName, Rating, nameString);
+            	}
+            	else if(mode == 2){
+            		var Rating = data[i].spotFavoriteCount;
+            		var nameString = "收藏：";
+                	// TODO
+                	addSearchResult(spotId, spotName, Rating, nameString);
+            	}
+            	else if(mode == 3){
+            		var Rating = data[i].spotFootprintCount;
+            		var nameString = "足迹：";
+                	// TODO
+                	addSearchResult(spotId, spotName, Rating, nameString);
+            	}
+            	else if(mode == 4){
+            		var Rating = data[i].spotWishCount;
+            		var nameString = "心愿：";
+                	// TODO
+                	addSearchResult(spotId, spotName, Rating, nameString);
+            	}
+            }
+			//console.log(data);
+		},
+	});
+	
+}
+
+function addSearchResult(spotId, spotName, Rating, nameString){
+	var content = document.createElement('label');
+	content.setAttribute("class", "item item-input searchResult"); 
+    var contain = "";
+    contain='<div id="'+spotId+'">'+ spotName + " " + nameString + Rating +'</div>';
+    content.innerHTML=contain;
+    var resultTable = document.getElementById("showSearchTable");
+    resultTable.appendChild(content);
+}
