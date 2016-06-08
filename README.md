@@ -14,6 +14,7 @@ A map that makes you Excited!
 + Jackson JSON Processor可以自动双向转化后端的POJO和HTTP中的JSON对象，免去了手动序列化和反序列化POJO的繁复劳动，达到前后端的统一设计。
 + 本项目使用了[SimpleCaptcha](http://simplecaptcha.sourceforge.net/)验证码API。SimpleCaptcha具有使用简单、稳定性好、验证码强度高、无需调用第三方服务的优点。本项目使用含有英文与数字的图形验证码进行登陆验证，而且每个验证码只能被挑战一次，确保安全。
 + 本项目做到了良好的前后端分离。前端和后端之间用AJAX通信，服务器端不生成动态页面，前端通过调用后端RESTful API来增删查改资源。使用session（即cookie）作为权限认证的方法。对于无权访问的功能（如在没有登陆的情况下想要发表评论），后端将会返回合适的HTTP状态码（如`401 Unauthorized`）。
++ 本项目中，所有需要对数据库进行多步操作的业务逻辑都实现了原子化。比如，在[ReviewServiceImpl.java](./ExcitedMap/src/main/java/com/excitedmap/service/impl/ReviewServiceImpl.java#L41)中，`addReview`方法使用了由Spring提供的`@Transactional`注解，可以将一个方法中的所有数据库操作合并原子化。在复杂业务逻辑中，如果不这么做可能导致数据库产生不一致（inconsistency）。该注解的使用需要[配置事务管理](./ExcitedMap/src/main/resources/spring-mybatis.xml#L53)。
 
 ### 项目管理
 由于大型工程要使用大量的依赖包，依靠手动下载各个包再手动添加到Build Path的方法不能满足组员们之间协作的需求，因为组员们使用不同的平台和不同的IDE。更重要的是，这样不易于在多平台上移植本项目，也不易于管理依赖包的版本。所以，本项目采用了Maven来管理依赖包。在[pom.xml](./ExcitedMap/pom.xml)中，通过添加需要的依赖包名字及其版本，Maven就可以自动通过Maven Central Repository获取到依赖包并添加到工程中。这样，就避免了依赖包和项目文件一起打包占用额外空间，而且代码在多平台上移植困难的问题。
