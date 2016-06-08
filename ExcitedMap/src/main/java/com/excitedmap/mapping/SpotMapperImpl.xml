@@ -39,6 +39,14 @@
 	where spot_category_id = #{spotCategoryId}
   	order by review_rating_avg DESC LIMIT #{limit};
   </select>
+  <select id="selectByOrderByPopularity" resultMap="BaseResultMap" >
+  	select A.spot_id, spot_name, spot_category_id, (ifnull(spot_id_footprint_count,0)+ifnull(spot_id_wish_count,0)+ifnull(spot_id_favorite_count,0)) as spot_popularity from spot as A
+    left join (SELECT spot_id, COUNT(*) as spot_id_footprint_count from footprint GROUP BY spot_id) as B on A.spot_id = B.spot_id
+    left join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as C on A.spot_id = C.spot_id
+    left join (SELECT spot_id, COUNT(*) as spot_id_favorite_count from favorite GROUP BY spot_id) as D on A.spot_id = D.spot_id
+    where spot_category_id = #{spotCategoryId}
+    order by spot_popularity DESC LIMIT #{limit};
+  </select>
   <select id="selectBySpotNameKeywordOrderByPopularityWithLimit" resultMap="BaseResultMap" >
   	select A.spot_id, spot_name, spot_category_id, (ifnull(spot_id_footprint_count,0)+ifnull(spot_id_wish_count,0)+ifnull(spot_id_favorite_count,0)) as spot_popularity from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_footprint_count from footprint GROUP BY spot_id) as B on A.spot_id = B.spot_id
@@ -77,12 +85,10 @@
   <select id="selectReviewRatingCountForSpot" resultType="hashmap" >
   	select review_rating, count(*) as review_rating_count from review where spot_id = #{spotId} group by review_rating;
   </select>
-  <select id="selectByOrderByPopularity" resultMap="BaseResultMap" >
-  	select A.spot_id, spot_name, spot_category_id, (ifnull(spot_id_footprint_count,0)+ifnull(spot_id_wish_count,0)+ifnull(spot_id_favorite_count,0)) as spot_popularity from spot as A
-    left join (SELECT spot_id, COUNT(*) as spot_id_footprint_count from footprint GROUP BY spot_id) as B on A.spot_id = B.spot_id
-    left join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as C on A.spot_id = C.spot_id
-    left join (SELECT spot_id, COUNT(*) as spot_id_favorite_count from favorite GROUP BY spot_id) as D on A.spot_id = D.spot_id
-    where spot_category_id = #{spotCategoryId}
-    order by spot_popularity DESC LIMIT #{limit};
+  <select id="selectBySpotNameKeyword" resultType="BaseResultMap" >
+	select *
+    from spot
+    where spot_name like "%"#{keyword}"%"
+    LIMIT #{limit};
   </select>
 </mapper>

@@ -43,4 +43,6 @@ public interface SpotMapperImpl extends SpotMapper {
 	Double selectAverageReviewRatingForSpot(int spotId);
 
 	List<Map<String, Integer>> selectReviewRatingCountForSpot(int spotId);
+
+	List<SpotImpl> selectBySpotNameKeyword(@Param("keyword") String keyword, @Param("limit") int limit);
 }

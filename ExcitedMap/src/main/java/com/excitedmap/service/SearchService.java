@@ -18,4 +18,6 @@ public interface SearchService {
 
 	public List<SpotImpl> searchSpotByKeywordOrderByAverageReviewRatingWithLimit(String keyword, int limit);
 
+	List<SpotImpl> searchSpotByKeyword(String keyword, int limit);
+
 }

@@ -53,5 +53,10 @@ public class SearchServiceImpl implements SearchService {
 	public List<SpotImpl> searchSpotByKeywordOrderByAverageReviewRatingWithLimit(String keyword, int limit) {
 		return spotDao.selectBySpotNameKeywordOrderByAverageReviewRatingWithLimit(keyword, limit);
 	}
+	
+	@Override
+	public List<SpotImpl> searchSpotByKeyword(String keyword, int limit) {
+		return spotDao.selectBySpotNameKeyword(keyword, limit);
+	}
 
 }

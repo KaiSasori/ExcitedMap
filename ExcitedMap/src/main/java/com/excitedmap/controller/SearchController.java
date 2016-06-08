@@ -3,6 +3,7 @@ package com.excitedmap.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,24 +22,28 @@ public class SearchController {
 	private SearchService searchService;
 
 	@RequestMapping(value = "/spotList", method = RequestMethod.GET)
-	public ResponseEntity<List<SpotImpl>> executeSearchSpotByKeyword(@RequestParam String keyword,
-			@RequestParam int limit, @RequestParam String orderby) {
-		if (orderby.equals("averageReviewRating")) {
-			return new ResponseEntity<List<SpotImpl>>(
-					searchService.searchSpotByKeywordOrderByAverageReviewRatingWithLimit(keyword, limit),
-					HttpStatus.OK);
-		} else if (orderby.equals("wishCount")) {
-			return new ResponseEntity<List<SpotImpl>>(
-					searchService.searchSpotByKeywordOrderByWishCountWithLimit(keyword, limit), HttpStatus.OK);
-		} else if (orderby.equals("favoriteCount")) {
-			return new ResponseEntity<List<SpotImpl>>(
-					searchService.searchSpotByKeywordOrderByFavoriteCountWithLimit(keyword, limit), HttpStatus.OK);
-		} else if (orderby.equals("footprintCount")) {
-			return new ResponseEntity<List<SpotImpl>>(
-					searchService.searchSpotByKeywordOrderByFootprintCountWithLimit(keyword, limit), HttpStatus.OK);
-		} else if (orderby.equals("popularity")) {
-			return new ResponseEntity<List<SpotImpl>>(
-					searchService.searchSpotByKeywordOrderByPopularityWithLimit(keyword, limit), HttpStatus.OK);
+	public ResponseEntity<List<SpotImpl>> executeSearchSpotByKeyword(HttpServletRequest request,
+			@RequestParam String keyword, @RequestParam int limit, @RequestParam String orderby) {
+		if (orderby.equals("none")) {
+			return new ResponseEntity<List<SpotImpl>>(searchService.searchSpotByKeyword(keyword, limit), HttpStatus.OK);
+		} else {
+			if (orderby.equals("averageReviewRating")) {
+				return new ResponseEntity<List<SpotImpl>>(
+						searchService.searchSpotByKeywordOrderByAverageReviewRatingWithLimit(keyword, limit),
+						HttpStatus.OK);
+			} else if (orderby.equals("wishCount")) {
+				return new ResponseEntity<List<SpotImpl>>(
+						searchService.searchSpotByKeywordOrderByWishCountWithLimit(keyword, limit), HttpStatus.OK);
+			} else if (orderby.equals("favoriteCount")) {
+				return new ResponseEntity<List<SpotImpl>>(
+						searchService.searchSpotByKeywordOrderByFavoriteCountWithLimit(keyword, limit), HttpStatus.OK);
+			} else if (orderby.equals("footprintCount")) {
+				return new ResponseEntity<List<SpotImpl>>(
+						searchService.searchSpotByKeywordOrderByFootprintCountWithLimit(keyword, limit), HttpStatus.OK);
+			} else if (orderby.equals("popularity")) {
+				return new ResponseEntity<List<SpotImpl>>(
+						searchService.searchSpotByKeywordOrderByPopularityWithLimit(keyword, limit), HttpStatus.OK);
+			}
 		}
 		return new ResponseEntity<List<SpotImpl>>(HttpStatus.NOT_FOUND);
 	}
