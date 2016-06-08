@@ -20,4 +20,6 @@ public interface SearchService {
 
 	List<SpotImpl> searchSpotByKeyword(String keyword, int limit);
 
+	void addSearchHistory(int userId, String searchText);
+
 }

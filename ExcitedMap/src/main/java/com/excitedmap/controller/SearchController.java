@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.excitedmap.pojo.SpotImpl;
+import com.excitedmap.pojo.User;
 import com.excitedmap.service.SearchService;
 
 @RestController
@@ -27,6 +28,10 @@ public class SearchController {
 		if (orderby.equals("none")) {
 			return new ResponseEntity<List<SpotImpl>>(searchService.searchSpotByKeyword(keyword, limit), HttpStatus.OK);
 		} else {
+			User user = (User) request.getSession().getAttribute("loggedInUser");
+			if (user != null) {
+				searchService.addSearchHistory(user.getUserId(), keyword);
+			}
 			if (orderby.equals("averageReviewRating")) {
 				return new ResponseEntity<List<SpotImpl>>(
 						searchService.searchSpotByKeywordOrderByAverageReviewRatingWithLimit(keyword, limit),

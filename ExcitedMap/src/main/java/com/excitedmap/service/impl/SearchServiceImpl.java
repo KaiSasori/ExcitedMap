@@ -26,11 +26,6 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<SpotImpl> searchSpotByKeywordOrderByPopularityWithLimit(String keyword, int limit) {
-		// SearchHistory searchHistory = new SearchHistory();
-		// // 此处暂未设置userId.
-		// searchHistory.setUserId(null);
-		// searchHistory.setSearchText(keyword);
-		// searchHistoryDao.insertSelective(searchHistory);
 		return spotDao.selectBySpotNameKeywordOrderByPopularityWithLimit(keyword, limit);
 	}
 
@@ -53,10 +48,18 @@ public class SearchServiceImpl implements SearchService {
 	public List<SpotImpl> searchSpotByKeywordOrderByAverageReviewRatingWithLimit(String keyword, int limit) {
 		return spotDao.selectBySpotNameKeywordOrderByAverageReviewRatingWithLimit(keyword, limit);
 	}
-	
+
 	@Override
 	public List<SpotImpl> searchSpotByKeyword(String keyword, int limit) {
 		return spotDao.selectBySpotNameKeyword(keyword, limit);
+	}
+
+	@Override
+	public void addSearchHistory(int userId, String searchText) {
+		SearchHistory searchHistory = new SearchHistory();
+		searchHistory.setUserId(userId);
+		searchHistory.setSearchText(searchText);
+		searchHistoryDao.insertSelective(searchHistory);
 	}
 
 }
