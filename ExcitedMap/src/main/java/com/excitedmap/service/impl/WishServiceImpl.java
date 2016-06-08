@@ -16,14 +16,17 @@ public class WishServiceImpl implements WishService {
 	@Resource
 	private WishMapperImpl wishDao;
 
+	@Override
 	public List<Wish> getWishListByUserId(int userId) {
 		return wishDao.selectByUserId(userId);
 	}
 
+	@Override
 	public void addWish(Wish wish) throws DuplicateKeyException {
 		wishDao.insertSelective(wish);
 	}
 
+	@Override
 	public int deleteWish(Wish wish) {
 		return wishDao.deleteWish(wish);
 	}

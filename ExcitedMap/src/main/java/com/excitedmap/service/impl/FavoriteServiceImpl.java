@@ -16,14 +16,17 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Resource
 	private FavoriteMapperImpl favoriteDao;
 
+	@Override
 	public List<Favorite> getFavoriteListByUserId(int userId) {
 		return favoriteDao.selectByUserId(userId);
 	}
 
+	@Override
 	public void addFavorite(Favorite favorite) throws DuplicateKeyException {
 		favoriteDao.insertSelective(favorite);
 	}
 
+	@Override
 	public int deleteFavorite(Favorite favorite) {
 		return favoriteDao.deleteFavorite(favorite);
 	}
