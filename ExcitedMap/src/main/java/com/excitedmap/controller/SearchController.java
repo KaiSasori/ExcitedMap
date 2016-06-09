@@ -61,4 +61,17 @@ public class SearchController {
 		return new ResponseEntity<List<Spot>>(searchService.searchSpotByCoordinate(startCoordinateX, startCoordinateY,
 				endCoordinateX, endCoordinateY), HttpStatus.OK);
 	}
+
+	@RequestMapping(value = "/adjacentSpot", method = RequestMethod.GET)
+	public ResponseEntity<List<SpotImpl>> executeSearchAdjacentSpot(@RequestParam Double userCoordinateX,
+			@RequestParam Double userCoordinateY, @RequestParam Double radius, @RequestParam int limit,
+			@RequestParam String orderby) {
+		List<SpotImpl> spotList = searchService.searchSpotByUserCoordinate(userCoordinateX, userCoordinateY, radius,
+				limit, orderby);
+		if (spotList != null) {
+			return new ResponseEntity<List<SpotImpl>>(spotList, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<List<SpotImpl>>(HttpStatus.NOT_FOUND);
+		}
+	}
 }
