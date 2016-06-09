@@ -85,7 +85,7 @@
   <select id="selectReviewRatingCountForSpot" resultType="hashmap" >
   	select review_rating, count(*) as review_rating_count from review where spot_id = #{spotId} group by review_rating;
   </select>
-  <select id="selectBySpotNameKeyword" resultType="BaseResultMap" >
+  <select id="selectBySpotNameKeyword" resultMap="BaseResultMap" >
 	select *
     from spot
     where spot_name like "%"#{keyword}"%"
