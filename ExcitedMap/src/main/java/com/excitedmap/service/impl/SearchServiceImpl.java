@@ -73,4 +73,26 @@ public class SearchServiceImpl implements SearchService {
 		return spotDao.selectByCenterPointAndRadius(midCoordinateX, midCoordinateY, radius);
 	}
 
+	@Override
+	public List<SpotImpl> searchSpotByUserCoordinate(Double userCoordinateX, Double userCoordinateY, Double radius,
+			int limit, String orderby) {
+		if (orderby.equals("averageReviewRating")) {
+			return spotDao.selectByUserCenterPointAndRadiusOrderByAverageReviewRatingWithLimit(userCoordinateX,
+					userCoordinateY, radius, limit);
+		} else if (orderby.equals("wishCount")) {
+			return spotDao.selectByUserCenterPointAndRadiusOrderByWishCountWithLimit(userCoordinateX, userCoordinateY,
+					radius, limit);
+		} else if (orderby.equals("favoriteCount")) {
+			return spotDao.selectByUserCenterPointAndRadiusOrderByFavoriteCountWithLimit(userCoordinateX,
+					userCoordinateY, radius, limit);
+		} else if (orderby.equals("footprintCount")) {
+			return spotDao.selectByUserCenterPointAndRadiusOrderByFootprintCountWithLimit(userCoordinateX,
+					userCoordinateY, radius, limit);
+		} else if (orderby.equals("popularity")) {
+			return spotDao.selectByUserCenterPointAndRadiusOrderByPopularityWithLimit(userCoordinateX, userCoordinateY,
+					radius, limit);
+		}
+		return null;
+	}
+
 }

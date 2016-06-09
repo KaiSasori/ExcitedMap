@@ -26,4 +26,7 @@ public interface SearchService {
 	public List<Spot> searchSpotByCoordinate(Double startCoordinateX, Double startCoordinateY, Double endCoordinateX,
 			Double endCoordinateY);
 
+	public List<SpotImpl> searchSpotByUserCoordinate(Double userCoordinateX, Double userCoordinateY, Double radius,
+			int limit, String orderby);
+
 }

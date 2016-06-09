@@ -48,4 +48,24 @@ public interface SpotMapperImpl extends SpotMapper {
 
 	List<Spot> selectByCenterPointAndRadius(@Param("midCoordinateX") Double midCoordinateX,
 			@Param("midCoordinateY") Double midCoordinateY, @Param("radius") Double radius);
+
+	List<SpotImpl> selectByUserCenterPointAndRadiusOrderByAverageReviewRatingWithLimit(
+			@Param("userCoordinateX") Double userCoordinateX, @Param("userCoordinateY") Double userCoordinateY,
+			@Param("radius") Double radius, @Param("limit") int limit);
+
+	List<SpotImpl> selectByUserCenterPointAndRadiusOrderByWishCountWithLimit(
+			@Param("userCoordinateX") Double userCoordinateX, @Param("userCoordinateY") Double userCoordinateY,
+			@Param("radius") Double radius, @Param("limit") int limit);
+
+	List<SpotImpl> selectByUserCenterPointAndRadiusOrderByFavoriteCountWithLimit(
+			@Param("userCoordinateX") Double userCoordinateX, @Param("userCoordinateY") Double userCoordinateY,
+			@Param("radius") Double radius, @Param("limit") int limit);
+
+	List<SpotImpl> selectByUserCenterPointAndRadiusOrderByFootprintCountWithLimit(
+			@Param("userCoordinateX") Double userCoordinateX, @Param("userCoordinateY") Double userCoordinateY,
+			@Param("radius") Double radius, @Param("limit") int limit);
+
+	List<SpotImpl> selectByUserCenterPointAndRadiusOrderByPopularityWithLimit(
+			@Param("userCoordinateX") Double userCoordinateX, @Param("userCoordinateY") Double userCoordinateY,
+			@Param("radius") Double radius, @Param("limit") int limit);
 }
