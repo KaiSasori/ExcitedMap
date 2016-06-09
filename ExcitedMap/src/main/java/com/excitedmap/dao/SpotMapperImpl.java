@@ -45,4 +45,7 @@ public interface SpotMapperImpl extends SpotMapper {
 	List<Map<String, Integer>> selectReviewRatingCountForSpot(int spotId);
 
 	List<SpotImpl> selectBySpotNameKeyword(@Param("keyword") String keyword, @Param("limit") int limit);
+
+	List<Spot> selectByCenterPointAndRadius(@Param("midCoordinateX") Double midCoordinateX,
+			@Param("midCoordinateY") Double midCoordinateY, @Param("radius") Double radius);
 }

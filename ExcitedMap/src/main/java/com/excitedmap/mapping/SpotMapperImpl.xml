@@ -91,4 +91,7 @@
     where spot_name like "%"#{keyword}"%"
     LIMIT #{limit};
   </select>
+  <select id="selectByCenterPointAndRadius" resultMap="ResultMapWithBLOBs" >
+	select * from spot where ABS(spot_coordinate_x - #{midCoordinateX}) &lt;= #{radius} and ABS(spot_coordinate_y - #{midCoordinateY}) &lt;= #{radius};
+  </select>
 </mapper>

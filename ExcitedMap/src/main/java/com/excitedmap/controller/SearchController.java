@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.User;
 import com.excitedmap.service.SearchService;
@@ -51,5 +52,13 @@ public class SearchController {
 			}
 		}
 		return new ResponseEntity<List<SpotImpl>>(HttpStatus.NOT_FOUND);
+	}
+
+	@RequestMapping(value = "/routePlan", method = RequestMethod.GET)
+	public ResponseEntity<List<Spot>> executePlanRoute(@RequestParam Double startCoordinateX,
+			@RequestParam Double startCoordinateY, @RequestParam Double endCoordinateX,
+			@RequestParam Double endCoordinateY) {
+		return new ResponseEntity<List<Spot>>(searchService.searchSpotByCoordinate(startCoordinateX, startCoordinateY,
+				endCoordinateX, endCoordinateY), HttpStatus.OK);
 	}
 }

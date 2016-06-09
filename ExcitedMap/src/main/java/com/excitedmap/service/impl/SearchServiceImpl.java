@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.excitedmap.dao.SearchHistoryMapperImpl;
 import com.excitedmap.dao.SpotMapperImpl;
 import com.excitedmap.pojo.SearchHistory;
+import com.excitedmap.pojo.Spot;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.service.SearchService;
 
@@ -60,6 +61,16 @@ public class SearchServiceImpl implements SearchService {
 		searchHistory.setUserId(userId);
 		searchHistory.setSearchText(searchText);
 		searchHistoryDao.insertSelective(searchHistory);
+	}
+
+	@Override
+	public List<Spot> searchSpotByCoordinate(Double startCoordinateX, Double startCoordinateY, Double endCoordinateX,
+			Double endCoordinateY) {
+		Double midCoordinateX = (startCoordinateX + endCoordinateX) / 2;
+		Double midCoordinateY = (startCoordinateY + endCoordinateY) / 2;
+		Double radius = Math.sqrt(
+				(Math.pow(startCoordinateX - midCoordinateX, 2) + Math.pow(startCoordinateY - midCoordinateY, 2)));
+		return spotDao.selectByCenterPointAndRadius(midCoordinateX, midCoordinateY, radius);
 	}
 
 }
