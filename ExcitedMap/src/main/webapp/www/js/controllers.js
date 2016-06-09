@@ -93,3 +93,7 @@ angular.module('myApp.controllers', [])
         map.setCurrentCity("上海");
         map.enableScrollWheelZoom(true);
 })
+
+.controller('HistoryCtrl', function($scope) {
+
+})

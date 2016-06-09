@@ -1,3 +1,4 @@
+
 <ion-view title="Detail">
     <!--<ion-content class="padding">
         <h1>项目详情界面：</h1>
@@ -9,8 +10,33 @@
 
     <ion-content class="padding" id="detailmap"></ion-content>
 
-    <div class="button button-assertive" id="plus_button">
-        <div class="icon icon-mini ion-plus"></div>
+    <div id="plus_detail">
+        <div class="button button-assertive" onclick="if(document.getElementById('plus_pane').style.display=='none'){
+        document.getElementById('plus_pane').style.display='block';
+        }else{
+        document.getElementById('plus_pane').style.display='none';}">
+            描述
+        </div>
+
+        <div class="button button-assertive">
+            详细资料
+        </div>
+
+        <div class="button button-assertive">
+            评价
+        </div>
+
+        <div class="button button-assertive">
+            调查问卷
+        </div>
+
+        <div class="button button-assertive">
+            到这去
+        </div>
+
+        <div class="button button-assertive">
+            <div class="icon icon-mini ion-plus"></div>
+        </div>
     </div>
 
     <ion-scroll zooming="true" direction="xy" id="plus_pane">

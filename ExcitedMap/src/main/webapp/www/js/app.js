@@ -143,6 +143,25 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
                     controller: 'ManagementCtrl'
                 }
             }
+        })
+
+        .state('tabs.history',{
+            url:'/history',
+            views: {
+                'menuContent': {
+                    templateUrl: "partials/history.html",
+                    controller: 'HistoryCtrl'
+                }
+            }
+        })
+
+        .state('tabs.about',{
+            url:'/about',
+            views: {
+                'menuContent': {
+                    templateUrl: "partials/about.html"
+                }
+            }
         });
         $urlRouterProvider.otherwise('/');
 });
