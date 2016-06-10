@@ -9,12 +9,7 @@
         <div class="list list-inset" >
             <label class="item item-input radio-inline">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input id="keyword" type="text" placeholder="Search"></br>
-                <button onclick="clearResult()">清空</button>
-                <ion-radio ng-model="choice" onclick="searchStringNum(1)">按评分</ion-radio>
-                <ion-radio ng-model="choice" onclick="searchStringNum(2)">按收藏</ion-radio>
-                <ion-radio ng-model="choice" onclick="searchStringNum(3)">按足迹</ion-radio>
-                <ion-radio ng-model="choice" onclick="searchStringNum(4)">按心愿</ion-radio>
+                <input type="text" placeholder="Search"></br>
             </label>
             <div id="showSearchTable">
                 
@@ -31,7 +26,7 @@
         </div>
     </div>
 
-    <button class="button button-positive list-button" onclick="doSearch()">
+    <button class="button button-positive list-button" onclick="">
         Search
     </button>
     <ion-content class="padding" id="allmap">

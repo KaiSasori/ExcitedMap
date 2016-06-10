@@ -95,5 +95,10 @@ angular.module('myApp.controllers', [])
 })
 
 .controller('HistoryCtrl', function($scope) {
-
+        //添加搜索框监听
+        $("#keyword").on("keyup", function() {
+            if((event.keyCode!=38)&&(event.keyCode!=40)&&(event.keyCode!=13)){    //判断键盘事件，抛弃上下键跟回车键
+                autoCom();
+            }
+        });
 })

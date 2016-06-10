@@ -4,30 +4,38 @@
             <div class="history_search">
                 <label class="item item-input radio-inline">
                     <i class="icon ion-search placeholder-icon"></i>
-                    <input type="text" placeholder="Search">
+                    <input id="keyword" type="text" placeholder="Search">
                 </label>
+                <div id="searchSuggest">
+                <ul>
+                </ul>
+                </div>
             </div>
-            <button class="button button-positive history_button">
+            <button class="button button-positive history_button" onclick="doSearch()">
                 Search
             </button>
+            
         </div>
 
         <div style="display: flex;margin: 15px">
-            <ion-radio ng-model="choice" onclick="">按评分</ion-radio>
-            <ion-radio ng-model="choice" onclick="">按收藏</ion-radio>
-            <ion-radio ng-model="choice" onclick="">按足迹</ion-radio>
-            <ion-radio ng-model="choice" onclick="">按心愿</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(1)">按评分</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(2)">按收藏</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(3)">按足迹</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(4)">按心愿</ion-radio>
         </div>
 
         <div>
             <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                <p>history 1</p>
+                <p id="searchSpotName1"></p>
+                <p id="searchSpotNum1"></p>
             </ion-item>
             <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                <p>history 2</p>
+                <p id="searchSpotName2"></p>
+                <p id="searchSpotNum2"></p>
             </ion-item>
             <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                <p>history 3</p>
+                <p id="searchSpotName3"></p>
+                <p id="searchSpotNum3"></p>
             </ion-item>
         </div>
     </div>
