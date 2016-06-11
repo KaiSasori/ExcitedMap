@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.excitedmap.dao.SearchHistoryMapperImpl;
@@ -60,7 +61,10 @@ public class SearchServiceImpl implements SearchService {
 		SearchHistory searchHistory = new SearchHistory();
 		searchHistory.setUserId(userId);
 		searchHistory.setSearchText(searchText);
-		searchHistoryDao.insertSelective(searchHistory);
+		try {
+			searchHistoryDao.insertSelective(searchHistory);
+		} catch (DuplicateKeyException e) {
+		}
 	}
 
 	@Override

@@ -130,3 +130,4 @@ CREATE TABLE `spot_error_report` (
 ALTER TABLE wish ADD CONSTRAINT unique_constraint UNIQUE (user_id,spot_id);
 ALTER TABLE favorite ADD CONSTRAINT unique_constraint UNIQUE (user_id,spot_id);
 ALTER TABLE footprint ADD CONSTRAINT unique_constraint UNIQUE (user_id,spot_id);
+ALTER TABLE search_history ADD CONSTRAINT unique_constraint UNIQUE (user_id,search_text);
