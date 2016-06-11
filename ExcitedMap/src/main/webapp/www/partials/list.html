@@ -7,11 +7,10 @@
             <ion-nav-view name="tab-dash2" ></ion-nav-view>
         </ion-tab>
 
-        <ion-tab title="江湾景点">
-            <ion-nav-view name="tab-dash3"></ion-nav-view>
-        </ion-tab>
-
         <ion-tab title="POPOVER" icon="icon icon-mini ion-arrow-down-c" ng-click="popover.show($event)"></ion-tab>
 
+        <ion-tab title="搜索" on-select="listSpots()">
+            <button></button>
+        </ion-tab>
     </ion-tabs>
 </ion-view>
