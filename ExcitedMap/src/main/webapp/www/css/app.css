@@ -55,7 +55,7 @@
     box-shadow:0 3px 25px black;
 }
 
-#detailmap{
+#detailmap,#command_map,#here_map{
     margin:12px;
     margin-bottom: 60px;
     box-shadow:0 3px 25px black;
@@ -95,8 +95,32 @@
     border: 5px solid cornflowerblue;
 }
 
-#detail_des{
+#command_pane{
+    position: absolute;
+    height: 100px;
+    right:30px;
+    left:30px;
+    bottom: 70px;
     background-color: #ffffff;
+    border: 5px solid cornflowerblue;
+}
+
+#question_pane,#detail_pane,#add_pane{
+    display: none;
+    background-color: #ffffff;
+    position: absolute;
+    height: 300px;
+    right:30px;
+    left:30px;
+    bottom: 70px;
+
+    border: 5px solid cornflowerblue;
+}
+.detail_des{
+    background-color: #ffffff;
+}
+.detail_pic{
+    height: 200px;
 }
 
 .choice{
@@ -200,4 +224,9 @@ ul.rating li.five a:hover {background-position:0 -160px}
     margin-left: 15px;
     margin-right: 15px;
     width: 1000px;
+}
+
+/*detail*/
+.flex_star{
+    display: flex;
 }

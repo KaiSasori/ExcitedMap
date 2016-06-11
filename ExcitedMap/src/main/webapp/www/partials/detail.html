@@ -13,61 +13,115 @@
     <div id="plus_detail">
         <div class="button button-assertive" onclick="if(document.getElementById('plus_pane').style.display=='none'){
         document.getElementById('plus_pane').style.display='block';
+        document.getElementById('detail_pane').style.display='none';
+        document.getElementById('question_pane').style.display='none';
+        document.getElementById('add_pane').style.display='none';
         }else{
         document.getElementById('plus_pane').style.display='none';}">
             描述
         </div>
 
-        <div class="button button-assertive">
+        <div class="button button-assertive" onclick="if(document.getElementById('detail_pane').style.display=='block'){
+        document.getElementById('detail_pane').style.display='none';
+        }else{
+        document.getElementById('detail_pane').style.display='block';
+        document.getElementById('plus_pane').style.display='none';
+        document.getElementById('question_pane').style.display='none';
+        document.getElementById('add_pane').style.display='none';}">
             详细资料
         </div>
 
-        <div class="button button-assertive">
+        <div class="button button-assertive" ui-sref="tabs.list.command">
             评价
         </div>
 
-        <div class="button button-assertive">
+        <div class="button button-assertive" onclick="if(document.getElementById('question_pane').style.display=='block'){
+        document.getElementById('question_pane').style.display='none';
+        }else{
+        document.getElementById('question_pane').style.display='block';
+        document.getElementById('plus_pane').style.display='none';
+        document.getElementById('detail_pane').style.display='none';
+        document.getElementById('add_pane').style.display='none';}">
             调查问卷
         </div>
 
-        <div class="button button-assertive">
+        <div class="button button-assertive" ui-sref="tabs.list.here">
             到这去
         </div>
 
-        <div class="button button-assertive">
+        <div class="button button-assertive" onclick="if(document.getElementById('add_pane').style.display=='block'){
+        document.getElementById('add_pane').style.display='none';
+        }else{
+        document.getElementById('add_pane').style.display='block';
+        document.getElementById('plus_pane').style.display='none';
+        document.getElementById('detail_pane').style.display='none';
+        document.getElementById('question_pane').style.display='none';}">
             <div class="icon icon-mini ion-plus"></div>
         </div>
     </div>
 
     <ion-scroll zooming="true" direction="xy" id="plus_pane">
-        <div id="detail_des">
+        <div class="detail_des">
             <div class="choice" style="height: 300px">
                 <button class="button button-positive">+ 收藏</button>
                 <button class="button button-positive">+ 分享</button>
                 <button class="button button-positive">+ 足迹</button>
                 <button class="button button-positive">+ 心愿单</button>
 
-                <ul class="rating onestar">
-                    <li class="one"><a href="#" title="1 Star">1</a></li>
-                    <li class="two"><a href="#" title="2 Stars">2</a></li>
-                    <li class="three"><a href="#" title="3 Stars">3</a></li>
-                    <li class="four"><a href="#" title="4 Stars">4</a></li>
-                    <li class="five"><a href="#" title="5 Stars">5</a></li>
-                </ul>
-                <ul class="rating twostar">
-                    <li class="one"><a href="#" title="1 Star">1</a></li>
-                    <li class="two"><a href="#" title="2 Stars">2</a></li>
-                    <li class="three"><a href="#" title="3 Stars">3</a></li>
-                    <li class="four"><a href="#" title="4 Stars">4</a></li>
-                    <li class="five"><a href="#" title="5 Stars">5</a></li>
-                </ul>
-                <ul class="rating threestar">
-                    <li class="one"><a href="#" title="1 Star">1</a></li>
-                    <li class="two"><a href="#" title="2 Stars">2</a></li>
-                    <li class="three"><a href="#" title="3 Stars">3</a></li>
-                    <li class="four"><a href="#" title="4 Stars">4</a></li>
-                    <li class="five"><a href="#" title="5 Stars">5</a></li>
-                </ul>
+                <div class="flex_star">
+                    <ul class="rating onestar">
+                        <li class="one"><a href="" title="1 Star">1</a></li>
+                        <li class="two"><a href="" title="2 Stars">2</a></li>
+                        <li class="three"><a href="" title="3 Stars">3</a></li>
+                        <li class="four"><a href="" title="4 Stars">4</a></li>
+                        <li class="five"><a href="" title="5 Stars">5</a></li>
+                    </ul>
+                    <div>313</div>
+                </div>
+
+                <div class="flex_star">
+                    <ul class="rating twostar">
+                        <li class="one"><a href="" title="1 Star">1</a></li>
+                        <li class="two"><a href="" title="2 Stars">2</a></li>
+                        <li class="three"><a href="" title="3 Stars">3</a></li>
+                        <li class="four"><a href="" title="4 Stars">4</a></li>
+                        <li class="five"><a href="" title="5 Stars">5</a></li>
+                    </ul>
+                    <div>32</div>
+                </div>
+
+                <div class="flex_star">
+                    <ul class="rating threestar">
+                        <li class="one"><a href="" title="1 Star">1</a></li>
+                        <li class="two"><a href="" title="2 Stars">2</a></li>
+                        <li class="three"><a href="" title="3 Stars">3</a></li>
+                        <li class="four"><a href="" title="4 Stars">4</a></li>
+                        <li class="five"><a href="" title="5 Stars">5</a></li>
+                    </ul>
+                    <div>423</div>
+                </div>
+
+                <div class="flex_star">
+                    <ul class="rating fourstar">
+                        <li class="one"><a href="" title="1 Star">1</a></li>
+                        <li class="two"><a href="" title="2 Stars">2</a></li>
+                        <li class="three"><a href="" title="3 Stars">3</a></li>
+                        <li class="four"><a href="" title="4 Stars">4</a></li>
+                        <li class="five"><a href="" title="5 Stars">5</a></li>
+                    </ul>
+                    <div>664</div>
+                </div>
+
+                <div class="flex_star">
+                    <ul class="rating fivestar">
+                        <li class="one"><a href="" title="1 Star">1</a></li>
+                        <li class="two"><a href="" title="2 Stars">2</a></li>
+                        <li class="three"><a href="" title="3 Stars">3</a></li>
+                        <li class="four"><a href="" title="4 Stars">4</a></li>
+                        <li class="five"><a href="" title="5 Stars">5</a></li>
+                    </ul>
+                    <div>555</div>
+                </div>
 
             </div>
             <div class="information">
@@ -79,5 +133,91 @@
         </div>
     </ion-scroll>
 
+    <div id="add_pane">
+        <div class="flex_star">
+            <div>评价：</div>
+            <ul class="rating zerostar" id="zero_star">
+                <li class="one"><a href="" title="1 Star" onclick="document.getElementById('zero_star').className='rating onestar'">1</a></li>
+                <li class="two"><a href="" title="2 Stars" onclick="document.getElementById('zero_star').className='rating twostar'">2</a></li>
+                <li class="three"><a href="" title="3 Stars" onclick="document.getElementById('zero_star').className='rating threestar'">3</a></li>
+                <li class="four"><a href="" title="4 Stars" onclick="document.getElementById('zero_star').className='rating fourstar'">4</a></li>
+                <li class="five"><a href="" title="5 Stars" onclick="document.getElementById('zero_star').className='rating fivestar'">5</a></li>
+            </ul>
+        </div>
+
+        <div  style="padding: 15px">
+            <label class="item item-input">
+                <input type="text" placeholder="评论" >
+            </label>
+        </div>
+
+        <div class="button button-positive">
+            <div class="icon icon-mini ion-plus"></div>
+        </div>
+
+        <div class="button button-positive">提交</div>
+    </div>
+
+    <ion-scroll zooming="true" direction="xy" id="question_pane">
+        <div class="list">
+            <div class="item item-divider"><b>1.请问该景点分类是否正确？</b></div>
+            <label class="item item-radio">
+                <input type="radio" name="group">
+                <div class="item-content">是</div>
+                <i class="radio-icon ion-checkmark assertive"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="group">
+                <div class="item-content">否</div>
+                <i class="radio-icon ion-checkmark assertive"></i>
+            </label>
+        </div>
+        <div class="list">
+            <div class="item item-divider"><b>2.请问该景点是否满意？</b></div>
+            <label class="item item-radio">
+                <input type="radio" name="group2">
+                <div class="item-content">非常满意</div>
+                <i class="radio-icon ion-checkmark assertive"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="group2">
+                <div class="item-content">比较满意</div>
+                <i class="radio-icon ion-checkmark assertive"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="group2">
+                <div class="item-content">不太满意</div>
+                <i class="radio-icon ion-checkmark assertive"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="group2">
+                <div class="item-content">很不满意</div>
+                <i class="radio-icon ion-checkmark assertive"></i>
+            </label>
+        </div>
+        <button class="button button-block button-positive">提交</button>
+    </ion-scroll>
+
+    <ion-scroll zooming="true" direction="xy" id="detail_pane">
+        <div class="detail_des">
+            <div class="choice" style="height: 300px">
+                <button class="button button-positive">收藏</button>
+                <button class="button button-positive">分享</button>
+                <button class="button button-positive">+ 足迹</button>
+                <button class="button button-positive">+ 心愿单</button>
+                <button class="button button-positive">报错</button>
+                <div>
+                    <img src="img/xie.jpg" class="detail_pic">
+                    <img src="img/xie.jpg" class="detail_pic">
+                </div>
+            </div>
+            <div class="information">
+                <p>基本信息</p>
+            </div>
+            <div class="command" style="height: 300px">
+                <p>详细介绍</p>
+            </div>
+        </div>
+    </ion-scroll>
 </ion-view>
 

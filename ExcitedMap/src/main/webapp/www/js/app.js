@@ -50,6 +50,16 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
             authStatus: false
         })
 
+        .state('tabs.mine', {
+            url: "/mine",
+            views: {
+                'menuContent': {
+                    templateUrl: "partials/mine.html"
+                }
+            },
+            authStatus: false
+        })
+
         .state('tabs.register', {
             url: "/register",
             views: {
@@ -121,6 +131,26 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
                 'tab-dash1': {
                     templateUrl: "partials/detail.html",
                     controller: 'DetailCtrl'
+                }
+            }
+        })
+
+        .state('tabs.list.command', {
+            url: "/command",
+            views: {
+                'tab-dash1': {
+                    templateUrl: "partials/command.html",
+                    controller: 'CommandCtrl'
+                }
+            }
+        })
+
+        .state('tabs.list.here', {
+            url: "/here",
+            views: {
+                'tab-dash1': {
+                    templateUrl: "partials/here.html",
+                    controller: 'HereCtrl'
                 }
             }
         })

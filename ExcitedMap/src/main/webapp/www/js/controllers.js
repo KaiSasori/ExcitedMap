@@ -48,7 +48,7 @@ angular.module('myApp.controllers', [])
             }
 
             if(user.username=='gjk' && user.password=='gjk'){
-                $location.path('/tab/home');
+                $location.path('/tab/mine');
             }else{
                 $scope.showAlert('Invalid username or password.');
             }
@@ -101,4 +101,23 @@ angular.module('myApp.controllers', [])
                 autoCom();
             }
         });
+})
+
+.controller('CommandCtrl', function($scope) {
+
+        // 百度地图API功能
+        var map = new BMap.Map("command_map");
+        map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+        map.addControl(new BMap.MapTypeControl());
+        map.setCurrentCity("上海");
+        map.enableScrollWheelZoom(true);
+})
+
+.controller('HereCtrl', function($scope) {
+
+        // 百度地图API功能
+        var map = new BMap.Map("here_map");
+        map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+        map.addControl(new BMap.MapTypeControl());
+        map.setCurrentCity("上海");
 })
