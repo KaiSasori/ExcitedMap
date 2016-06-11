@@ -11,7 +11,7 @@
                 </ul>
                 </div>
             </div>
-            <button class="button button-positive history_button" onclick="doSearch()">
+            <button class="button button-positive history_button" ng-click="doSearch()">
                 Search
             </button>
             
@@ -24,19 +24,8 @@
             <ion-radio ng-model="choice" onclick="searchStringNum(4)">按心愿</ion-radio>
         </div>
 
-        <div>
-            <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                <p id="searchSpotName1"></p>
-                <p id="searchSpotNum1"></p>
-            </ion-item>
-            <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                <p id="searchSpotName2"></p>
-                <p id="searchSpotNum2"></p>
-            </ion-item>
-            <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                <p id="searchSpotName3"></p>
-                <p id="searchSpotNum3"></p>
-            </ion-item>
-        </div>
+        
+            <ion-nav-view name="history_detail" ></ion-nav-view>
+        
     </div>
 </ion-view>

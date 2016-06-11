@@ -185,6 +185,15 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
             }
         })
 
+        .state('tabs.history.detail_list2',{
+            url:'/detail_list2',
+            views: {
+                'history_detail': {
+                    templateUrl: "partials/detail_list2.html"
+                }
+            }
+        })
+
         .state('tabs.about',{
             url:'/about',
             views: {

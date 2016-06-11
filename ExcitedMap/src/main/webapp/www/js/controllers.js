@@ -354,9 +354,80 @@ angular.module('myApp.controllers', [])
             });
         };
 
+        //历史搜索页面的显示
+        //根据关键字进行搜索
+        $scope.doSearch = function(){
+            $scope.spotList = [];
+
+            var keyword = $("#keyword").val();
+            console.log(keyword);
+
+            var mode = 0;
+            if (searchString == "averageReviewRating")
+                mode = 1;
+            else if (searchString == "favoriteCount")
+                mode = 2;
+            else if (searchString == "footprintCount")
+                mode = 3;
+            else if (searchString == "wishCount")
+                mode = 4;
+
+
+            $.ajax({
+                type : "GET",
+                url : "/search/spotList?keyword="+ keyword +"&limit=3&orderby="+ searchString,
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log("00990909090");
+                    console.log(keyword + " " + searchString);
+                    console.log(data);
+                    for(var i=0; i<data.length; i++){
+                        var spot = {};
+                        spot.spotId = data[i].spotId;
+                        spot.spotName = data[i].spotName;
+                        //console.log(spotName);
+                        if (mode == 1){
+                            spot.rating = data[i].averageReviewRating;
+                            spot.nameString = "评分：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(mode == 2){
+                            spot.rating = data[i].spotFavoriteCount;
+                            spot.nameString = "收藏：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(mode == 3){
+                            spot.rating = data[i].spotFootprintCount;
+                            spot.nameString = "足迹：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(mode == 4){
+                            spot.rating = data[i].spotWishCount;
+                            spot.nameString = "心愿：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                    }
+                    //console.log(data);
+                    $state.go('tabs.history.detail_list2');
+                },
+            });
+    
+        };
+
+
+
+
+
+
         $scope.goSpot = function(spot){
             console.log("yyyyyy");
             console.log(spot.spotId);
+            $state.go('tabs.list.detail');
         };
 
 
@@ -408,7 +479,6 @@ angular.module('myApp.controllers', [])
             }
         });
 })
-<<<<<<< Updated upstream
 
 .controller('CommandCtrl', function($scope) {
 
@@ -428,5 +498,3 @@ angular.module('myApp.controllers', [])
         map.addControl(new BMap.MapTypeControl());
         map.setCurrentCity("上海");
 })
-=======
->>>>>>> Stashed changes
