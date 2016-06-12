@@ -165,43 +165,30 @@
     </div>
 
     <ion-scroll zooming="true" direction="xy" id="question_pane">
-        <div class="list">
-            <div class="item item-divider"><b>1.请问该景点分类是否正确？</b></div>
+        <div class="list" ng-repeat="question in questionnaireList.spotQuestionList track by $index ">
+            <div class="item item-divider"><b>{{question.spotQuestionId}}.{{question.spotQuestionContent}}</b></div>
             <label class="item item-radio">
-                <input type="radio" name="group">
-                <div class="item-content">是</div>
+                <input type="radio" name="group{{question.spotQuestionId}}" value="1">
+                <div class="item-content">{{question.spotQuestionChoiceContent1}}</div>
                 <i class="radio-icon ion-checkmark assertive"></i>
             </label>
             <label class="item item-radio">
-                <input type="radio" name="group">
-                <div class="item-content">否</div>
-                <i class="radio-icon ion-checkmark assertive"></i>
-            </label>
-        </div>
-        <div class="list">
-            <div class="item item-divider"><b>2.请问该景点是否满意？</b></div>
-            <label class="item item-radio">
-                <input type="radio" name="group2">
-                <div class="item-content">非常满意</div>
+                <input type="radio" name="group{{question.spotQuestionId}}" value="2">
+                <div class="item-content">{{question.spotQuestionChoiceContent2}}</div>
                 <i class="radio-icon ion-checkmark assertive"></i>
             </label>
             <label class="item item-radio">
-                <input type="radio" name="group2">
-                <div class="item-content">比较满意</div>
+                <input type="radio" name="group{{question.spotQuestionId}}" value="3">
+                <div class="item-content">{{question.spotQuestionChoiceContent3}}</div>
                 <i class="radio-icon ion-checkmark assertive"></i>
             </label>
             <label class="item item-radio">
-                <input type="radio" name="group2">
-                <div class="item-content">不太满意</div>
-                <i class="radio-icon ion-checkmark assertive"></i>
-            </label>
-            <label class="item item-radio">
-                <input type="radio" name="group2">
-                <div class="item-content">很不满意</div>
+                <input type="radio" name="group{{question.spotQuestionId}}" value="4">
+                <div class="item-content">{{question.spotQuestionChoiceContent4}}</div>
                 <i class="radio-icon ion-checkmark assertive"></i>
             </label>
         </div>
-        <button class="button button-block button-positive">提交</button>
+        <button class="button button-block button-positive" ng-click="submitQuestionAnswer()">提交</button>
     </ion-scroll>
 
     <ion-scroll zooming="true" direction="xy" id="detail_pane">

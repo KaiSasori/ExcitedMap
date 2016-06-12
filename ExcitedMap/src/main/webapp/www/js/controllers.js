@@ -450,7 +450,10 @@ angular.module('myApp.controllers', [])
             console.log(spot.spotName);
             console.log(spot.spotDescription);
             
-
+            //获取景点问卷
+            $scope.questionnaireList = {};
+            $scope.questionnaireList.spotQuestionList = [];
+            $scope.getSpotQuestionnaireList(spot.spotId);
             //跳转到具体景观页面
             $state.go('tabs.list.detail');
 
@@ -465,9 +468,8 @@ angular.module('myApp.controllers', [])
             $scope.spotDetailList = {};
             $scope.getSpotDetail(spot.spotId);
             //获取其他用户评价
-            //$scope.spotReviewList = [];
             $scope.getSpotReviewList(spot.spotId);
-            //console.log($scope.spotReviewList);
+            
         };
 
         $scope.getReviewRating = function(thisspotId){
@@ -530,8 +532,8 @@ angular.module('myApp.controllers', [])
             });
         };
 
+        //获取其他用户评论
         $scope.getSpotReviewList = function(thisspotId){
-            $scope.spotReviewList = [];
             $.ajax({
                 type : "GET",
                 url : "/spot/"+thisspotId+"/reviewList",
@@ -551,7 +553,86 @@ angular.module('myApp.controllers', [])
             });
         };
 
+        //获取本景点问卷id
+        $scope.getSpotQuestionnaireList = function(thisspotId){
+            $.ajax({
+                type : "GET",
+                url : "/spot/"+thisspotId+"/questionnaireList",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log(data);
+                    $scope.questionnaireList = {};
+                    if (data != []){
+                        $scope.questionnaireList.spotQuestionnaireId = data[0].spotQuestionnaireId;
+                        console.log("id : "+ data[0].spotQuestionnaireId);
+                        $scope.questionnaireList.spotQuestionnaireTitle = data[0].spotQuestionnaireTitle;
+                        $scope.questionnaireList.spotQuestionnaireDescription = data[0].spotQuestionnaireDescription;
 
+                        $scope.getSpotQuestionnaireQuestionList($scope.questionnaireList.spotQuestionnaireId);
+                        console.log("问卷id："+$scope.questionnaireList.spotQuestionnaireId);
+                    }
+                },
+            });
+        };
+        
+        //获取景点问卷题目
+        $scope.getSpotQuestionnaireQuestionList = function(thisquestionnaireId){
+            $.ajax({
+                type : "GET",
+                url : "/spotQuestionnaire/"+thisquestionnaireId+"/questionList",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log(data);
+                    $scope.questionnaireList.spotQuestionList = [];
+                    $scope.questionnaireList.spotQuestionnaireLength = data.length;
+                    for(var i=0; i<data.length; i++){
+                        var questionList = {};
+                        questionList.spotQuestionId = data[i].spotQuestionId;
+                        questionList.spotQuestionContent = data[i].spotQuestionContent;
+                        questionList.spotQuestionChoiceContent1 = data[i].spotQuestionChoiceContent1;
+                        questionList.spotQuestionChoiceContent2 = data[i].spotQuestionChoiceContent2;
+                        questionList.spotQuestionChoiceContent3 = data[i].spotQuestionChoiceContent3;
+                        questionList.spotQuestionChoiceContent4 = data[i].spotQuestionChoiceContent4;
+                        $scope.questionnaireList.spotQuestionList.push(questionList);
+                    }
+                    console.log("12121212");
+                    console.log($scope.questionnaireList.spotQuestionList);
+                },
+            });
+        };
+
+
+        //提交问题答案
+        $scope.submitQuestionAnswer = function(){
+            var answer1 =$('input:radio[name="group1"]:checked').val();
+            var answer2 =$('input:radio[name="group2"]:checked').val();
+            if (answer1 != undefined && answer2 != undefined){
+                var answerListLength = $scope.questionnaireList.spotQuestionnaireLength;
+                console.log("no choice " + $scope.questionnaireList.spotQuestionList[0].spotQuestionId);
+                var answerList = [];
+                for (var i=0; i<answerListLength;i++){
+                    var answer = {};
+                    answer.spotQuestionId = $scope.questionnaireList.spotQuestionList[i].spotQuestionId;
+                    answer.choice = $('input:radio[name="group'+$scope.questionnaireList.spotQuestionList[i].spotQuestionId+'"]:checked').val();;
+                    answerList.push(answer);
+                }
+                $.ajax({
+                    type : "PUT",
+                    url : "/spotQuestionAnswer",
+                    data : JSON.stringify(answerList),
+                    contentType : "application/json; charset=utf-8",
+                    dataType : "json",
+                    success : function(data) {
+                        console.log("answer submit!");
+                    },
+                });
+            }
+            else{
+                alert("请填写完问卷再提交！");
+            }
+        }
 
 })
 
