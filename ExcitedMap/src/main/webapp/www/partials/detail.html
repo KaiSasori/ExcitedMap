@@ -63,10 +63,9 @@
     <ion-scroll zooming="true" direction="xy" id="plus_pane">
         <div class="detail_des">
             <div class="choice" style="height: 300px">
-                <button class="button button-positive">+ 收藏</button>
-                <button class="button button-positive">+ 分享</button>
-                <button class="button button-positive">+ 足迹</button>
-                <button class="button button-positive">+ 心愿单</button>
+                <button class="button button-positive" ng-click="addFavorite()">{{addFavoriteButton}}</button>
+                <button class="button button-positive" ng-click="addFootprint()">{{addFootprintButton}}</button>
+                <button class="button button-positive" ng-click="addWish()">{{addWishButton}}</button>
 
                 <div class="flex_star">
                     <ul class="rating onestar">
@@ -194,10 +193,9 @@
     <ion-scroll zooming="true" direction="xy" id="detail_pane">
         <div class="detail_des">
             <div class="choice" style="height: 300px">
-                <button class="button button-positive">收藏</button>
-                <button class="button button-positive">分享</button>
-                <button class="button button-positive">+ 足迹</button>
-                <button class="button button-positive">+ 心愿单</button>
+                <button class="button button-positive" ng-click="addFavorite()">{{addFavoriteButton}}</button>
+                <button class="button button-positive" ng-click="addFootprint()">{{addFootprintButton}}</button>
+                <button class="button button-positive" ng-click="addWish()">{{addWishButton}}</button>
                 <button class="button button-positive">报错</button>
                 <div>
                     <img src="img/fdu1.jpg" class="detail_pic">

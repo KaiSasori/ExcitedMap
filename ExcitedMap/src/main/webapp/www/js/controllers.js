@@ -457,9 +457,13 @@ angular.module('myApp.controllers', [])
             //跳转到具体景观页面
             $state.go('tabs.list.detail');
 
+            $scope.spotId = spot.spotId;
             $scope.spotName = spot.spotName;
             $scope.spotDescription = spot.spotDescription;
 
+            $scope.addFavoriteButton = "+ 收藏";
+            $scope.addFootprintButton = "+ 足迹";
+            $scope.addWishButton = "+ 心愿单";
 
 
             //获取该地点评分列表
@@ -562,8 +566,9 @@ angular.module('myApp.controllers', [])
                 contentType : "application/json; charset=utf-8",
                 success : function(data) {// data is list<spot>
                     console.log(data);
+                    console.log($.isEmptyObject(data));
                     $scope.questionnaireList = {};
-                    if (data != []){
+                    if (!$.isEmptyObject(data)){
                         $scope.questionnaireList.spotQuestionnaireId = data[0].spotQuestionnaireId;
                         console.log("id : "+ data[0].spotQuestionnaireId);
                         $scope.questionnaireList.spotQuestionnaireTitle = data[0].spotQuestionnaireTitle;
@@ -634,6 +639,154 @@ angular.module('myApp.controllers', [])
             }
         }
 
+        $scope.changeButton = function(){
+            $scope.addFavoriteButton = "取消收藏";
+        }
+        //按钮功能
+
+        //＋收藏
+        $scope.addFavorite = function(){
+            //$scope.addFavoriteButton = "取消收藏";
+            $.ajax({
+                type : "PUT",
+                url : "/favorite",
+                data : JSON.stringify({spotId: $scope.spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                statusCode : {
+                    201 : function() {
+                        console.log("收藏成功");
+                        $scope.addFavoriteButton = "取消收藏";
+                        $scope.$apply();
+                        //console.log($scope.addFavoriteButton);
+                    },
+                    409 : function() {
+                        console.log("conflit!");
+                        //$scope.addFavoriteButton = "+ 收藏";
+                        $scope.deleteFavorite();
+                    }
+                }
+            });
+        };
+
+        //取消收藏
+        $scope.deleteFavorite = function(){
+            $scope.addFavoriteButton = "+ 收藏";
+            $scope.$apply();
+            $.ajax({
+                type : "DELETE",
+                url : "/favorite",
+                data : JSON.stringify({spotId: $scope.spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data) {// data is list<spot>
+                },
+                statusCode : {
+                    200 : function() {
+                        console.log("取消收藏成功");
+                    },
+                    404 : function() {
+                        console.log("Not found!");
+                    }
+                }
+            });
+        };
+
+
+        //＋足迹
+        $scope.addFootprint = function(){
+            $.ajax({
+                type : "PUT",
+                url : "/footprint",
+                data : JSON.stringify({spotId: $scope.spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                statusCode : {
+                    201 : function() {
+                        console.log("添加足迹成功");
+                        $scope.addFootprintButton = "取消足迹";
+                        $scope.$apply();
+                        //console.log($scope.addFavoriteButton);
+                    },
+                    409 : function() {
+                        console.log("conflit!");
+                        $scope.deleteFootprint();
+                    }
+                }
+            });
+        };
+
+        //取消足迹
+        $scope.deleteFootprint = function(){
+            $scope.addFootprintButton = "+ 足迹";
+            $scope.$apply();
+            $.ajax({
+                type : "DELETE",
+                url : "/footprint",
+                data : JSON.stringify({spotId: $scope.spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data) {// data is list<spot>
+                },
+                statusCode : {
+                    200 : function() {
+                        console.log("取消足迹成功");
+                    },
+                    404 : function() {
+                        console.log("Not found!");
+                    }
+                }
+            });
+        };
+
+
+        //＋心愿
+        $scope.addWish = function(){
+            //$scope.addFavoriteButton = "取消收藏";
+            $.ajax({
+                type : "PUT",
+                url : "/wish",
+                data : JSON.stringify({spotId: $scope.spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                statusCode : {
+                    201 : function() {
+                        console.log("心愿成功");
+                        $scope.addWishButton = "取消心愿";
+                        $scope.$apply();
+                        //console.log($scope.addFavoriteButton);
+                    },
+                    409 : function() {
+                        console.log("conflit!");
+                        //$scope.addFavoriteButton = "+ 收藏";
+                        $scope.deleteWish();
+                    }
+                }
+            });
+        };
+
+        //取消收藏
+        $scope.deleteWish = function(){
+            $scope.addWishButton = "+ 心愿单";
+            $scope.$apply();
+            $.ajax({
+                type : "DELETE",
+                url : "/wish",
+                data : JSON.stringify({spotId: $scope.spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data) {// data is list<spot>
+                },
+                statusCode : {
+                    200 : function() {
+                        console.log("取消心愿成功");
+                    },
+                    404 : function() {
+                        console.log("Not found!");
+                    }
+                }
+            });
+        };
 })
 
 .controller('DetailCtrl', function($scope) {
