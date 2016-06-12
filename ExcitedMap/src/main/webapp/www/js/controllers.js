@@ -37,6 +37,26 @@ angular.module('myApp.controllers', [])
     map.setCurrentCity("上海");
     map.enableScrollWheelZoom(true);
 
+    //搜索框功能
+    $scope.homeSearch = function(){
+        var searchFor = $("#homeSearchKeyword").val();
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");          
+        map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+        var local = new BMap.LocalSearch(map, {
+            renderOptions:{map: map}
+        });
+        local.search(searchFor);
+    }
+
+
+
+
+
+
+
+
+
     $scope.button1ClickTime = 0;
     $scope.button2ClickTime = 0;
     $scope.keys1 = [];
@@ -427,14 +447,109 @@ angular.module('myApp.controllers', [])
         $scope.goSpot = function(spot){
             console.log("yyyyyy");
             console.log(spot.spotId);
+            console.log(spot.spotName);
+            console.log(spot.spotDescription);
+            
+
+            //跳转到具体景观页面
             $state.go('tabs.list.detail');
+
+            $scope.spotName = spot.spotName;
+            $scope.spotDescription = spot.spotDescription;
+
+
+
+            //获取该地点评分列表
+            $scope.getReviewRating(spot.spotId);
+            //获取该地点的详细信息
+            $scope.spotDetailList = {};
+            $scope.getSpotDetail(spot.spotId);
+            //获取其他用户评价
+            //$scope.spotReviewList = [];
+            $scope.getSpotReviewList(spot.spotId);
+            //console.log($scope.spotReviewList);
         };
 
+        $scope.getReviewRating = function(thisspotId){
+            $.ajax({
+                type : "GET",
+                url : "/spot/"+thisspotId+"/reviewRating",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log(data);
+                    console.log(data[1]);
+                    console.log(data[1][0].review_rating);
 
 
+                    $scope.averageRating = data[0];
+                    $scope.oneNum = 0;
+                    $scope.twoNum = 0;
+                    $scope.threeNum = 0;
+                    $scope.fourNum = 0;
+                    $scope.fiveNum = 0;
 
+                    
+                    for(var i=0; i<data[1].length; i++){
+                        if (data[1][i].review_rating == 1){
+                            $scope.oneNum = data[1][i].review_rating_count;
+                        }
+                        else if (data[1][i].review_rating == 2){
+                            $scope.twoNum = data[1][i].review_rating_count;
+                        }
+                        else if (data[1][i].review_rating == 3){
+                            $scope.threeNum = data[1][i].review_rating_count;
+                        }
+                        else if (data[1][i].review_rating == 4){
+                            $scope.fourNum = data[1][i].review_rating_count;
+                        }
+                        else if (data[1][i].review_rating == 5){
+                            $scope.fiveNum = data[1][i].review_rating_count;
+                        }
+                    }
+                },
+            });
+        };
 
+        $scope.getSpotDetail = function(thisspotId){
+            $.ajax({
+                type : "GET",
+                url : "/spot/"+thisspotId,
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    
+                    $scope.spotAddress = data.spotAddress;
+                    $scope.spotDescription = data.spotDescription;
 
+                    $scope.spotDetailList.spotAddress = data.spotAddress;
+                    $scope.spotDetailList.spotDescription = data.spotDescription;
+                    $scope.spotDetailList.spotCoordinateX = data.spotCoordinateX;
+                    $scope.spotDetailList.spotCoordinateY = data.spotCoordinateY;
+                },
+            });
+        };
+
+        $scope.getSpotReviewList = function(thisspotId){
+            $scope.spotReviewList = [];
+            $.ajax({
+                type : "GET",
+                url : "/spot/"+thisspotId+"/reviewList",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    var review = "";
+                    for(var i=0;i<data.length;i++){
+                        var userId = data[i].userId;
+                        var reviewRating = data[i].reviewRating;
+                        var reviewContent = data[i].reviewContent;
+                        review += "用户ID："+ userId + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp景观评分："+ reviewRating +"<br>用户评价：" + reviewContent + "<br>";
+                    }
+                    //$scope.spotReview = review;
+                    $("#spotReviewList").html(review);
+                },
+            });
+        };
 
 
 
@@ -446,8 +561,16 @@ angular.module('myApp.controllers', [])
         var map = new BMap.Map("detailmap");
         map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
         map.addControl(new BMap.MapTypeControl());
-        map.setCurrentCity("上海");
+        //map.setCurrentCity("上海");
         map.enableScrollWheelZoom(true);
+
+        var myKeys = [$scope.spotName];
+        var local = new BMap.LocalSearch(map, {
+            renderOptions:{map: map, panel:"r-result"},
+            pageCapacity:1
+        });
+        local.searchInBounds(myKeys, map.getBounds());
+
 })
 
 .controller('ListCtrl', function($scope, $rootScope){
@@ -455,6 +578,10 @@ angular.module('myApp.controllers', [])
             $rootScope.spotCategoryId = index;
             //spotCategoryId = index;
             console.log("success! : " + spotCategoryId);
+
+
+
+
         };
 
 })

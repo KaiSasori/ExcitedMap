@@ -131,15 +131,15 @@
 
 .information{
     height: 300px;
-    line-height: 300px;
-    text-align: center;
+    line-height: 50px;
+    font-size: 30px;
     border-bottom: 3px solid cornflowerblue;
 }
 
 .command{
-    height: 300px;
-    line-height: 300px;
-    text-align: center;
+    height: 800px;
+    line-height: 50px;
+    font-size: 30px;
     border-bottom: 3px solid cornflowerblue;
 }
 

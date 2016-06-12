@@ -1,5 +1,5 @@
 
-<ion-view title="Detail">
+<ion-view title={{spotName}}>
     <!--<ion-content class="padding">
         <h1>项目详情界面：</h1>
         <p>1、返回按钮</p>
@@ -76,7 +76,7 @@
                         <li class="four"><a href="" title="4 Stars">4</a></li>
                         <li class="five"><a href="" title="5 Stars">5</a></li>
                     </ul>
-                    <div>313</div>
+                    <div>&nbsp&nbsp&nbsp{{oneNum}}</div>
                 </div>
 
                 <div class="flex_star">
@@ -87,7 +87,7 @@
                         <li class="four"><a href="" title="4 Stars">4</a></li>
                         <li class="five"><a href="" title="5 Stars">5</a></li>
                     </ul>
-                    <div>32</div>
+                    <div>&nbsp&nbsp&nbsp{{twoNum}}</div>
                 </div>
 
                 <div class="flex_star">
@@ -98,7 +98,7 @@
                         <li class="four"><a href="" title="4 Stars">4</a></li>
                         <li class="five"><a href="" title="5 Stars">5</a></li>
                     </ul>
-                    <div>423</div>
+                    <div>&nbsp&nbsp&nbsp{{threeNum}}</div>
                 </div>
 
                 <div class="flex_star">
@@ -109,7 +109,7 @@
                         <li class="four"><a href="" title="4 Stars">4</a></li>
                         <li class="five"><a href="" title="5 Stars">5</a></li>
                     </ul>
-                    <div>664</div>
+                    <div>&nbsp&nbsp&nbsp{{fourNum}}</div>
                 </div>
 
                 <div class="flex_star">
@@ -120,15 +120,21 @@
                         <li class="four"><a href="" title="4 Stars">4</a></li>
                         <li class="five"><a href="" title="5 Stars">5</a></li>
                     </ul>
-                    <div>555</div>
+                    <div>&nbsp&nbsp&nbsp{{fiveNum}}</div>
+                </div>
+
+                <div>
+                    <h3>平均得分：{{averageRating}}</h3>
                 </div>
 
             </div>
             <div class="information">
                 <p>基本信息</p>
+                <p>景观地址：{{spotAddress}}</p>
             </div>
-            <div class="command" style="height: 300px">
+            <div class="command">
                 <p>其他评论</p>
+                <p id="spotReviewList"></p>
             </div>
         </div>
     </ion-scroll>
@@ -207,15 +213,19 @@
                 <button class="button button-positive">+ 心愿单</button>
                 <button class="button button-positive">报错</button>
                 <div>
-                    <img src="img/xie.jpg" class="detail_pic">
-                    <img src="img/xie.jpg" class="detail_pic">
+                    <img src="img/fdu1.jpg" class="detail_pic">
+                    <img src="img/fdu2.jpg" class="detail_pic">
+                    <img src="img/fdu1.jpg" class="detail_pic">
+                    <img src="img/fdu2.jpg" class="detail_pic">
                 </div>
             </div>
             <div class="information">
                 <p>基本信息</p>
+                <p>景观地址：{{spotAddress}}</p>
             </div>
-            <div class="command" style="height: 300px">
+            <div class="command">
                 <p>详细介绍</p>
+                <p>{{spotDescription}}</p>
             </div>
         </div>
     </ion-scroll>
