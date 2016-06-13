@@ -787,6 +787,104 @@ angular.module('myApp.controllers', [])
                 }
             });
         };
+
+
+        //到这去
+        $scope.goThere = function(){
+            var goalName = $scope.spotName;
+            console.log("go " + goalName);
+            $state.go('tabs.management');
+            $scope.endPlace = goalName;
+        };
+
+        //用户发表评论
+        $scope.submitReview = function(photoList){
+            //获取评价星数
+            var starClassName = $("ul#zero_star").attr("class");
+            var starNum = 0;
+            if (starClassName == "rating zerostar"){
+                starNum = 0;
+            }
+            else if (starClassName == "rating onestar"){
+                starNum = 1;
+            }
+            else if (starClassName == "rating twostar"){
+                starNum = 2;
+            }
+            else if (starClassName == "rating threestar"){
+                starNum = 3;
+            }
+            else if (starClassName == "rating fourstar"){
+                starNum = 4;
+            }
+            else if (starClassName == "rating fivestar"){
+                starNum = 5;
+            }
+            console.log(starNum);
+
+            //获取评论内容
+            var thisReviewContent = $("#spotReviewFromUser").val();
+            console.log(thisReviewContent);
+
+            $.ajax({
+                type : "PUT",
+                url : "/review",
+                data : JSON.stringify({
+                    "spotId" : $scope.spotId,
+                    "reviewRating" : starNum,
+                    "reviewContent" : thisReviewContent,
+                    "reviewPhotoList" : photoList
+                }),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data) {
+                    console.log(data);
+                },
+                statusCode : {
+                    201 : function() {
+                        console.log("评论成功");
+                    }
+                }
+            });
+
+        }
+
+        //上传照片
+        $scope.uploadFile = function() {
+            var file = document.getElementById('file').files[0];
+            console.log(file);
+            if (file != undefined){
+                var form = new FormData();
+                form.append("file", file);
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://localhost:8080/review/photo",
+                    "method": "POST",
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                }
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    console.log(response.reviewPhotoPath);
+                    console.log("09876");
+                    //执行添加评论
+                    var photoList = [];
+                    photoList.push(response);
+
+                    $scope.submitReview(photoList);
+                });
+            }else{
+                var photoList = [];
+                $scope.submitReview(photoList);
+                console.log("No file");
+            }
+        };
+
 })
 
 .controller('DetailCtrl', function($scope) {

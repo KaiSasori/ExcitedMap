@@ -45,7 +45,7 @@
             调查问卷
         </div>
 
-        <div class="button button-assertive" ui-sref="tabs.list.here">
+        <div class="button button-assertive" ng-click="goThere()">
             到这去
         </div>
 
@@ -152,15 +152,19 @@
 
         <div  style="padding: 15px">
             <label class="item item-input">
-                <input type="text" placeholder="评论" >
+                <input type="text" placeholder="评论" id="spotReviewFromUser">
             </label>
         </div>
 
-        <div class="button button-positive">
-            <div class="icon icon-mini ion-plus"></div>
-        </div>
-
-        <div class="button button-positive">提交</div>
+        <!-- <div class="button button-positive">
+            <div class="icon icon-mini ion-plus">
+                
+            </div>
+        </div> -->
+        <form id="ajaxForm">
+            <input type="file" id="file" name="myfile" />
+        </form>
+        <div class="button button-positive" ng-click="uploadFile()">提交</div>
     </div>
 
     <ion-scroll zooming="true" direction="xy" id="question_pane">
