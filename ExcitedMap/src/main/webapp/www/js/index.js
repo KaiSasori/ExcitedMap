@@ -7,15 +7,15 @@ function setListMode(index){
 } 
 
 //线路规划，目前会有不稳定错误，是百度api问题，不知如何解决
-function showManagementBetweenSpots(){
-	// 百度地图API功能
-	var map = new BMap.Map("manage_map");
-	var start = $("#startPlace").val();
-	var end = $("#endPlace").val();
-	map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
-	var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: BMAP_DRIVING_POLICY_LEAST_TIME});
-	driving.search(start,end);
-}
+// function showManagementBetweenSpots(){
+// 	// 百度地图API功能
+// 	var map = new BMap.Map("manage_map");
+// 	var start = $("#startPlace").val();
+// 	var end = $("#endPlace").val();
+// 	map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+// 	var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: BMAP_DRIVING_POLICY_LEAST_TIME});
+// 	driving.search(start,end);
+// }
 
 
 //search框功能

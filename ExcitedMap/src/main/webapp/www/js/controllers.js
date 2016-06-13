@@ -5,7 +5,7 @@ var spotCategoryId = 0;
 var listMode = 0;
 //history search框功能
 var searchString = "wishCount";
-
+var markerClickTime = 0;
 
 
 
@@ -169,13 +169,6 @@ angular.module('myApp.controllers', [])
 })
 
 .controller('NearByTabCtrl', function($scope, $rootScope) {
-        // 百度地图API功能
-        // var map = new BMap.Map("nearmap");
-        // map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
-        // map.addControl(new BMap.MapTypeControl());
-        // map.setCurrentCity("上海");
-        // map.enableScrollWheelZoom(true);
-
 
         // 百度地图API功能
         var map = new BMap.Map("nearmap");
@@ -989,6 +982,139 @@ angular.module('myApp.controllers', [])
             });
     
         };
+
+        //线路规划
+        //记录起点和终点目标的X和Y坐标
+            $rootScope.startX = "";
+            $rootScope.startY = "";
+            $rootScope.endX = "";
+            $rootScope.endY = "";
+        $scope.setStartEndCoordinate = function(){
+            // 百度地图API功能
+            var start = $("#startPlace").val();
+            var end = $("#endPlace").val();
+            var map = new BMap.Map("manage_map");
+            $scope.searchBySpotName(map, start,1);
+            $scope.searchBySpotName(map, end,2);
+        };
+
+        $scope.searchBySpotName = function(map, keyword, index){
+            
+            
+            // map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+            // var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: BMAP_DRIVING_POLICY_LEAST_TIME});
+            // driving.search(start,end);
+            var localSearch = new BMap.LocalSearch(map);
+            localSearch.enableAutoViewport(); //允许自动调节窗体大小
+            localSearch.setSearchCompleteCallback(function (searchResult) {
+                var poi = searchResult.getPoi(0);
+                if (index == 1){
+                    $rootScope.startX = poi.point.lng;
+                    $rootScope.startY = poi.point.lat;
+                }
+                else if (index == 2){
+                    $rootScope.endX = poi.point.lng;
+                    $rootScope.endY = poi.point.lat;
+                }
+                console.log(keyword + " : " + poi.point.lng + "," + poi.point.lat);
+                map.centerAndZoom(poi.point, 13);
+                var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地址对应的经纬度
+                map.addOverlay(marker);
+            });
+            localSearch.search(keyword);
+        };
+
+        $scope.doManagement = function(){
+            var start = $("#startPlace").val();
+            var end = $("#endPlace").val();
+            var map = new BMap.Map("manage_map");
+            map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+            map.clearOverlays();//清空原来的标注
+            var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true},policy: BMAP_DRIVING_POLICY_LEAST_TIME});
+            driving.search(start,end);
+            console.log($rootScope.startX + " , " + $rootScope.startY + " , " + $rootScope.endX + " , " + $rootScope.endY);
+            $scope.spotList = [];
+            $.ajax({
+                type : "GET",
+                url : "/search/routePlan?startCoordinateX="+ $rootScope.startX +"&startCoordinateY="+ $rootScope.startY + "&endCoordinateX="+ $rootScope.endX +"&endCoordinateY="+ $rootScope.endY,
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log("nearby页面景点列举");
+                    console.log(data);
+                    for(var i=0; i<data.length; i++){
+                        var spot = {};
+                        spot.spotId = data[i].spotId;
+                        spot.spotName = data[i].spotName;
+                        spot.spotAddress = data[i].spotAddress;
+                        spot.spotDescription = data[i].spotDescription;
+                        spot.spotCoordinateX = data[i].spotCoordinateX;
+                        spot.spotCoordinateY = data[i].spotCoordinateY;
+                        $scope.spotList.push(spot);
+
+                        
+                    }
+                    for(var i=0; i<$scope.spotList.length;i++){
+                        console.log($scope.spotList[i].spotName +" : "+$scope.spotList[i].spotCoordinateX + " , " + $scope.spotList[i].spotCoordinateY);
+                        var marker = new BMap.Marker(new BMap.Point($scope.spotList[i].spotCoordinateX, $scope.spotList[i].spotCoordinateY));  // 创建标注，为要查询的地址对应的经纬度
+                        var content = $scope.spotList[i].spotName + "<br/>地址："+$scope.spotList[i].spotAddress+"<br/>经度：" + $scope.spotList[i].spotCoordinateX + "<br/>纬度：" + $scope.spotList[i].spotCoordinateY + "<br/>";
+                        content += "<button id='printIndex'>进入景观</button>";
+                        map.addOverlay(marker);
+                        addClickHandler(content,marker,$scope.spotList[i]);
+                        // var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+                        // marker.addEventListener("click", function () { this.openInfoWindow(infoWindow); });
+                    }
+                    // var spot = {};
+                    // for(spot in $scope.spotList){
+                    //     console.log(spot.spotName +" : "+spot.spotCoordinateX + " , " + spot.spotCoordinateY);
+                    //     var marker = new BMap.Marker(new BMap.Point(spot.spotCoordinateX, spot.spotCoordinateY));  // 创建标注，为要查询的地址对应的经纬度
+                    //     var content = spot.spotName + "<br/>地址："+spot.spotAddress+"<br/>经度：" + spot.spotCoordinateX + "<br/>纬度：" + spot.spotCoordinateY + "<br/>";
+                    //     content += "<button ng-click='goSpot("+spot+")'>进入景观</button>"
+                    //     map.addOverlay(marker);
+                    //     addClickHandler(content,marker);
+                    //     // var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+                    //     // marker.addEventListener("click", function () { this.openInfoWindow(infoWindow); });
+                        
+                    // }
+                    function addClickHandler(content,marker,spot){
+                        
+                        marker.addEventListener("click",function(e){
+                            if (markerClickTime == 0){
+                                openInfo(content,e);
+                                markerClickTime = 1;
+                            }
+                            else if(markerClickTime == 1){
+                                $scope.goSpot(spot);
+                                console.log("进入金冠啦啦啦啦");
+                                markerClickTime = 0;
+                            }
+                            
+                        });
+                    }
+                    function openInfo(content,e){
+                        var p = e.target;
+                        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                        var opts = {
+                            width : 250,     // 信息窗口宽度
+                            height: 120,     // 信息窗口高度
+                            //title : "信息窗口" , // 信息窗口标题
+                            enableMessage:true//设置允许信息窗发送短息
+                        };
+                        var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+                        map.openInfoWindow(infoWindow,point); //开启信息窗口
+                    }
+
+                    //console.log(data);
+                    //$state.go('tabs.nearby.detail_list3');
+                    console.log("规划完成");
+                },
+            });
+        }
+
+        function printIndex(index){
+            console.log(index);
+        }
+    
 
 })
 

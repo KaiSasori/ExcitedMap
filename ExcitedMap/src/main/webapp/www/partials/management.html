@@ -13,7 +13,8 @@
                 <i class="icon ion-search placeholder-icon"></i>
                 <input type="text" placeholder="终点" id="endPlace" ng-model="endPlace">
             </label>
-            <button class="button button-positive list-button" id="manage_button" onclick="showManagementBetweenSpots()">Search</button>
+            <button class="button button-positive list-button" id="manage_confirm_button" ng-click="setStartEndCoordinate()">Confirm</button>
+            <button class="button button-positive list-button" id="manage_submit_button" ng-click="doManagement()">Search</button>
         </div>
     </div>
 
