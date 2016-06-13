@@ -128,7 +128,7 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
         .state('tabs.list.detail', {
             url: "/detail",
             views: {
-                'tab-dash1': {
+                'tab-dash0': {
                     templateUrl: "partials/detail.html",
                     controller: 'DetailCtrl'
                 }
@@ -161,6 +161,15 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
                 'nearby-tab': {
                     templateUrl: "partials/nearby.html",
                     controller: 'NearByTabCtrl'
+                }
+            }
+        })
+
+        .state('tabs.nearby.detail_list3',{
+            url:'/detail_list3',
+            views: {
+                'nearby_detail': {
+                    templateUrl: "partials/detail_list3.html"
                 }
             }
         })

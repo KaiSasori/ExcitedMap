@@ -32,6 +32,8 @@ function searchStringNum(index){
 		searchString = "footprintCount";
 	else if(index == 4)
 		searchString = "wishCount";
+    else if(index == 5)
+        searchString = "popularity";
 }
 
 

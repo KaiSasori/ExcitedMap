@@ -168,13 +168,34 @@ angular.module('myApp.controllers', [])
     };
 })
 
-.controller('NearByTabCtrl', function($scope) {
+.controller('NearByTabCtrl', function($scope, $rootScope) {
+        // 百度地图API功能
+        // var map = new BMap.Map("nearmap");
+        // map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
+        // map.addControl(new BMap.MapTypeControl());
+        // map.setCurrentCity("上海");
+        // map.enableScrollWheelZoom(true);
+
+
         // 百度地图API功能
         var map = new BMap.Map("nearmap");
+        //var point = new BMap.Point(116.331398,39.897445);
         map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
-        map.addControl(new BMap.MapTypeControl());
-        map.setCurrentCity("上海");
-        map.enableScrollWheelZoom(true);
+
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                var mk = new BMap.Marker(r.point);
+                map.addOverlay(mk);
+                map.panTo(r.point);
+                //alert('您的位置：'+r.point.lng+','+r.point.lat);
+                $rootScope.userCoordinateX = r.point.lng;
+                $rootScope.userCoordinateY = r.point.lat;
+            }
+            else {
+                alert('failed'+this.getStatus());
+            }        
+        },{enableHighAccuracy: true})
 })
 
 .controller('AppCtrl', function ($scope, $state, $ionicPopover,$location, $ionicPopup, $rootScope) {
@@ -391,6 +412,8 @@ angular.module('myApp.controllers', [])
                 mode = 3;
             else if (searchString == "wishCount")
                 mode = 4;
+            else if (searchString == "popularity")
+                mode = 5;
 
 
             $.ajax({
@@ -428,6 +451,12 @@ angular.module('myApp.controllers', [])
                         else if(mode == 4){
                             spot.rating = data[i].spotWishCount;
                             spot.nameString = "心愿：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(mode == 5){
+                            spot.rating = data[i].spotPopularity;
+                            spot.nameString = "热门度：";
                             // TODO
                             $scope.spotList.push(spot);
                         }
@@ -765,7 +794,7 @@ angular.module('myApp.controllers', [])
             });
         };
 
-        //取消收藏
+        //取消心愿
         $scope.deleteWish = function(){
             $scope.addWishButton = "+ 心愿单";
             $scope.$apply();
@@ -883,6 +912,82 @@ angular.module('myApp.controllers', [])
                 $scope.submitReview(photoList);
                 console.log("No file");
             }
+        };
+
+
+
+        //nearby页面景点列举
+        $scope.doNearbySearch = function(index){
+            $scope.spotList = [];
+
+            console.log("index = " + index);
+            var nearbySearchString = "popularity";
+            if (index == 1)
+                nearbySearchString = "averageReviewRating";
+            else if (index == 2)
+                nearbySearchString = "favoriteCount";
+            else if (index == 3)
+                nearbySearchString = "footprintCount";
+            else if (index == 4)
+                nearbySearchString = "wishCount";
+            else if (index == 5)
+                nearbySearchString = "popularity";
+
+            //当前x,y坐标
+            console.log($rootScope.userCoordinateX + " " + $rootScope.userCoordinateY);
+            console.log("searchString = " + nearbySearchString);
+
+
+            $.ajax({
+                type : "GET",
+                url : "/search/adjacentSpot?userCoordinateX="+ $rootScope.userCoordinateX +"&userCoordinateY="+ $rootScope.userCoordinateY +"&limit=6&radius=0.06&orderby="+ nearbySearchString,
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log("nearby页面景点列举");
+                    console.log(data);
+                    for(var i=0; i<data.length; i++){
+                        var spot = {};
+                        spot.spotId = data[i].spotId;
+                        spot.spotName = data[i].spotName;
+                        //console.log(spotName);
+                        if (index == 1){
+                            spot.rating = data[i].averageReviewRating;
+                            spot.nameString = "评分：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 2){
+                            spot.rating = data[i].spotFavoriteCount;
+                            spot.nameString = "收藏：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 3){
+                            spot.rating = data[i].spotFootprintCount;
+                            spot.nameString = "足迹：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 4){
+                            spot.rating = data[i].spotWishCount;
+                            spot.nameString = "心愿：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 5){
+                            spot.rating = data[i].spotPopularity;
+                            spot.nameString = "热门度：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                    }
+                    //console.log(data);
+                    $state.go('tabs.nearby.detail_list3');
+                    console.log("加载完成");
+                },
+            });
+    
         };
 
 })
