@@ -78,33 +78,34 @@ public class UserController {
 	}
 
 	// 如果前端接收到BAD_REQUEST，说明用户取消登录或者网站被攻击
-	// 如果前端接收到CREATED，说明新用户登录，需要让用户填写userName，之后将userId,accessToken,userName一起传到后台，完成自动注册
+	// 如果前端接收到CREATED，说明新用户登录，完成自动注册
 	// 如果前端接收到OK，说明用户登录成功
 	@RequestMapping(value = "/loginByQQ", method = RequestMethod.POST)
 	public ResponseEntity<User> executeLoginByQQ(HttpServletRequest request, @RequestParam String openId,
-			@RequestParam String accessToken, @RequestParam String userName) {
+			@RequestParam String accessToken) {
 		if (openId.equals("")) {
 			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
 		}
 		User validUser = userService.getUserByOpenId(openId);
 		if (validUser == null) {
-			if (userName.equals("")) {
-				return new ResponseEntity<User>(HttpStatus.CREATED);
-			} else {
-				User user = new User();
-				user.setUserEmail(openId);
-				user.setUserPassword(accessToken);
-				user.setUserName(userName);
-				userService.registerUser(user);
-				request.getSession().setAttribute("loggedInUser", validUser);
-				return new ResponseEntity<User>(user, HttpStatus.OK);
-			}
+			User user = new User();
+			user.setUserEmail(openId);
+			user.setUserPassword(accessToken);
+			user.setUserName("新用户");
+			userService.registerUser(user);
+			return new ResponseEntity<User>(user, HttpStatus.CREATED);
 		} else {
-			// session没测试过，其他已测试
 			request.getSession().setAttribute("loggedInUser", validUser);
 			return new ResponseEntity<User>(validUser, HttpStatus.OK);
-
 		}
+	}
+
+	// 更新用户信息
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ResponseEntity<Void> executeUpdateUser(HttpServletRequest request, @RequestBody User user) {
+		userService.updateUser(user);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
