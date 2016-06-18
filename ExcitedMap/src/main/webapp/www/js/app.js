@@ -92,8 +92,8 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
         .state('tabs.list.detail_list2', {
             url: "/detail_list2",
             views: {
-                'tab-dash1': {
-                    templateUrl: "partials/detail_list2.html"
+                'tab-dash2': {
+                    templateUrl: "partials/detail_list1.html"
                 }
             }
         })
@@ -125,10 +125,10 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
             }
         })
 
-        .state('tabs.list.detail', {
+        .state('tabs.detail', {
             url: "/detail",
             views: {
-                'tab-dash0': {
+                'menuContent': {
                     templateUrl: "partials/detail.html",
                     controller: 'DetailCtrl'
                 }

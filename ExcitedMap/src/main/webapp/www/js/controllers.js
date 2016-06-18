@@ -5,8 +5,10 @@ var spotCategoryId = 0;
 var listMode = 0;
 //history search框功能
 var searchString = "wishCount";
-var markerClickTime = 0;
-
+var markerClickTime = -1;
+var tabClickTime = 0;
+var tab1ClickTime = 0;
+var tab2ClickTime = 0;
 
 
 
@@ -231,23 +233,32 @@ angular.module('myApp.controllers', [])
 
 
         //排序方法
-        $scope.listSpots = function(){
+        $scope.listSpots = function(index){
             console.log("listMode = " + listMode);
-            if (listMode == 1){
-                $scope.getSpotListOrderByAverageReviewRating();
+            console.log("index = " + index);
+
+            if(index == 0){
+
+                if (listMode == 1){
+                    $scope.getSpotListOrderByAverageReviewRating();
+                }
+                else if(listMode == 2){
+                    $scope.getSpotListOrderByFavoriteCount();
+                }
+                else if(listMode == 3){
+                    $scope.getSpotListOrderByFootprintCount();
+                }
+                else if(listMode == 4){
+                    $scope.getSpotListOrderByWishCount();
+                }
+                else if(listMode == 5){
+                    $scope.getSpotListOrderByPopularity(0);
+                }
+            }else if (index == 1){
+                $scope.getSpotListOrderByPopularity(1);
             }
-            else if(listMode == 2){
-                $scope.getSpotListOrderByFavoriteCount();
-            }
-            else if(listMode == 3){
-                $scope.getSpotListOrderByFootprintCount();
-            }
-            else if(listMode == 4){
-                $scope.getSpotListOrderByWishCount();
-            }
-            else if(listMode == 5){
-                $scope.getSpotListOrderByPopularity();
-            }
+
+
         };
 
         //5种排序方法
@@ -274,7 +285,7 @@ angular.module('myApp.controllers', [])
                         //console.log(spotName);
                     }
                     console.log($scope.spotList);
-                    $state.go('tabs.list.detail_list1');
+                    $state.go('tabs.list.detail_list' + $rootScope.spotCategoryId);
                 },
             });
         };
@@ -301,7 +312,7 @@ angular.module('myApp.controllers', [])
                         $scope.spotList.push(spot);
                     }
                     console.log($scope.spotList);
-                    $state.go('tabs.list.detail_list1');
+                    $state.go('tabs.list.detail_list' + $rootScope.spotCategoryId);
                 },
             });
         };
@@ -329,7 +340,7 @@ angular.module('myApp.controllers', [])
                         $scope.spotList.push(spot);
                     }
                     console.log($scope.spotList);
-                    $state.go('tabs.list.detail_list1');
+                    $state.go('tabs.list.detail_list' + $rootScope.spotCategoryId);
                 },
             });
         };
@@ -356,15 +367,16 @@ angular.module('myApp.controllers', [])
                         $scope.spotList.push(spot);
                     }
                     console.log($scope.spotList);
-                    $state.go('tabs.list.detail_list1');
+                    $state.go('tabs.list.detail_list' + $rootScope.spotCategoryId);
                 },
             });
         };
 
         //根据popularity获取spotlist，有limit数量限制
-        $scope.getSpotListOrderByPopularity = function(){
+        $scope.getSpotListOrderByPopularity = function(index){
             $scope.spotList = [];
-            $.ajax({
+            if (index == 0){
+                $.ajax({
                 type : "GET",
                 url : "/spot/category/"+$rootScope.spotCategoryId+"/spotListOrderByPopularityWithLimit?limit=3",
                 processData : false,
@@ -383,9 +395,33 @@ angular.module('myApp.controllers', [])
                         $scope.spotList.push(spot);
                     }
                     console.log($scope.spotList);
-                    $state.go('tabs.list.detail_list1');
+                    $state.go('tabs.list.detail_list' + $rootScope.spotCategoryId);
                 },
             });
+            }else if(index == 1){
+                $.ajax({
+                type : "GET",
+                url : "/spot/category/"+$rootScope.spotCategoryId+"/spotListOrderByPopularityWithLimit?limit=10",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    for(var i=0; i<data.length; i++){
+                        var spot = {};
+                        spot.spotId = data[i].spotId;
+                        spot.spotCategoryId = data[i].spotCategoryId;
+                        spot.spotName = data[i].spotName;
+                        spot.spotAddress = data[i].spotAddress;
+                        spot.spotDescription = data[i].spotDescription;
+                        spot.rating = data[i].spotPopularity;
+                        spot.nameString = "热门度：";
+                        // TODO
+                        $scope.spotList.push(spot);
+                    }
+                    console.log($scope.spotList);
+                    $state.go('tabs.list.detail_list' + $rootScope.spotCategoryId);
+                },
+            });
+            }
         };
 
         //历史搜索页面的显示
@@ -467,6 +503,8 @@ angular.module('myApp.controllers', [])
 
 
         $scope.goSpot = function(spot){
+            tab1ClickTime = 1;
+            tab2ClickTime = 1;
             console.log("yyyyyy");
             console.log(spot.spotId);
             console.log(spot.spotName);
@@ -477,7 +515,7 @@ angular.module('myApp.controllers', [])
             $scope.questionnaireList.spotQuestionList = [];
             $scope.getSpotQuestionnaireList(spot.spotId);
             //跳转到具体景观页面
-            $state.go('tabs.list.detail');
+            $state.go('tabs.detail');
 
             $scope.spotId = spot.spotId;
             $scope.spotName = spot.spotName;
@@ -1079,14 +1117,14 @@ angular.module('myApp.controllers', [])
                     function addClickHandler(content,marker,spot){
                         
                         marker.addEventListener("click",function(e){
-                            if (markerClickTime == 0){
+                            if (markerClickTime != spot.spotId){
                                 openInfo(content,e);
-                                markerClickTime = 1;
+                                markerClickTime = spot.spotId;
                             }
-                            else if(markerClickTime == 1){
+                            else if(markerClickTime == spot.spotId){
                                 $scope.goSpot(spot);
                                 console.log("进入金冠啦啦啦啦");
-                                markerClickTime = 0;
+                                markerClickTime = -1;
                             }
                             
                         });
@@ -1097,8 +1135,9 @@ angular.module('myApp.controllers', [])
                         var opts = {
                             width : 250,     // 信息窗口宽度
                             height: 120,     // 信息窗口高度
-                            //title : "信息窗口" , // 信息窗口标题
-                            enableMessage:true//设置允许信息窗发送短息
+                            //title : "基本信息" , // 信息窗口标题
+                            enableMessage:true,//设置允许信息窗发送短息
+                            enableCloseOnClick:true
                         };
                         var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
                         map.openInfoWindow(infoWindow,point); //开启信息窗口
@@ -1137,14 +1176,31 @@ angular.module('myApp.controllers', [])
 })
 
 .controller('ListCtrl', function($scope, $rootScope){
+        tabClickTime = 0;
+        tab1ClickTime = 0;
+        tab2ClickTime = 0;
+
         $scope.onTabSelected = function(index){
             $rootScope.spotCategoryId = index;
             //spotCategoryId = index;
-            console.log("success! : " + spotCategoryId);
+            console.log("success! : " + $rootScope.spotCategoryId);
 
-
-
-
+            //加载当前目录所有景点
+            if (tabClickTime != index){
+                if (tab1ClickTime == 0 && index == 1){
+                    tab1ClickTime = 1;
+                    tabClickTime = index;
+                    $scope.listSpots(1);
+                    console.log("tabClickTime : " + tabClickTime);
+                }else if(tab2ClickTime == 0 && index == 2){
+                    tab2ClickTime = 2;
+                    tabClickTime = index;
+                    $scope.listSpots(1);
+                    console.log("tabClickTime : " + tabClickTime);
+                }
+                
+                console.log("tabClickTime : " + tabClickTime);
+            }
         };
 
 })
