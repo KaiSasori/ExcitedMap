@@ -1,19 +1,15 @@
 <ion-view title="Login" hide-nav-bar="true" style="background-color: #4a87ee">
-    <ion-content class="padding">
-
+    <ion-content class="padding">        
         <div class="row responsive-sm padding">
             <div class="col">
                 <div class="user-pic"><img src="img/xie.jpg" class="login-pic"></div>
-
                 <div class="list list-inset">
                     <label class="item item-input"><input type="text" ng-model="user.username" placeholder="Email Address" > </label>
                     <label class="item item-input"><input type="password" ng-model="user.password" placeholder="Password" > </label>
-
                     <label class="item item-input">
                         <img src="/captcha" /><input type="text" ng-model="user.captchacode" placeholder="CaptchaCode" >
                     </label>
                 </div>
-
                 <div class="loginButton"><button class="button ion-unlocked button-block button-balanced" ng-click="login(user);"> Login </button>  </div>
                 <!--<ion-item class="item item-avatar" href="#/tab/register">
                     <div class="registerButton"><button class="button ion-unlocked button-block button-balanced"> Register </button>  </div>
@@ -23,10 +19,10 @@
                 </div>
             </div>
         </div>
-
         <div class="row  padding">
             <div class="col"> <a class=" button-calm button button-block">WeChat</a> </div>
-            <div class="col"> <a class="button-calm button button-block">QQ</a> </div>
+            <!--添加链接-->
+            <div class="col"> <a class="button-calm button button-block" href='https://graph.qq.com/oauth2.0/authorize?client_id=101317049&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fexcitedmap.tunnel.qydev.com%2Flogin.html'>QQ</a> </div>
         </div>
 
     </ion-content>
