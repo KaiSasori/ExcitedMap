@@ -2,7 +2,7 @@
  * Created by Jinkai on 2016/5/20.
  */
 // Declare app level module which depends on filters, and services
-angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.services', 'myApp.controllers', 'nsPopover','myApp.userController'])
+angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.services', 'myApp.controllers', 'nsPopover'])
 
 .run(function($ionicPlatform){
         $ionicPlatform.ready(function(){
