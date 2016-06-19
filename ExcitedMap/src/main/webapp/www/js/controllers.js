@@ -88,7 +88,15 @@ angular.module('myApp.controllers', [])
                             renderOptions:{map: map},
                             pageCapacity:1
                         });
-                        local.searchInBounds($scope.keys1, map.getBounds());
+                        if ($scope.button2ClickTime == 1){
+                            var keys3 = $scope.keys1;
+                            for (var m=0; m<$scope.keys2.length; m++){
+                                keys3.push($scope.keys2[m]);
+                            }
+                            local.searchInBounds(keys3, map.getBounds());
+                        }else{
+                            local.searchInBounds($scope.keys1, map.getBounds());
+                        }
                         $scope.button1ClickTime = 1;
                     },
                 }); 
@@ -139,7 +147,15 @@ angular.module('myApp.controllers', [])
                             renderOptions:{map: map},
                             pageCapacity:1
                         });
-                        local.searchInBounds($scope.keys2, map.getBounds());
+                        if ($scope.button1ClickTime == 1){
+                            var keys3 = $scope.keys2;
+                            for (var m=0; m<$scope.keys1.length; m++){
+                                keys3.push($scope.keys1[m]);
+                            }
+                            local.searchInBounds(keys3, map.getBounds());
+                        }else{
+                            local.searchInBounds($scope.keys2, map.getBounds());
+                        }
                         $scope.button2ClickTime = 1;
                     },
                 }); 

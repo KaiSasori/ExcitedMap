@@ -135,10 +135,10 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
             }
         })
 
-        .state('tabs.list.command', {
+        .state('tabs.command', {
             url: "/command",
             views: {
-                'tab-dash1': {
+                'menuContent': {
                     templateUrl: "partials/command.html",
                     controller: 'CommandCtrl'
                 }
