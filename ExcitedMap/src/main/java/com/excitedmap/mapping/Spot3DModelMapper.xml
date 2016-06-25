@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.excitedmap.dao.Spot3DModelMapper" >
+  <resultMap id="BaseResultMap" type="com.excitedmap.pojo.Spot3DModel" >
+    <id column="spot_3D_model_id" property="spot3dModelId" jdbcType="INTEGER" />
+    <result column="spot_id" property="spotId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.excitedmap.pojo.Spot3DModel" extends="BaseResultMap" >
+    <result column="spot_3D_model_link" property="spot3dModelLink" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    spot_3D_model_id, spot_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    spot_3D_model_link
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from spot_3D_model
+    where spot_3D_model_id = #{spot3dModelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from spot_3D_model
+    where spot_3D_model_id = #{spot3dModelId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.excitedmap.pojo.Spot3DModel" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spot3dModelId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_3D_model (spot_id, spot_3D_model_link)
+    values (#{spotId,jdbcType=INTEGER}, #{spot3dModelLink,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.excitedmap.pojo.Spot3DModel" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spot3dModelId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into spot_3D_model
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        spot_id,
+      </if>
+      <if test="spot3dModelLink != null" >
+        spot_3D_model_link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spotId != null" >
+        #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spot3dModelLink != null" >
+        #{spot3dModelLink,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excitedmap.pojo.Spot3DModel" >
+    update spot_3D_model
+    <set >
+      <if test="spotId != null" >
+        spot_id = #{spotId,jdbcType=INTEGER},
+      </if>
+      <if test="spot3dModelLink != null" >
+        spot_3D_model_link = #{spot3dModelLink,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where spot_3D_model_id = #{spot3dModelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.excitedmap.pojo.Spot3DModel" >
+    update spot_3D_model
+    set spot_id = #{spotId,jdbcType=INTEGER},
+      spot_3D_model_link = #{spot3dModelLink,jdbcType=LONGVARCHAR}
+    where spot_3D_model_id = #{spot3dModelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excitedmap.pojo.Spot3DModel" >
+    update spot_3D_model
+    set spot_id = #{spotId,jdbcType=INTEGER}
+    where spot_3D_model_id = #{spot3dModelId,jdbcType=INTEGER}
+  </update>
+</mapper>
