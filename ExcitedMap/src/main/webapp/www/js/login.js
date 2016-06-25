@@ -5,7 +5,7 @@
 angular.module('userController',['userService'])
   
    .controller('registerCtr',function($scope,$http,$window,$state,checkUser){
-      var servurl='http://map.tunnel.qydev.com/user';
+      var servurl='/user';
       $scope.user={};
       $scope.register=function(){
         
@@ -24,6 +24,7 @@ angular.module('userController',['userService'])
             ).then(function successCallback(response){
                                
                       //currentUserId = response.data.userId;
+                      alert("恭喜您注册成功");
                       $state.go('tabs.login');
                   
               },function errorCallback(response){
@@ -54,7 +55,7 @@ angular.module('userController',['userService'])
 
 
   .controller('loginCtr',function($scope,$http,$window,$state,checkUser){
-      var servurl='http://map.tunnel.qydev.com/user/login';
+      var servurl='/user/login';
       $scope.user={};
       $scope.login=function(){
         
@@ -69,27 +70,27 @@ angular.module('userController',['userService'])
           }else{
              $.ajax({
                  type:"POST",
-                 url:"http://map.tunnel.qydev.com/user/login?userEmail="+$scope.user.username +"&userPassword="+$scope.user.password +"&userCaptchaCode="+$scope.user.captchacode,
+                 url:servurl+"?userEmail="+$scope.user.username +"&userPassword="+$scope.user.password +"&userCaptchaCode="+$scope.user.captchacode,
                  processData : false,
                  contentType : "application/json; charset=utf-8",
                  success : function(data){
                      //currentUserId = data.userId;
                      window.sessionStorage.currentUserId = data.userId;
-                     alert("userId="+window.sessionStorage.currentUserId);
+                     alert("userId="+window.sessionStorage.currentUserId+"登录成功");
                      $state.go('tabs.mine');
                  },
                 statusCode : {
                     408 : function() {
-                        alert("亲，网络不太给力哦~");
+                        alert("亲，网络不太给力哦~请刷新后重试");
                     },
                     401 : function() {
-                        alert("亲，验证码输错了哦~");
+                        alert("亲，验证码输错了哦~请刷新后重试");
                     },
                     400 : function() {
                         alert("400");
                     },
                      403 : function() {
-                        alert("亲，请先注册哦~");
+                        alert("亲，输入信息有误，请刷新后重试或者先注册哦~");
                     },
                 }
             });
