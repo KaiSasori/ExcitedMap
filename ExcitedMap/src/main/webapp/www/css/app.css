@@ -105,7 +105,7 @@
     border: 5px solid cornflowerblue;
 }
 
-#question_pane,#detail_pane,#add_pane{
+#question_pane,#detail_pane,#add_pane,#error_pane{
     display: none;
     background-color: #ffffff;
     position: absolute;
@@ -237,4 +237,11 @@ ul.rating li.five a:hover {background-position:0 -160px}
 /*detail*/
 .flex_star{
     display: flex;
+}
+
+#login_out_button{
+    position: absolute;
+    width: 100px;
+    right: 90px;
+    top: 20px;
 }
