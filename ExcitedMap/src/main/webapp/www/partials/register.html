@@ -6,16 +6,18 @@
                 <div class="user-pic"><img src="img/xie.jpg" class="login-pic"></div>
 
                 <div class="list list-inset">
-                    <label class="item item-input"><input type="text" placeholder="Full Name"> </label>
-                    <label class="item item-input"><input type="text" placeholder="Email Address"> </label>
-                    <label class="item item-input"><input type="text" placeholder="Phone Number"> </label>
-                    <label class="item item-input"><input type="password" placeholder="Password"> </label>
+                    <label class="item item-input"><input type="text" ng-model="user.username" placeholder="Full Name"> </label>
+                    <label class="item item-input"><input type="text" ng-model="user.email" placeholder="Email Address"> </label>
+                    <label class="item item-input"><input type="password" ng-model="user.password" placeholder="Password"> </label>
+                    <label class="item item-input"><input type="password" ng-model="user.repeatPassword" placeholder="Password"> </label>
+                    <!--
                     <label class="item item-input">
                         <img src="/captcha" /><input type="text" ng-model="user.captchacode" placeholder="CaptchaCode" >
                     </label>
+                    -->
                 </div>
 
-                <div class="registerButton"><button class="button ion-person button-block button-balanced"> Register </button>  </div>
+                <div class="registerButton"><button class="button ion-person button-block button-balanced" ng-click="register()"> Register </button>  </div>
                 <div class="loginButton">
                     <a class="button ion-unlocked button-block button-balanced" href="#/tab/login"> Login </a>
                 </div>

@@ -1,6 +1,8 @@
 <html>
 <head>
 <script type="text/javascript" src="js/index.js"></script>
+ 
+<meta property="qc:admins" content="2756162000645665461145663757164506230" />
 </head>
 <body>
 	<h2>Hello World!</h2>

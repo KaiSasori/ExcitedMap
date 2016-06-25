@@ -7,10 +7,12 @@
                     <label class="item item-input"><input type="text" ng-model="user.username" placeholder="Email Address" > </label>
                     <label class="item item-input"><input type="password" ng-model="user.password" placeholder="Password" > </label>
                     <label class="item item-input">
-                        <img src="/captcha" /><input type="text" ng-model="user.captchacode" placeholder="CaptchaCode" >
+                        
+                            <img src="/captcha" /><input type="text" ng-model="user.captchacode" placeholder="CaptchaCode" >
+                                           
                     </label>
                 </div>
-                <div class="loginButton"><button class="button ion-unlocked button-block button-balanced" ng-click="login(user);"> Login </button>  </div>
+                <div class="loginButton"><button class="button ion-unlocked button-block button-balanced" ng-click="login()"> Login </button>  </div>
                 <!--<ion-item class="item item-avatar" href="#/tab/register">
                     <div class="registerButton"><button class="button ion-unlocked button-block button-balanced"> Register </button>  </div>
                 </ion-item>-->
@@ -19,11 +21,48 @@
                 </div>
             </div>
         </div>
+     
+	    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101317049" data-redirecturi="http://map.tunnel.qydev.com/www/partials/login.html" charset="utf-8"></script>
+        <script type="text/javascript" src="../lib/jquery/jquery-2.2.3.min.js"></script>
         <div class="row  padding">
             <div class="col"> <a class=" button-calm button button-block">WeChat</a> </div>
             <!--添加链接-->
-            <div class="col"> <a class="button-calm button button-block" href='https://graph.qq.com/oauth2.0/authorize?client_id=101317049&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fexcitedmap.tunnel.qydev.com%2Flogin.html'>QQ</a> </div>
+            <div class="col"> <a class="button-calm button button-block" href='https://graph.qq.com/oauth2.0/authorize?client_id=101317049&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fmap.tunnel.qydev.com%2Fwww%2Fpartials%2Flogin.html'>QQ</a> </div>
         </div>
+
+        <script type="text/javascript">
+            if(QC.Login.check()){//如果已登录
+	        QC.Login.getMe(function(openId, accessToken){
+		         $.ajax({
+                 type:"POST",
+                 url:"http://map.tunnel.qydev.com/user/loginByQQ?openId="+openId +"&accessToken=qwertyuiop",
+                 processData : false,
+                 contentType : "application/json; charset=utf-8",
+                 success : function(data){
+                     window.sessionStorage.currentUserId = data.userId;
+                     alert("userId="+window.sessionStorage.currentUserId);
+                     var currentUserId = data.userId;
+                     window.location.href="http://map.tunnel.qydev.com/www/index.html#/tab/mine"; 
+                 },
+                statusCode : {
+                    
+                    400 : function() {
+                        alert("400");
+                    },
+                    
+                }
+                });
+	        });
+            
+           
+	    
+    
+
+            }
+
+
+        </script>
+
 
     </ion-content>
 </ion-view>
