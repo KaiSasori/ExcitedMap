@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.excitedmap.pojo.Spot;
+import com.excitedmap.pojo.SpotCategory;
 import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotLabel;
@@ -35,5 +36,7 @@ public interface SpotService {
 
 	public List<SpotVideo> getVideoListBySpotId(int spotId);
 
-	List<SpotLabel> getSpotLabelListBySpotId(int spotId);
+	public List<SpotLabel> getSpotLabelListBySpotId(int spotId);
+
+	public List<SpotCategory> getSpotCategoryList();
 }
