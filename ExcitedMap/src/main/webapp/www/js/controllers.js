@@ -936,7 +936,7 @@ angular.module('myApp.controllers', [])
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "http://localhost:8080/review/photo",
+                    "url": "/review/photo",
                     "method": "POST",
                     "processData": false,
                     "contentType": false,
@@ -950,7 +950,7 @@ angular.module('myApp.controllers', [])
                     console.log("09876");
                     //执行添加评论
                     var photoList = [];
-                    photoList.push(response);
+                    photoList.push(JSON.parse(response));
 
                     $scope.submitReview(photoList);
                 });
