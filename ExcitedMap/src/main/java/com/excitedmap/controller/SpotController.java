@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.excitedmap.pojo.Review;
 import com.excitedmap.pojo.Spot;
+import com.excitedmap.pojo.SpotCategory;
 import com.excitedmap.pojo.SpotErrorReport;
 import com.excitedmap.pojo.SpotImpl;
 import com.excitedmap.pojo.SpotLabel;
@@ -80,6 +81,11 @@ public class SpotController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	public ResponseEntity<List<SpotCategory>> executeGetSpotCategoryList() {
+		return new ResponseEntity<List<SpotCategory>>(spotService.getSpotCategoryList(), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/category/{spotCategoryId}", method = RequestMethod.GET)
 	public ResponseEntity<List<Spot>> executeGetSpotListBySpotCategoryId(@PathVariable int spotCategoryId) {
 		return new ResponseEntity<List<Spot>>(spotService.getSpotListBySpotCategoryId(spotCategoryId), HttpStatus.OK);
