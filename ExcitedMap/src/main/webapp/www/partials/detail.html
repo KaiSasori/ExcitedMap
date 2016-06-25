@@ -224,10 +224,7 @@
                                                                  document.getElementById('detail_pane').style.display='none';">报错
                 </button>
                 <div>
-                    <img src="img/fdu1.jpg" class="detail_pic">
-                    <img src="img/fdu2.jpg" class="detail_pic">
-                    <img src="img/fdu1.jpg" class="detail_pic">
-                    <img src="img/fdu2.jpg" class="detail_pic">
+                    <img ng-repeat="picture in spotPictureList" src="{{picture.spotPhotoPath}}" class="detail_pic">
                 </div>
             </div>
             <div class="information">
@@ -243,15 +240,15 @@
         </div>
     </ion-scroll>
 
-    <div id="error_pane">
+    <div id="error_pane" style="height: 300px">
 
         <div style="padding: 15px">
             <label class="item item-input">
-                <input type="text" placeholder="报错信息">
+                <input type="text" placeholder="报错信息" id="errorReason">
             </label>
         </div>
 
-        <div class="button button-positive" ng-click="" style="left: 15px;width: 100px">提交</div>
+        <div class="button button-positive" ng-click="doErrorReport()" style="left: 15px;width: 100px">提交</div>
         <div class="button button-positive" ng-click="" style="left: 15px;width: 100px"
              onclick="document.getElementById('detail_pane').style.display='block';
                       document.getElementById('error_pane').style.display='none';">退出</div>

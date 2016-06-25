@@ -526,6 +526,11 @@ angular.module('myApp.controllers', [])
             console.log(spot.spotName);
             console.log(spot.spotDescription);
             
+            //获取景点图片
+            $scope.spotPictureList = [];
+            $scope.getSpotPicture(spot.spotId);
+
+
             //获取景点问卷
             $scope.questionnaireList = {};
             $scope.questionnaireList.spotQuestionList = [];
@@ -632,6 +637,29 @@ angular.module('myApp.controllers', [])
                 },
             });
         };
+
+        //获取本景点图片
+        $scope.getSpotPicture = function(thisspotId){
+            $.ajax({
+                type : "GET",
+                url : "/spot/"+thisspotId+"/photo",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log(data);
+                    console.log($.isEmptyObject(data));
+                    $scope.spotPictureList = [];
+                    if (!$.isEmptyObject(data)){
+                        for (var i = 0; i < data.length; i++){
+                            var spotPicture = [];
+                            spotPicture.spotPhotoPath = data[i].spotPhotoPath;
+                            $scope.spotPictureList.push(spotPicture);
+                        }
+                    }
+                },
+            });
+        };
+
 
         //获取本景点问卷id
         $scope.getSpotQuestionnaireList = function(thisspotId){
@@ -864,6 +892,30 @@ angular.module('myApp.controllers', [])
             });
         };
 
+        //报错
+        $scope.doErrorReport = function(){
+            var errorReason = $("#errorReason").val();
+            $.ajax({
+                type : "PUT",
+                url : "/spot/reportError",
+                data : JSON.stringify({
+                    spotId: $scope.spotId,
+                    spotErrorReportText: errorReason
+                }),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data){
+                },
+                statusCode : {
+                    200 : function() {
+                        console.log("报错成功，感谢您的支持");
+                        $("#detail_pane").show();
+                        $("#error_pane").hide();
+                        $("#errorReason").val("");
+                    }
+                }
+            });
+        }
 
         //到这去
         $scope.goThere = function(){
