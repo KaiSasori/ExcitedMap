@@ -30,6 +30,7 @@ angular.module('userController',['userService'])
               },function errorCallback(response){
                   if(response.status == 408){
                       alert("亲，网络不太给力哦~");
+                      
                   } else if(response.status ==401){
                       alert("亲，验证码输错了哦~");
                   } else if(response.status == 403){
@@ -81,16 +82,22 @@ angular.module('userController',['userService'])
                  },
                 statusCode : {
                     408 : function() {
-                        alert("亲，网络不太给力哦~请刷新后重试");
+                        alert("亲，网络不太给力哦~");
+                        var verify= document.getElementById('code');
+                        verify.setAttribute('src','/captcha');
                     },
                     401 : function() {
-                        alert("亲，验证码输错了哦~请刷新后重试");
+                        alert("亲，验证码输错了哦~");
+                        var verify= document.getElementById('code');
+                        verify.setAttribute('src','/captcha');
                     },
                     400 : function() {
                         alert("400");
                     },
                      403 : function() {
-                        alert("亲，输入信息有误，请刷新后重试或者先注册哦~");
+                        alert("亲，输入信息有误，请重试或者先注册哦~");
+                        var verify= document.getElementById('code');
+                        verify.setAttribute('src','/captcha');
                     },
                 }
             });
