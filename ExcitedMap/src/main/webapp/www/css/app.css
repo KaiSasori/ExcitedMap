@@ -105,7 +105,7 @@
     border: 5px solid cornflowerblue;
 }
 
-#question_pane,#detail_pane,#add_pane,#error_pane{
+#question_pane,#detail_pane,#add_pane,#error_pane,#add_pane_plus{
     display: none;
     background-color: #ffffff;
     position: absolute;

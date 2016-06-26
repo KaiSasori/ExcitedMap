@@ -170,7 +170,14 @@
                 
             </div>
         </div> -->
-        <form id="ajaxForm" style="padding-left: 15px">
+        <div class="button button-positive" onclick="document.getElementById('add_pane_plus').style.display='block';
+                                                     document.getElementById('add_pane').style.display='none';" style="left: 15px;width: 100px;display: block">+</div>
+
+        <div class="button button-positive" ng-click="uploadFile()" style="left: 15px;width: 100px;top: 15px">提交</div>
+    </div>
+
+    <div id="add_pane_plus">
+        <form id="ajaxForm" style="padding: 15px">
             <input type="file" id="file" name="myfile"/>
         </form>
 
@@ -180,7 +187,8 @@
             </label>
         </div>
 
-        <div class="button button-positive" ng-click="uploadFile()" style="left: 15px;width: 100px">提交</div>
+        <div class="button button-positive" onclick="document.getElementById('add_pane').style.display='block';
+                                                     document.getElementById('add_pane_plus').style.display='none';" style="left: 15px;width: 100px">提交</div>
     </div>
 
     <ion-scroll zooming="true" direction="xy" id="question_pane">
@@ -254,4 +262,3 @@
                       document.getElementById('error_pane').style.display='none';">退出</div>
     </div>
 </ion-view>
-
