@@ -61,6 +61,24 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
             authStatus: false
         })
 
+        .state('tabs.mine.detail_list4',{
+            url:'/detail_list4',
+            views: {
+                'userInfo_detail': {
+                    templateUrl: "partials/detail_list4.html"
+                }
+            }
+        })
+
+        .state('tabs.mine.detail_list5',{
+            url:'/detail_list5',
+            views: {
+                'userInfo_detail': {
+                    templateUrl: "partials/detail_list5.html"
+                }
+            }
+        })
+
         .state('tabs.register', {
             url: "/register",
             views: {

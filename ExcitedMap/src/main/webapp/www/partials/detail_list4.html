@@ -1,16 +1,7 @@
-<ion-view>
+<ion-view style="top:360px;left:15px;width:1230px;">
     <ion-content class="padding">
-        <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-            <p>4.1号景点</p>
-            <p>心愿：15</p>
-        </ion-item>
-        <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-            <p>4.2号景点</p>
-            <p>心愿：10</p>
-        </ion-item>
-        <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-            <p>4.3号景点</p>
-            <p>心愿：5</p>
+        <ion-item class="item item-avatar" ng-repeat="spot in userSpotList" ng-click="goSpot(spot)">
+            <p>{{spot.spotName}}</p>
         </ion-item>
     </ion-content>
 </ion-view>

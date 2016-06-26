@@ -77,8 +77,13 @@ angular.module('userController',['userService'])
                  success : function(data){
                      //currentUserId = data.userId;
                      window.sessionStorage.currentUserId = data.userId;
+                     window.sessionStorage.currentUserName = data.userName;
+                     window.sessionStorage.currentUserAvatarPath = data.userAvatarPath;
+                     window.sessionStorage.currentUserEmail = data.userEmail;
+
                      alert("userId="+window.sessionStorage.currentUserId+"登录成功");
-                     $state.go('tabs.mine');
+                     $scope.goMine();
+                     //$state.go('tabs.mine');
                  },
                 statusCode : {
                     408 : function() {

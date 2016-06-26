@@ -241,8 +241,218 @@ angular.module('myApp.controllers', [])
         };
 
 
+
+        //mine页面
+        $scope.userSpotList = [];
+        $scope.currentUserId = -1;
+        $scope.goMine = function(){
+            $scope.currentUserId = window.sessionStorage.currentUserId;
+            $scope.currentUserName = window.sessionStorage.currentUserName;
+            $scope.currentUserEmail = window.sessionStorage.currentUserEmail;
+            $scope.currentUserAvatarPath = window.sessionStorage.currentUserAvatarPath;
+            $state.go('tabs.mine');
+        }
+
+        $scope.mineClick = function(){
+            console.log("currentUserId: " + $scope.currentUserId);
+            if ($scope.currentUserId > 0){
+                $state.go('tabs.mine');
+            }
+            else{
+                $state.go('tabs.login');
+            }
+            //$ionicTabsDelegate.select(3);
+        }
+
+        //用户界面功能
+        $scope.userTest = function(){
+            console.log("当前用户id：" + window.sessionStorage.currentUserId);
+            console.log("当前用户邮箱：" + window.sessionStorage.currentUserEmail);
+            console.log("当前用户名字：" + window.sessionStorage.currentUserName);
+            console.log("当前用户头像路径：" + window.sessionStorage.currentUserAvatarPath);
+            console.log($scope.userSpotList);
+        }
         
-        
+        //用户登出
+        $scope.userLogOut = function(){
+            $.ajax({
+                type : "GET",
+                url : "/user/logout",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data1) {// data is list<spot>
+                    alert("登出成功");
+                    $scope.currentUserId = -1;
+                    $state.go('tabs.login');
+                },
+            });
+        }
+
+        //更换头像
+        $scope.chooseAvatar = function(){
+            document.getElementById("avatar_file").click();
+        }
+
+        $scope.changeAvatar = function(){
+            var file = document.getElementById('avatar_file').files[0];
+
+            console.log(file);
+            
+        }
+
+        //获取用户个人收藏
+        $scope.getUserFavourite = function(){
+            $scope.userSpotList = [];
+            $.ajax({
+                type : "GET",
+                url : "/user/"+window.sessionStorage.currentUserId+"/favoriteList",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data1) {// data is list<spot>
+                    console.log(data1);
+                    for(var i=0; i<data1.length; i++){
+                        var thisLength = 0;
+                        //根据spotId获取景点信息
+                        $.ajax({
+                            type : "GET",
+                            url : "/spot/"+data1[i].spotId,
+                            processData : false,
+                            contentType : "application/json; charset=utf-8",
+                            success : function(data2) {// data is list<spot>
+                                thisLength++;
+                                var spot = {};
+                                spot.spotId = data2.spotId;
+                                spot.spotName = data2.spotName;
+                                spot.spotDescription = data2.spotDescription;
+                                spot.spotAddress = data2.spotAddress;
+                                $scope.userSpotList.push(spot);
+                                console.log("thisLength: "  + data1.length + " " + thisLength);
+                                if (thisLength == data1.length){
+                                    console.log($scope.userSpotList);
+                                    $state.go('tabs.mine.detail_list4');
+                                }
+                            },
+                        });
+                    }
+                },
+            });
+        }
+
+        //获取用户个人心愿
+        $scope.getUserWish = function(){
+            $scope.userSpotList = [];
+            $.ajax({
+                type : "GET",
+                url : "/user/"+window.sessionStorage.currentUserId+"/wishList",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data1) {// data is list<spot>
+                    console.log(data1);
+                    for(var i=0; i<data1.length; i++){
+                        var thisLength = 0;
+                        //根据spotId获取景点信息
+                        $.ajax({
+                            type : "GET",
+                            url : "/spot/"+data1[i].spotId,
+                            processData : false,
+                            contentType : "application/json; charset=utf-8",
+                            success : function(data2) {// data is list<spot>
+                                thisLength++;
+                                var spot = {};
+                                spot.spotId = data2.spotId;
+                                spot.spotName = data2.spotName;
+                                spot.spotDescription = data2.spotDescription;
+                                spot.spotAddress = data2.spotAddress;
+                                $scope.userSpotList.push(spot);
+                                console.log("thisLength: "  + data1.length + " " + thisLength);
+                                if (thisLength == data1.length){
+                                    console.log($scope.userSpotList);
+                                    $state.go('tabs.mine.detail_list4');
+                                }
+                            },
+                        });
+                    }
+                },
+            });
+        }
+
+        //获取用户个人足迹
+        $scope.getUserFootprint = function(){
+            $scope.userSpotList = [];
+            $.ajax({
+                type : "GET",
+                url : "/user/"+window.sessionStorage.currentUserId+"/footprintList",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data1) {// data is list<spot>
+                    console.log(data1);
+                    for(var i=0; i<data1.length; i++){
+                        var thisLength = 0;
+                        //根据spotId获取景点信息
+                        $.ajax({
+                            type : "GET",
+                            url : "/spot/"+data1[i].spotId,
+                            processData : false,
+                            contentType : "application/json; charset=utf-8",
+                            success : function(data2) {// data is list<spot>
+                                thisLength++;
+                                var spot = {};
+                                spot.spotId = data2.spotId;
+                                spot.spotName = data2.spotName;
+                                spot.spotDescription = data2.spotDescription;
+                                spot.spotAddress = data2.spotAddress;
+                                $scope.userSpotList.push(spot);
+                                console.log("thisLength: "  + data1.length + " " + thisLength);
+                                if (thisLength == data1.length){
+                                    console.log($scope.userSpotList);
+                                    $state.go('tabs.mine.detail_list4');
+                                }
+                            },
+                        });
+                    }
+                },
+            });
+        }
+
+        //获取用户个人评论
+        $scope.getUserReviewSpot = function(){
+            $scope.userSpotList = [];
+            $.ajax({
+                type : "GET",
+                url : "/user/"+window.sessionStorage.currentUserId+"/reviewList",
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data1) {// data is list<spot>
+                    console.log(data1);
+                    for(var i=0; i<data1.length; i++){
+                        var thisLength = 0;
+                        //根据spotId获取景点信息
+                        $.ajax({
+                            type : "GET",
+                            url : "/spot/"+data1[i].spotId,
+                            processData : false,
+                            contentType : "application/json; charset=utf-8",
+                            success : function(data2) {// data is list<spot>
+                                thisLength++;
+                                var spot = {};
+                                spot.userReviewRating = data1[thisLength-1].reviewRating;
+                                spot.userReviewContent = data1[thisLength-1].reviewContent;
+                                spot.spotId = data2.spotId;
+                                spot.spotName = data2.spotName;
+                                spot.spotDescription = data2.spotDescription;
+                                spot.spotAddress = data2.spotAddress;
+                                $scope.userSpotList.push(spot);
+                                console.log("thisLength: "  + data1.length + " " + thisLength);
+                                if (thisLength == data1.length){
+                                    console.log($scope.userSpotList);
+                                    $state.go('tabs.mine.detail_list5');
+                                }
+                            },
+                        });
+                    }
+                },
+            });
+        }
 
 
         $scope.spotList = [];
