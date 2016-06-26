@@ -554,6 +554,8 @@ angular.module('myApp.controllers', [])
             $scope.getSpotDetail(spot.spotId);
             //获取其他用户评价
             $scope.getSpotReviewList(spot.spotId);
+            //用户评论照片list
+            $scope.reviewPhotoList = [];
             
         };
 
@@ -926,7 +928,7 @@ angular.module('myApp.controllers', [])
         };
 
         //用户发表评论
-        $scope.submitReview = function(photoList){
+        $scope.submitReview = function(){
             //获取评价星数
             var starClassName = $("ul#zero_star").attr("class");
             var starNum = 0;
@@ -950,35 +952,52 @@ angular.module('myApp.controllers', [])
             }
             console.log(starNum);
 
+            
             //获取评论内容
             var thisReviewContent = $("#spotReviewFromUser").val();
             console.log(thisReviewContent);
-
-            $.ajax({
-                type : "PUT",
-                url : "/review",
-                data : JSON.stringify({
-                    "spotId" : $scope.spotId,
-                    "reviewRating" : starNum,
-                    "reviewContent" : thisReviewContent,
-                    "reviewPhotoList" : photoList
-                }),
-                contentType : "application/json; charset=utf-8",
-                dataType : "json",
-                success : function(data) {
-                    console.log(data);
-                },
-                statusCode : {
-                    201 : function() {
-                        console.log("评论成功");
+            //判断用户评价是否合理！
+            if(starNum == 0){
+                alert("请选择星数来评价！")
+            }
+            else if(thisReviewContent == ""){
+                alert("请输入评论！");
+            }
+            else{
+                $.ajax({
+                    type : "PUT",
+                    url : "/review",
+                    data : JSON.stringify({
+                        "spotId" : $scope.spotId,
+                        "reviewRating" : starNum,
+                        "reviewContent" : thisReviewContent,
+                        "reviewPhotoList" : $scope.reviewPhotoList
+                    }),
+                    contentType : "application/json; charset=utf-8",
+                    dataType : "json",
+                    success : function(data) {
+                        console.log(data);
+                    },
+                    statusCode : {
+                        201 : function() {
+                            console.log("评论成功");
+                            $scope.reviewPhotoList = [];
+                            $("#plus_pane").show();
+                            $("#detail_pane").hide();
+                            $("#question_pane").hide();
+                            $("#add_pane").hide();
+                        }
                     }
-                }
-            });
-
+                });
+            }
+            
         }
 
         //上传照片
         $scope.uploadFile = function() {
+            //照片描述
+            var photeDescription = $("#photoDescriptionText").val();
+
             var file = document.getElementById('file').files[0];
             console.log(file);
             if (file != undefined){
@@ -996,19 +1015,28 @@ angular.module('myApp.controllers', [])
                     "data": form
                 }
 
-                $.ajax(settings).done(function (response) {
+                $.ajax(settings).done(function(response){
                     console.log(response);
-                    console.log(response.reviewPhotoPath);
+                    console.log(JSON.parse(response).reviewPhotoPath);
                     console.log("09876");
-                    //执行添加评论
-                    var photoList = [];
-                    photoList.push(JSON.parse(response));
+                    var photoInfo = {};
+                    photoInfo.reviewPhotoId = JSON.parse(response).reviewPhotoId;
+                    photoInfo.reviewId = JSON.parse(response).reviewId;
+                    photoInfo.reviewPhotoPath = JSON.parse(response).reviewPhotoPath;
+                    photoInfo.reviewPhotoDescription = photeDescription;
 
-                    $scope.submitReview(photoList);
+
+
+                    //JSON.parse(response).reviewPhotoDescription = photeDescription;
+                    console.log(photoInfo);
+                    $scope.reviewPhotoList.push(photoInfo);
+                    console.log($scope.reviewPhotoList);
+                    $("#photoDescriptionText").val("");
                 });
+                $("#add_pane").show();
+                $("#add_pane_plus").hide();
             }else{
-                var photoList = [];
-                $scope.submitReview(photoList);
+                alert("请选择图片！");
                 console.log("No file");
             }
         };
@@ -1088,6 +1116,16 @@ angular.module('myApp.controllers', [])
             });
     
         };
+
+        //交换起点终点功能
+        $scope.changeStartAndEnd = function(){
+            var start = $("#startPlace").val();
+            var end = $("#endPlace").val();
+            console.log("change:" + start + "with" + end);
+            $("#startPlace").val(end);
+            $("#endPlace").val(start);
+        }
+
 
         //线路规划
         //记录起点和终点目标的X和Y坐标

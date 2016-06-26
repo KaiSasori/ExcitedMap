@@ -173,7 +173,8 @@
         <div class="button button-positive" onclick="document.getElementById('add_pane_plus').style.display='block';
                                                      document.getElementById('add_pane').style.display='none';" style="left: 15px;width: 100px;display: block">+</div>
 
-        <div class="button button-positive" ng-click="uploadFile()" style="left: 15px;width: 100px;top: 15px">提交</div>
+        <div class="button button-positive" ng-click="submitReview()" style="left: 15px;width: 100px;top: 15px">提交</div>
+        
     </div>
 
     <div id="add_pane_plus">
@@ -183,12 +184,14 @@
 
         <div style="padding: 15px">
             <label class="item item-input">
-                <input type="text" placeholder="图片评论">
+                <input type="text" placeholder="图片评论" id="photoDescriptionText">
             </label>
         </div>
 
-        <div class="button button-positive" onclick="document.getElementById('add_pane').style.display='block';
-                                                     document.getElementById('add_pane_plus').style.display='none';" style="left: 15px;width: 100px">提交</div>
+        <div class="button button-positive" ng-click="uploadFile()" style="left: 15px;width: 100px">提交</div>
+        <div class="button button-positive" ng-click="" style="left: 15px;width: 100px"
+             onclick="document.getElementById('add_pane').style.display='block';
+                      document.getElementById('add_pane_plus').style.display='none';">返回</div>
     </div>
 
     <ion-scroll zooming="true" direction="xy" id="question_pane">
