@@ -1315,23 +1315,31 @@ angular.module('myApp.controllers', [])
                 if (document.getElementById("moving_box") !== null) {
                     document.getElementById("moving_box").removeAttribute("id");
                 }
-                e.target.id = "moving_box";
-                console.log("startX:" + startX);
-                console.log("startY:" + startY);
+                //e.target.id = "moving_box";
+                var cb = document.createElement("button");
+                var arr = e.target.className.toString().split(" ");
+                cb.setAttribute("class", arr[0] + " button-small " + arr[1]);
+                cb.setAttribute("id","moving_box");
+                cb.setAttribute("style","position:absolute;left:"+e.target.offsetLeft+"px;top:"+e.target.offsetTop+"px");
+                console.log(e.target.className.toString().split(" "));
+                document.getElementById("command_pane").appendChild(cb);
+                //console.log("startX:" + startX);
+                //console.log("startY:" + startY);
                 //console.log("OL:" + e.target.offsetLeft);
                 //console.log("OT:" + e.target.offsetTop);
-                diffX = startX;
+                diffX = startX - e.target.offsetLeft;
                 diffY = startY - e.target.offsetTop;
-                console.log("diffX:" + diffX);
-                console.log("diffY:" + diffY);
+                //console.log("diffX:" + diffX);
+                //console.log("diffY:" + diffY);
             }
         }
 
         document.onmousemove = function (e) {
             if (document.getElementById("moving_box") !== null && dragging) {
+                //console.log("here");
                 var mb = document.getElementById("moving_box");
-                console.log("top:" + (e.pageY - diffY));
-                console.log("left:" + (e.pageX - diffX));
+                //console.log("top:" + (e.pageY - diffY));
+                //console.log("left:" + (e.pageX - diffX));
                 mb.style.top = e.pageY - diffY + 'px';
                 mb.style.left = e.pageX - diffX + 'px';
             }

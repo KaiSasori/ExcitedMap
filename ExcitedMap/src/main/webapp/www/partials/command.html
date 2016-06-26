@@ -1,12 +1,54 @@
 <ion-view title="Command">
     <ion-content class="padding" id="command_map"></ion-content>
 
+    <div id="command_detail">
+        <div class="button button-assertive" onclick="if(document.getElementById('activity').style.display=='none'){
+        document.getElementById('activity').style.display='block';
+        document.getElementById('place').style.display='none';
+        document.getElementById('suggestion').style.display='none';
+        }">
+            活动类型
+        </div>
+
+        <div class="button button-assertive" onclick="if(document.getElementById('place').style.display=='none'){
+        document.getElementById('place').style.display='block';
+        document.getElementById('activity').style.display='none';
+        document.getElementById('suggestion').style.display='none';
+        }">
+            场所类型
+        </div>
+
+        <div class="button button-assertive" onclick="if(document.getElementById('suggestion').style.display=='none'){
+        document.getElementById('suggestion').style.display='block';
+        document.getElementById('activity').style.display='none';
+        document.getElementById('place').style.display='none';
+        }">
+            建议
+        </div>
+
+    </div>
+
     <div id="command_pane" style="text-align: center;padding-top: 20px">
-        <div>
+        <div id="activity" style="display: block">
             <button class="button button-calm box">运动</button>
-            <button class="button button-energized box">休憩</button>
-            <button class="button button-balanced box">观赏</button>
-            <button class="button button-assertive box">健身</button>
+            <button class="button button-energized box">健身</button>
+            <button class="button button-balanced box">交往活动</button>
+            <button class="button button-assertive box">观赏</button>
+            <button class="button button-stable box">休憩</button>
+        </div>
+        <div id="place" style="display: none">
+            <button class="button button-calm box">亲近自然</button>
+            <button class="button button-energized box">锻炼身体</button>
+            <button class="button button-balanced box">聚会交友</button>
+            <button class="button button-assertive box">美的体验</button>
+            <button class="button button-stable box">观察学习</button>
+        </div>
+        <div id="suggestion" style="display: none">
+            <button class="button button-calm box">增加硬件设施</button>
+            <button class="button button-energized box">增加绿色空间</button>
+            <button class="button button-balanced box">改善交通</button>
+            <button class="button button-assertive box">改善步行系统</button>
+            <button class="button button-stable box">其他</button>
         </div>
     </div>
 </ion-view>

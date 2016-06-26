@@ -77,7 +77,7 @@
     width: 100px;
 }
 
-#plus_detail{
+#plus_detail,#command_detail{
     position: absolute;
     bottom: 70px;
     right: 30px;
