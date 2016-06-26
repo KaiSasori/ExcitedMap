@@ -1294,7 +1294,7 @@ angular.module('myApp.controllers', [])
         });
 })
 
-.controller('CommandCtrl', function($scope) {
+.controller('CommandCtrl', function ($scope) {
 
         // 百度地图API功能
         var map = new BMap.Map("command_map");
@@ -1302,7 +1302,47 @@ angular.module('myApp.controllers', [])
         map.addControl(new BMap.MapTypeControl());
         map.setCurrentCity("上海");
         map.enableScrollWheelZoom(true);
+
+        var startX, startY, diffX, diffY;
+        var dragging = false;
+
+        document.onmousedown = function (e) {
+            startX = e.pageX;
+            startY = e.pageY;
+
+            if (e.target.className.match(/box/)) {
+                dragging = true;
+                if (document.getElementById("moving_box") !== null) {
+                    document.getElementById("moving_box").removeAttribute("id");
+                }
+                e.target.id = "moving_box";
+                console.log("startX:" + startX);
+                console.log("startY:" + startY);
+                //console.log("OL:" + e.target.offsetLeft);
+                //console.log("OT:" + e.target.offsetTop);
+                diffX = startX;
+                diffY = startY - e.target.offsetTop;
+                console.log("diffX:" + diffX);
+                console.log("diffY:" + diffY);
+            }
+        }
+
+        document.onmousemove = function (e) {
+            if (document.getElementById("moving_box") !== null && dragging) {
+                var mb = document.getElementById("moving_box");
+                console.log("top:" + (e.pageY - diffY));
+                console.log("left:" + (e.pageX - diffX));
+                mb.style.top = e.pageY - diffY + 'px';
+                mb.style.left = e.pageX - diffX + 'px';
+            }
+        }
+
+        document.onmouseup = function (e) {
+            dragging = false;
+        }
+
 })
+
 
 .controller('HereCtrl', function($scope) {
 
