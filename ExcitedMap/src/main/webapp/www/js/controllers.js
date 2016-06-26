@@ -297,7 +297,29 @@ angular.module('myApp.controllers', [])
             var file = document.getElementById('avatar_file').files[0];
 
             console.log(file);
-            
+            if (file != undefined){
+                var form = new FormData();
+                form.append("file", file);
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "/user/avatar",
+                    "method": "POST",
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                }
+
+                $.ajax(settings).done(function(response){
+                    console.log(response);
+                    alert("头像更换成功！");
+                });
+            }else{
+                alert("请选择图片！");
+                console.log("No file");
+            }
         }
 
         //获取用户个人收藏
