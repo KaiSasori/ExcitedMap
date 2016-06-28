@@ -1655,11 +1655,11 @@ angular.module('myApp.controllers', [])
 
 })
 
-.controller('ListCtrl', function($scope, $rootScope){
+.controller('ListCtrl', function($scope, $rootScope, $state){
         tabClickTime = 0;
         tab1ClickTime = 0;
         tab2ClickTime = 0;
-
+        
         $scope.onTabSelected = function(index){
             $rootScope.spotCategoryId = index;
             //spotCategoryId = index;
@@ -1669,16 +1669,18 @@ angular.module('myApp.controllers', [])
             if (tabClickTime != index){
                 if (tab1ClickTime == 0 && index == 1){
                     tab1ClickTime = 1;
+                    tab2ClickTime = 0;
                     tabClickTime = index;
                     $scope.listSpots(1);
                     console.log("tabClickTime : " + tabClickTime);
                 }else if(tab2ClickTime == 0 && index == 2){
+                    tab1ClickTime = 0;
                     tab2ClickTime = 2;
                     tabClickTime = index;
                     $scope.listSpots(1);
                     console.log("tabClickTime : " + tabClickTime);
                 }
-                
+                //$state.go('tabs.list.detail_list' + $rootScope.spotCategoryId);
                 console.log("tabClickTime : " + tabClickTime);
             }
         };
