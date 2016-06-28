@@ -6,6 +6,7 @@ var listMode = 0;
 //history search框功能
 var searchString = "wishCount";
 var markerClickTime = -1;
+var iconMarkerClickTime = 0;
 var tabClickTime = 0;
 var tab1ClickTime = 0;
 var tab2ClickTime = 0;
@@ -767,12 +768,15 @@ angular.module('myApp.controllers', [])
             $scope.questionnaireList = {};
             $scope.questionnaireList.spotQuestionList = [];
             $scope.getSpotQuestionnaireList(spot.spotId);
-            //跳转到具体景观页面
-            $state.go('tabs.detail');
+
 
             $scope.spotId = spot.spotId;
             $scope.spotName = spot.spotName;
             $scope.spotDescription = spot.spotDescription;
+            //跳转到具体景观页面
+            $state.go('tabs.detail');
+
+            
 
             $scope.addFavoriteButton = "+ 收藏";
             $scope.addFootprintButton = "+ 足迹";
@@ -1434,7 +1438,7 @@ angular.module('myApp.controllers', [])
                         console.log($scope.spotList[i].spotName +" : "+$scope.spotList[i].spotCoordinateX + " , " + $scope.spotList[i].spotCoordinateY);
                         var marker = new BMap.Marker(new BMap.Point($scope.spotList[i].spotCoordinateX, $scope.spotList[i].spotCoordinateY));  // 创建标注，为要查询的地址对应的经纬度
                         var content = $scope.spotList[i].spotName + "<br/>地址："+$scope.spotList[i].spotAddress+"<br/>经度：" + $scope.spotList[i].spotCoordinateX + "<br/>纬度：" + $scope.spotList[i].spotCoordinateY + "<br/>";
-                        content += "<button id='printIndex'>进入景观</button>";
+                        //content += "<button id='printIndex'>进入景观</button>";
                         map.addOverlay(marker);
                         addClickHandler(content,marker,$scope.spotList[i]);
                         // var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
@@ -1486,6 +1490,12 @@ angular.module('myApp.controllers', [])
                     console.log("规划完成");
                 },
             });
+        }
+
+
+        //评价页面
+        $scope.goCommand = function(){
+            $state.go('tabs.command');
         }
 
         function printIndex(index){
@@ -1566,57 +1576,122 @@ angular.module('myApp.controllers', [])
 
 .controller('CommandCtrl', function ($scope) {
 
+        $scope.iconNumber = 0;
+        $scope.iconDescription = "";
+
+        $scope.bounds = [[],
+                        [121.426311,31.224952,121.428926,31.225847,121.428231,31.228703,121.421652,31.229645,121.42205,31.227167],
+                        [121.548108,31.218297,121.555294,31.216444,121.567798,31.220027,121.565786,31.22855,121.552563,31.224474],
+                        [121.413794,31.142845,121.417674,31.146306,121.416974,31.14728,121.413219,31.145719,121.413057,31.144637],
+                        [121.47507,31.22123,121.477381,31.221831,121.475824,31.224803,121.47392,31.224024,121.473935,31.223205],
+                        [121.254998,31.379998,121.258776,31.380183,121.25979,31.380622,121.25593,31.385832,121.25149,31.383304],
+                        [121.503849,31.304585,121.505789,31.296809,121.508736,31.294711,121.516784,31.301314,121.512904,31.307609],
+                        [121.502855,31.313658,121.503052,31.31227,121.505011,31.309987,121.511389,31.310373,121.509592,31.31372],
+                        [121.502631,31.287637,121.511093,31.284235,121.514264,31.290237,121.506584,31.293261,121.503143,31.290291]];
+        
         // 百度地图API功能
         var map = new BMap.Map("command_map");
-        map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
-        map.addControl(new BMap.MapTypeControl());
-        map.setCurrentCity("上海");
+        map.centerAndZoom(new BMap.Point(121.484, 31.195), 9);
+        //map.addControl(new BMap.MapTypeControl());
+        //map.setCurrentCity("上海");
         map.enableScrollWheelZoom(true);
+        // map.disableDragging();
+        var myKeys = [$scope.spotName];
+        var local = new BMap.LocalSearch(map, {
+            renderOptions:{map: map, panel:"r-result"},
+            pageCapacity:1
+        });
+        local.searchInBounds(myKeys, map.getBounds());
+        map.setZoom(3);
+        //单击获取点击的经纬度
+        // map.addEventListener("click",function(e){
+        //     alert(e.point.lng + "," + e.point.lat);
+        // });
+        //添加多边形
+        if ($scope.bounds[$scope.spotId].length == 10){
+            var polygon = new BMap.Polygon([
+                new BMap.Point($scope.bounds[$scope.spotId][0],$scope.bounds[$scope.spotId][1]),
+                new BMap.Point($scope.bounds[$scope.spotId][2],$scope.bounds[$scope.spotId][3]),
+                new BMap.Point($scope.bounds[$scope.spotId][4],$scope.bounds[$scope.spotId][5]),
+                new BMap.Point($scope.bounds[$scope.spotId][6],$scope.bounds[$scope.spotId][7]),
+                new BMap.Point($scope.bounds[$scope.spotId][8],$scope.bounds[$scope.spotId][9])
+            ], {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+            polygon.addEventListener("click",function(e){
+                //alert(e.point.lng + "," + e.point.lat);
+                //判断iconNumber
+                if ($scope.iconNumber != 0){
+                    var pt = new BMap.Point(e.point.lng,e.point.lat);
+                    var myIcon = new BMap.Icon("./img/icon/"+$scope.iconNumber+".png", new BMap.Size(29,29));
+                    var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+                    //添加悬浮框按钮
+                    var content = $scope.iconDescription;
+                        
 
-        var startX, startY, diffX, diffY;
-        var dragging = false;
 
-        document.onmousedown = function (e) {
-            startX = e.pageX;
-            startY = e.pageY;
+                    map.addOverlay(marker2);              // 将标注添加到地图中
+                    addClickHandler2(content,marker2,$scope.iconNumber);
 
-            if (e.target.className.match(/box/)) {
-                dragging = true;
-                if (document.getElementById("moving_box") !== null) {
-                    document.getElementById("moving_box").removeAttribute("id");
+                    function addClickHandler2(content,marker,iconNumber){
+                        
+                        marker.addEventListener("click",function(e){
+                            if (iconMarkerClickTime != iconNumber){
+                                openInfo(content,e);
+                                iconMarkerClickTime = iconNumber;
+                            }
+                            else if(iconMarkerClickTime == iconNumber){
+                                map.closeInfoWindow();
+                                iconMarkerClickTime = 0;
+                            }
+                            
+                        });
+                    }
+                    function openInfo(content,e){
+                        var p = e.target;
+                        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                        var opts = {
+                            width : 20,     // 信息窗口宽度
+                            height: 20,     // 信息窗口高度
+                            title : "评价信息：" , // 信息窗口标题
+                            enableMessage:true,//设置允许信息窗发送短息
+                            enableCloseOnClick:true
+                        };
+                        var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+                        map.openInfoWindow(infoWindow,point); //开启信息窗口
+                    }
+
+                    //存入数据库
+                    $.ajax({
+                        type : "PUT",
+                        url : "/spotLabel",
+                        data : JSON.stringify({
+                            spotId: $scope.spotId,
+                            spotLabelType: $scope.iconNumber,
+                            spotLabelDescription: $scope.iconDescription
+                        }),
+                        contentType : "application/json; charset=utf-8",
+                        dataType : "json",
+                        statusCode : {
+                            201 : function() {
+                                console.log("评论拖动成功");
+                            }
+                        }
+                    });
                 }
-                //e.target.id = "moving_box";
-                var cb = document.createElement("button");
-                var arr = e.target.className.toString().split(" ");
-                cb.setAttribute("class", arr[0] + " button-small " + arr[1]);
-                cb.setAttribute("id","moving_box");
-                cb.setAttribute("style","position:absolute;left:"+e.target.offsetLeft+"px;top:"+e.target.offsetTop+"px");
-                console.log(e.target.className.toString().split(" "));
-                document.getElementById("command_pane").appendChild(cb);
-                //console.log("startX:" + startX);
-                //console.log("startY:" + startY);
-                //console.log("OL:" + e.target.offsetLeft);
-                //console.log("OT:" + e.target.offsetTop);
-                diffX = startX - e.target.offsetLeft;
-                diffY = startY - e.target.offsetTop;
-                //console.log("diffX:" + diffX);
-                //console.log("diffY:" + diffY);
-            }
+            });
+        map.addOverlay(polygon);   //增加多边形
         }
 
-        document.onmousemove = function (e) {
-            if (document.getElementById("moving_box") !== null && dragging) {
-                //console.log("here");
-                var mb = document.getElementById("moving_box");
-                //console.log("top:" + (e.pageY - diffY));
-                //console.log("left:" + (e.pageX - diffX));
-                mb.style.top = e.pageY - diffY + 'px';
-                mb.style.left = e.pageX - diffX + 'px';
-            }
-        }
 
-        document.onmouseup = function (e) {
-            dragging = false;
+
+        //从数据库获取icon
+        //TODO
+
+        
+
+
+        $scope.setIconNumber = function(index, iconDescription){
+            $scope.iconNumber = index;
+            $scope.iconDescription = iconDescription;
         }
 
 })
