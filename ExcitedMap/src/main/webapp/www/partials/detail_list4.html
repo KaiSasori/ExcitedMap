@@ -1,7 +1,9 @@
 <ion-view style="top:360px;left:15px;width:1230px;">
     <ion-content class="padding">
-        <ion-item class="item item-avatar" ng-repeat="spot in userSpotList" ng-click="goSpot(spot)">
-            <p>{{spot.spotName}}</p>
+        <ion-item class="item item-avatar" ng-repeat="spot in userSpotList">
+            <h2>{{spot.spotName}}</h2>
+            <button class="button-calm button" ng-click="goSpot({{spot}})">访问景点</button>
+            <button class="button-calm button" ng-click="deleteMyItem({{spot.spotId}})">删除景点</button>
         </ion-item>
     </ion-content>
 </ion-view>

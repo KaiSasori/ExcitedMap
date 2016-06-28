@@ -10,6 +10,7 @@ var iconMarkerClickTime = 0;
 var tabClickTime = 0;
 var tab1ClickTime = 0;
 var tab2ClickTime = 0;
+var userInfoItemChoose = -1;
 
 
 
@@ -187,7 +188,7 @@ angular.module('myApp.controllers', [])
     };
 })
 
-.controller('NearByTabCtrl', function($scope, $rootScope) {
+.controller('NearByTabCtrl', function($scope, $rootScope, $state) {
 
         // 百度地图API功能
         var map = new BMap.Map("nearmap");
@@ -207,7 +208,123 @@ angular.module('myApp.controllers', [])
             else {
                 alert('failed'+this.getStatus());
             }        
-        },{enableHighAccuracy: true})
+        },{enableHighAccuracy: true});
+
+
+        //nearby页面景点列举
+        $scope.doNearbySearch = function(index){
+            $scope.spotList = [];
+
+            console.log("index = " + index);
+            var nearbySearchString = "popularity";
+            if (index == 1)
+                nearbySearchString = "averageReviewRating";
+            else if (index == 2)
+                nearbySearchString = "favoriteCount";
+            else if (index == 3)
+                nearbySearchString = "footprintCount";
+            else if (index == 4)
+                nearbySearchString = "wishCount";
+            else if (index == 5)
+                nearbySearchString = "popularity";
+
+            //当前x,y坐标
+            console.log($rootScope.userCoordinateX + " " + $rootScope.userCoordinateY);
+            console.log("searchString = " + nearbySearchString);
+
+
+            $.ajax({
+                type : "GET",
+                url : "/search/adjacentSpot?userCoordinateX="+ $rootScope.userCoordinateX +"&userCoordinateY="+ $rootScope.userCoordinateY +"&limit=6&radius=0.06&orderby="+ nearbySearchString,
+                processData : false,
+                contentType : "application/json; charset=utf-8",
+                success : function(data) {// data is list<spot>
+                    console.log("nearby页面景点列举");
+                    console.log(data);
+                    for(var i=0; i<data.length; i++){
+                        var spot = {};
+                        spot.spotId = data[i].spotId;
+                        spot.spotName = data[i].spotName;
+                        // spot.spotAddress = data[i].spotAddress;
+                        // spot.spotDescription = data[i].spotDescription;
+                        // spot.spotCoordinateX = data[i].spotCoordinateX;
+                        // spot.spotCoordinateY = data[i].spotCoordinateY;
+                        //console.log(spotName);
+                        if (index == 1){
+                            spot.rating = data[i].averageReviewRating;
+                            spot.nameString = "评分：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 2){
+                            spot.rating = data[i].spotFavoriteCount;
+                            spot.nameString = "收藏：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 3){
+                            spot.rating = data[i].spotFootprintCount;
+                            spot.nameString = "足迹：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 4){
+                            spot.rating = data[i].spotWishCount;
+                            spot.nameString = "心愿：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                        else if(index == 5){
+                            spot.rating = data[i].spotPopularity;
+                            spot.nameString = "热门度：";
+                            // TODO
+                            $scope.spotList.push(spot);
+                        }
+                    }
+                    //添加marker
+                    for(var i=0; i<$scope.spotList.length;i++){
+                        console.log($scope.spotList[i].spotName +" : "+$scope.spotList[i].spotCoordinateX + " , " + $scope.spotList[i].spotCoordinateY);
+                        var marker = new BMap.Marker(new BMap.Point($scope.spotList[i].spotCoordinateX, $scope.spotList[i].spotCoordinateY));  // 创建标注，为要查询的地址对应的经纬度
+                        var content = $scope.spotList[i].spotName + "<br/>地址："+$scope.spotList[i].spotAddress+"<br/>经度：" + $scope.spotList[i].spotCoordinateX + "<br/>纬度：" + $scope.spotList[i].spotCoordinateY + "<br/>";
+                        map.addOverlay(marker);
+                        addClickHandler(content,marker,$scope.spotList[i]);
+                    }
+                    function addClickHandler(content,marker,spot){
+                        
+                        marker.addEventListener("click",function(e){
+                            if (markerClickTime != spot.spotId){
+                                openInfo(content,e);
+                                markerClickTime = spot.spotId;
+                            }
+                            else if(markerClickTime == spot.spotId){
+                                $scope.goSpot(spot);
+                                console.log("进入金冠啦啦啦啦");
+                                markerClickTime = -1;
+                            }
+                            
+                        });
+                    }
+                    function openInfo(content,e){
+                        var p = e.target;
+                        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                        var opts = {
+                            width : 250,     // 信息窗口宽度
+                            height: 120,     // 信息窗口高度
+                            //title : "基本信息" , // 信息窗口标题
+                            enableMessage:true,//设置允许信息窗发送短息
+                            enableCloseOnClick:true
+                        };
+                        var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+                        map.openInfoWindow(infoWindow,point); //开启信息窗口
+                    }
+
+                    //console.log(data);
+                    $state.go('tabs.nearby.detail_list3');
+                    console.log("加载完成");
+                },
+            });
+    
+        };
 })
 
 .controller('AppCtrl', function ($scope, $state, $ionicPopover,$location, $ionicPopup, $rootScope) {
@@ -326,6 +443,7 @@ angular.module('myApp.controllers', [])
         //获取用户个人收藏
         $scope.getUserFavourite = function(){
             $scope.userSpotList = [];
+            userInfoItemChoose = 1;
             $.ajax({
                 type : "GET",
                 url : "/user/"+window.sessionStorage.currentUserId+"/favoriteList",
@@ -364,6 +482,7 @@ angular.module('myApp.controllers', [])
         //获取用户个人心愿
         $scope.getUserWish = function(){
             $scope.userSpotList = [];
+            userInfoItemChoose = 2;
             $.ajax({
                 type : "GET",
                 url : "/user/"+window.sessionStorage.currentUserId+"/wishList",
@@ -402,6 +521,7 @@ angular.module('myApp.controllers', [])
         //获取用户个人足迹
         $scope.getUserFootprint = function(){
             $scope.userSpotList = [];
+            userInfoItemChoose = 3;
             $.ajax({
                 type : "GET",
                 url : "/user/"+window.sessionStorage.currentUserId+"/footprintList",
@@ -476,6 +596,90 @@ angular.module('myApp.controllers', [])
                 },
             });
         }
+
+
+        //个人页面，取消收藏，取消心愿，取消足迹方法
+        $scope.deleteMyItem = function(spotId){
+            console.log(spotId);
+            if (userInfoItemChoose != -1){
+                if (userInfoItemChoose == 1){
+                    $scope.deleteMyFavorite(spotId);
+                    
+                }else if(userInfoItemChoose == 2){
+                    $scope.deleteMyWish(spotId);
+                    
+                }else if(userInfoItemChoose == 3){
+                    $scope.deleteMyFootprint(spotId);
+                    
+                }
+            }
+        }
+
+        //取消收藏
+        $scope.deleteMyFavorite = function(spotId){
+            $.ajax({
+                type : "DELETE",
+                url : "/favorite",
+                data : JSON.stringify({spotId: spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data) {// data is list<spot>
+                },
+                statusCode : {
+                    200 : function() {
+                        console.log("取消收藏成功");
+                        $scope.getUserFootprint();
+                    },
+                    404 : function() {
+                        console.log("Not found!");
+                    }
+                }
+            });
+        };
+
+        //取消心愿
+        $scope.deleteMyWish = function(spotId){
+            $.ajax({
+                type : "DELETE",
+                url : "/wish",
+                data : JSON.stringify({spotId: spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data) {// data is list<spot>
+                },
+                statusCode : {
+                    200 : function() {
+                        console.log("取消心愿成功");
+                        $scope.getUserWish();
+                    },
+                    404 : function() {
+                        console.log("Not found!");
+                    }
+                }
+            });
+        };
+
+        //取消足迹
+        $scope.deleteMyFootprint = function(spotId){
+            $.ajax({
+                type : "DELETE",
+                url : "/footprint",
+                data : JSON.stringify({spotId: spotId}),
+                contentType : "application/json; charset=utf-8",
+                dataType : "json",
+                success : function(data) {// data is list<spot>
+                },
+                statusCode : {
+                    200 : function() {
+                        console.log("取消足迹成功");
+                        $scope.getUserFootprint();
+                    },
+                    404 : function() {
+                        console.log("Not found!");
+                    }
+                }
+            });
+        };
 
 
         $scope.spotList = [];
@@ -1279,79 +1483,7 @@ angular.module('myApp.controllers', [])
 
 
 
-        //nearby页面景点列举
-        $scope.doNearbySearch = function(index){
-            $scope.spotList = [];
-
-            console.log("index = " + index);
-            var nearbySearchString = "popularity";
-            if (index == 1)
-                nearbySearchString = "averageReviewRating";
-            else if (index == 2)
-                nearbySearchString = "favoriteCount";
-            else if (index == 3)
-                nearbySearchString = "footprintCount";
-            else if (index == 4)
-                nearbySearchString = "wishCount";
-            else if (index == 5)
-                nearbySearchString = "popularity";
-
-            //当前x,y坐标
-            console.log($rootScope.userCoordinateX + " " + $rootScope.userCoordinateY);
-            console.log("searchString = " + nearbySearchString);
-
-
-            $.ajax({
-                type : "GET",
-                url : "/search/adjacentSpot?userCoordinateX="+ $rootScope.userCoordinateX +"&userCoordinateY="+ $rootScope.userCoordinateY +"&limit=6&radius=0.06&orderby="+ nearbySearchString,
-                processData : false,
-                contentType : "application/json; charset=utf-8",
-                success : function(data) {// data is list<spot>
-                    console.log("nearby页面景点列举");
-                    console.log(data);
-                    for(var i=0; i<data.length; i++){
-                        var spot = {};
-                        spot.spotId = data[i].spotId;
-                        spot.spotName = data[i].spotName;
-                        //console.log(spotName);
-                        if (index == 1){
-                            spot.rating = data[i].averageReviewRating;
-                            spot.nameString = "评分：";
-                            // TODO
-                            $scope.spotList.push(spot);
-                        }
-                        else if(index == 2){
-                            spot.rating = data[i].spotFavoriteCount;
-                            spot.nameString = "收藏：";
-                            // TODO
-                            $scope.spotList.push(spot);
-                        }
-                        else if(index == 3){
-                            spot.rating = data[i].spotFootprintCount;
-                            spot.nameString = "足迹：";
-                            // TODO
-                            $scope.spotList.push(spot);
-                        }
-                        else if(index == 4){
-                            spot.rating = data[i].spotWishCount;
-                            spot.nameString = "心愿：";
-                            // TODO
-                            $scope.spotList.push(spot);
-                        }
-                        else if(index == 5){
-                            spot.rating = data[i].spotPopularity;
-                            spot.nameString = "热门度：";
-                            // TODO
-                            $scope.spotList.push(spot);
-                        }
-                    }
-                    //console.log(data);
-                    $state.go('tabs.nearby.detail_list3');
-                    console.log("加载完成");
-                },
-            });
-    
-        };
+        
 
         //交换起点终点功能
         $scope.changeStartAndEnd = function(){
@@ -1686,7 +1818,7 @@ angular.module('myApp.controllers', [])
         //从数据库获取icon
         //TODO
 
-        
+
 
 
         $scope.setIconNumber = function(index, iconDescription){
