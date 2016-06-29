@@ -6,13 +6,17 @@
 3.图层切换框（多选框）
 -->
     <div class="content has-header">
-        <div class="list list-inset">
-            <label class="item item-input">
+        <div class="list list-inset" >
+            <label class="item item-input radio-inline">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search">
+                <input type="text" id="homeSearchKeyword" placeholder="Search"></br>
             </label>
         </div>
     </div>
+
+    <button class="button button-positive list-button" ng-click="homeSearch()">
+        Search
+    </button>
     <ion-content class="padding" id="allmap">
         <!--<h1>展示主页面：</h1>
         <p>1.百度地图</p>
@@ -23,11 +27,11 @@
         <div class="item item-positive">
             图层选择
         </div>
-        <ion-checkbox>
-            复旦大学
+        <ion-checkbox ng-click="showPrintSpot(1)">
+            上海公园景点
         </ion-checkbox>
-        <ion-checkbox>
-            张江大学
+        <ion-checkbox ng-click="showPrintSpot(2)">
+            上海大学景点
         </ion-checkbox>
     </div>
 </ion-view>

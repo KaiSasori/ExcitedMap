@@ -5,28 +5,14 @@
         <p>2.搜索框</p>
         <p>3.图层切换框（多选框）</p>-->
     </ion-content>
-    <ion-scroll zooming="true" direction="xy" id="plus_pane">
+    <ion-scroll zooming="true" direction="y" id="plus_pane">
         <div id="near_des">
-            <button class="button button-positive">评分</button>
-            <button class="button button-positive">收藏</button>
-            <button class="button button-positive">分享</button>
-            <button class="button button-positive">足迹</button>
-            <button class="button button-positive">心愿</button>
-            <button class="button button-positive">推荐</button>
-            <ion-content class="padding">
-                <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                    <p>1.1号景点</p>
-                    <p>评分：5.0</p>
-                </ion-item>
-                <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                    <p>1.2号景点</p>
-                    <p>评分：4.0</p>
-                </ion-item>
-                <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-                    <p>1.3号景点</p>
-                    <p>评分：3.0</p>
-                </ion-item>
-            </ion-content>
+            <button class="button button-positive" ng-click="doNearbySearch(1)">评分</button>
+            <button class="button button-positive" ng-click="doNearbySearch(2)">收藏</button>
+            <button class="button button-positive" ng-click="doNearbySearch(3)">足迹</button>
+            <button class="button button-positive" ng-click="doNearbySearch(4)">心愿</button>
+            <button class="button button-positive" ng-click="doNearbySearch(5)">推荐</button>
+            <ion-nav-view name="nearby_detail" ></ion-nav-view>
         </div>
     </ion-scroll>
 </ion-view>

@@ -1,19 +1,19 @@
 <ion-view title="List">
     <ion-tabs class="tabs-top tabs-positive">
-
-        <ion-tab title="邯郸景点">
-            <ion-nav-view name="tab-dash1"></ion-nav-view>
+        <ion-tab title="请选择标签和方式">
+            <ion-nav-view name="tab-dash0" ></ion-nav-view>
         </ion-tab>
-
-        <ion-tab title="张江景点">
-            <ion-nav-view name="tab-dash2"></ion-nav-view>
+        <ion-tab title="上海公园景点" on-select="onTabSelected(1)">
+            <ion-nav-view name="tab-dash1" ></ion-nav-view>
         </ion-tab>
-
-        <ion-tab title="江湾景点">
-            <ion-nav-view name="tab-dash3"></ion-nav-view>
+        <ion-tab title="上海大学景点" on-select="onTabSelected(2)">
+            <ion-nav-view name="tab-dash2" ></ion-nav-view>
         </ion-tab>
 
         <ion-tab title="POPOVER" icon="icon icon-mini ion-arrow-down-c" ng-click="popover.show($event)"></ion-tab>
 
+        <ion-tab title="搜索" ng-click="listSpots(0)">
+            <button></button>
+        </ion-tab>
     </ion-tabs>
 </ion-view>

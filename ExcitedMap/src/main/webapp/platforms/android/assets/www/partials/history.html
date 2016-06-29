@@ -1,0 +1,32 @@
+<ion-view title="History">
+    <div style="padding-top:70px;">
+        <div style="display: flex">
+            <div class="history_search">
+                <label class="item item-input radio-inline">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input id="keyword" type="text" placeholder="Search">
+                </label>
+                <div id="searchSuggest">
+                <ul>
+                </ul>
+                </div>
+            </div>
+            <button class="button button-positive history_button" ng-click="doSearch()">
+                Search
+            </button>
+            
+        </div>
+
+        <div style="display: flex;margin: 15px">
+            <ion-radio ng-model="choice" onclick="searchStringNum(1)">按评分</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(2)">按收藏</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(3)">按足迹</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(4)">按心愿</ion-radio>
+            <ion-radio ng-model="choice" onclick="searchStringNum(5)">按推荐</ion-radio>
+        </div>
+
+        
+            <ion-nav-view name="history_detail" ></ion-nav-view>
+        
+    </div>
+</ion-view>

@@ -1,0 +1,55 @@
+<ion-view title="Command">
+    <ion-content class="padding" id="command_map"></ion-content>
+
+    <div id="command_detail">
+        <div class="button button-assertive" onclick="if(document.getElementById('activity').style.display=='none'){
+        document.getElementById('activity').style.display='block';
+        document.getElementById('place').style.display='none';
+        document.getElementById('suggestion').style.display='none';
+        }">
+            活动类型
+        </div>
+
+        <div class="button button-assertive" onclick="if(document.getElementById('place').style.display=='none'){
+        document.getElementById('place').style.display='block';
+        document.getElementById('activity').style.display='none';
+        document.getElementById('suggestion').style.display='none';
+        }">
+            场所类型
+        </div>
+
+        <div class="button button-assertive" onclick="if(document.getElementById('suggestion').style.display=='none'){
+        document.getElementById('suggestion').style.display='block';
+        document.getElementById('activity').style.display='none';
+        document.getElementById('place').style.display='none';
+        }">
+            建议
+        </div>
+
+    </div>
+
+    <div id="command_pane" style="text-align: center;padding-top: 20px">
+        <div id="activity" style="display: block">
+            <button class="button button-calm box" ng-click="setIconNumber(1,'运动')">运动</button>
+            <button class="button button-energized box" ng-click="setIconNumber(2,'健身')">健身</button>
+            <button class="button button-balanced box" ng-click="setIconNumber(3,'交往活动')">交往活动</button>
+            <button class="button button-assertive box" ng-click="setIconNumber(4,'观赏')">观赏</button>
+            <button class="button button-stable box" ng-click="setIconNumber(5,'休憩')">休憩</button>
+        </div>
+        <div id="place" style="display: none">
+            <button class="button button-calm box" ng-click="setIconNumber(1,'亲近自然')">亲近自然</button>
+            <button class="button button-energized box" ng-click="setIconNumber(2,'锻炼身体')">锻炼身体</button>
+            <button class="button button-balanced box" ng-click="setIconNumber(3,'聚会交友')">聚会交友</button>
+            <button class="button button-assertive box" ng-click="setIconNumber(4,'美的体验')">美的体验</button>
+            <button class="button button-stable box" ng-click="setIconNumber(5,'观察学习')">观察学习</button>
+        </div>
+        <div id="suggestion" style="display: none">
+            <button class="button button-calm box" ng-click="setIconNumber(1,'增加硬件设施')">增加硬件设施</button>
+            <button class="button button-energized box" ng-click="setIconNumber(2,'增加绿色空间')">增加绿色空间</button>
+            <button class="button button-balanced box" ng-click="setIconNumber(3,'改善交通')">改善交通</button>
+            <button class="button button-assertive box" ng-click="setIconNumber(4,'改善步行系统')">改善步行系统</button>
+            <button class="button button-stable box" ng-click="setIconNumber(5,'其他')">其他</button>
+            <label class="item item-input" style="width: 100px;display: inline-block"><input type="text" placeholder="其他建议" ></label>
+        </div>
+    </div>
+</ion-view>

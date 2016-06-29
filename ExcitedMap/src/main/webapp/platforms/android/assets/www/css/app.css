@@ -39,21 +39,31 @@
 
 .list-inset{
     margin-left: 15px;
-    margin-right: 220px;
+    margin-right: 15px;
 }
 
-#allmap,#nearmap{
+.list-button{
+    top: 120px;
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    right: 220px;
+    z-index: 100;
+}
+
+#allmap,#nearmap,#manage_map{
     margin:12px;
     box-shadow:0 3px 25px black;
 }
 
-#detailmap{
+#detailmap,#command_map,#here_map{
     margin:12px;
     margin-bottom: 60px;
     box-shadow:0 3px 25px black;
 }
 
 .home-checkbox{
+    top: 120px;
     width: 200px;
     height: 200px;
     position: absolute;
@@ -69,13 +79,11 @@
     width: 100px;
 }
 
-#plus_button{
+#plus_detail,#command_detail{
     position: absolute;
     bottom: 70px;
     right: 30px;
-    width: 50px;
     height: 50px;
-    border-radius: 25px;
     z-index: 10;
 }
 
@@ -89,8 +97,32 @@
     border: 5px solid cornflowerblue;
 }
 
-#detail_des{
+#command_pane{
+    position: absolute;
+    height: 100px;
+    right:30px;
+    left:30px;
+    bottom: 70px;
     background-color: #ffffff;
+    border: 5px solid cornflowerblue;
+}
+
+#question_pane,#detail_pane,#add_pane,#error_pane,#add_pane_plus{
+    display: none;
+    background-color: #ffffff;
+    position: absolute;
+    height: 300px;
+    right:30px;
+    left:30px;
+    bottom: 70px;
+
+    border: 5px solid cornflowerblue;
+}
+.detail_des{
+    background-color: #ffffff;
+}
+.detail_pic{
+    height: 200px;
 }
 
 .choice{
@@ -101,15 +133,20 @@
 
 .information{
     height: 300px;
-    line-height: 300px;
-    text-align: center;
+    line-height: 50px;
+    font-size: 30px;
     border-bottom: 3px solid cornflowerblue;
 }
 
 .command{
-    height: 300px;
-    line-height: 300px;
-    text-align: center;
+    height: 800px;
+    line-height: 50px;
+    font-size: 30px;
+    border-bottom: 3px solid cornflowerblue;
+}
+
+.frame{
+    height: 800px;
     border-bottom: 3px solid cornflowerblue;
 }
 
@@ -168,4 +205,56 @@ ul.rating li.five a:hover {background-position:0 -160px}
 #near_des{
     background-color: #ffffff;
     height: 1000px;
+}
+
+.management{
+    display: inline-flex;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+#manage_start{
+    width: 600px;
+}
+
+#manage_stop{
+    width: 600px;
+}
+
+#manage_confirm_button{
+    right: 120px;
+}
+
+#manage_submit_button{
+    right: 15px;
+}
+
+#manage_button{
+    right: 15px;
+}
+
+/*history*/
+.history_search{
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 1000px;
+}
+
+/*detail*/
+.flex_star{
+    display: flex;
+}
+
+#login_out_button{
+    position: absolute;
+    width: 100px;
+    right: 90px;
+    top: 20px;
+}
+#share_button{
+    position: absolute;
+    width: 100px;
+    right: 210px;
+    top: 20px;
 }

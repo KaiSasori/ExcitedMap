@@ -1,16 +1,8 @@
-<ion-view>
+<ion-view style="top:360px;left:15px;width:1230px;">
     <ion-content class="padding">
-        <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-            <p>5.1号景点</p>
-            <p>推荐：200</p>
-        </ion-item>
-        <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-            <p>5.2号景点</p>
-            <p>推荐：100</p>
-        </ion-item>
-        <ion-item class="item item-avatar" ui-sref="tabs.list.detail">
-            <p>5.3号景点</p>
-            <p>推荐：0</p>
+        <ion-item class="item item-avatar" ng-repeat="spot in userSpotList" ng-click="goSpot(spot)">
+            <p>景点：{{spot.spotName}}</p>
+            <p>我的评分：{{spot.userReviewRating}}分 &nbsp&nbsp 我的评价：{{spot.userReviewContent}}</p>
         </ion-item>
     </ion-content>
 </ion-view>

@@ -1,0 +1,24 @@
+<ion-view title="Management">
+
+    <div class="content has-header">
+        <div class="management">
+            <label class="item item-input" id="manage_start">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="起点" id="startPlace">
+            </label>
+            <ion-item style="width: 50px;background-color: transparent">
+                <i class="icon ion-arrow-right-a" ng-click="changeStartAndEnd()"></i>
+            </ion-item>
+            <label class="item item-input" id="manage_stop">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="终点" id="endPlace" ng-model="endPlace">
+            </label>
+            <button class="button button-positive list-button" id="manage_confirm_button" ng-click="setStartEndCoordinate()">Confirm</button>
+            <button class="button button-positive list-button" id="manage_submit_button" ng-click="doManagement()">Search</button>
+        </div>
+    </div>
+
+    <ion-content class="padding" id="manage_map">
+    </ion-content>
+
+</ion-view>
