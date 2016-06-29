@@ -393,6 +393,8 @@ angular.module('myApp.controllers', [])
         
         //用户登出
         $scope.userLogOut = function(){
+            QC.Login.signOut();
+            //alert(QC.Login.check());
             $.ajax({
                 type : "GET",
                 url : "/user/logout",
