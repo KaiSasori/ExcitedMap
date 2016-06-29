@@ -1795,6 +1795,7 @@ angular.module('myApp.controllers', [])
                         map.openInfoWindow(infoWindow,point); //开启信息窗口
                     }
 
+                    
                     //存入数据库
                     $.ajax({
                         type : "PUT",
@@ -1803,6 +1804,8 @@ angular.module('myApp.controllers', [])
                             spotId: $scope.spotId,
                             spotLabelType: $scope.iconNumber,
                             spotLabelDescription: $scope.iconDescription
+                            //添加xy坐标
+                            //TODO
                         }),
                         contentType : "application/json; charset=utf-8",
                         dataType : "json",
@@ -1828,6 +1831,9 @@ angular.module('myApp.controllers', [])
         $scope.setIconNumber = function(index, iconDescription){
             $scope.iconNumber = index;
             $scope.iconDescription = iconDescription;
+            if ($scope.iconNumber == 5 && $scope.iconDescription == "其他"){
+                $scope.iconDescription = $("#otherSuggestion").val();
+            }
         }
 
 })
@@ -1844,9 +1850,19 @@ angular.module('myApp.controllers', [])
 
 .controller('mineCtr', function($scope,$state,$rootScope) {
         $rootScope.currentUserId = window.sessionStorage.currentUserId;
-            $scope.currentUserName = window.sessionStorage.currentUserName;
-            $scope.currentUserEmail = window.sessionStorage.currentUserEmail;
-            $scope.currentUserAvatarPath = window.sessionStorage.currentUserAvatarPath;
-            console.log("denglu : " + window.sessionStorage.currentUserId);
-            $state.go('tabs.mine');
+        $scope.currentUserName = window.sessionStorage.currentUserName;
+        $scope.currentUserEmail = window.sessionStorage.currentUserEmail;
+        $scope.currentUserAvatarPath = window.sessionStorage.currentUserAvatarPath;
+        console.log("denglu : " + window.sessionStorage.currentUserId);
+        $state.go('tabs.mine');
+
+        $(function(){
+            var text = "想要玩遍全世界么，惊喜尽在ExcitedMap!"
+            $("#share_button").zclip({
+                path:'./lib/jquery/ZeroClipboard.swf', //记得把ZeroClipboard.swf引入到项目中 
+                copy:function(){
+                    return text;
+                }
+            });
+        });
 })
