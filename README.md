@@ -6,6 +6,63 @@ A map that makes you Excited!
 用户可以用它来获取周围的旅游景观的多媒体信息，查看别人的评价并发布自己的评价。另外，还有部分社交功能，如分享景点、标记自己喜欢的景点等。
 ## 采用的技术
 ### 前端
+### 负责成员：高金凯、朱宇奇
+高金凯：
+负责内容：
+1、使用AngularJS前端框架，完成静态页面的实现。并且负责页面的设计与美化。
+2、自学Ionic，完成手机端的布局和应用。
+
+朱宇奇：
+负责内容：
+1、使用AngularJS前端框架，在高金凯同学静态页面的框架上，实现本Project所有的功能点。
+2、自学百度API，熟练调用API完成功能点，并重写了部分百度API与Ionic框架冲突的部分函数，使功能点可以顺利完成。
+3、通过JavaScript，完成与后端接口的调用。
+
+###实现思路：
+
+###前端框架AngularJS。
+这是我第一次在实战中使用AngularJS在项目中进行开发，下面我来谈谈自己project过程中的对AngularJS感悟和思考。
+
+###心得体会————朱宇奇
+1、AngularJS 路由
+AngularJS 路由 允许我们通过不同的URL访问不同的内容。
+通过AngularJS可以实现多视图的单页Web应用（single page web application，SPA）。
+这个优点，在这次的project中，让我们如虎添翼，大大减少了我们布局的难度，使得我们可以快速上手，通过路由，轻松完成页面的多视图切换。
+在app.js中设定好 路由 以后，通过 $state.go(); 的方式，我们就可以轻松完成页面的切换。
+
+2、AngularJS 控制器
+AngularJS 应用程序被控制器控制。ng-controller 指令定义了应用程序控制器。
+本次project中，我们所有的控制器都在 app.js 中，通过路由，完成与页面的绑定。
+所有 controller 的具体实现，都在 controller.js 中。实现过程中，通过不同的 controller 对不同的字视图进行控制，快捷高效，同时代码结构非常清晰，可以很简单的明白那个函数在哪个页面中被调用。
+
+3、AngularJS Scope(作用域)
+Scope(作用域) 是应用在 HTML (视图) 和 JavaScript (控制器)之间的纽带。
+通过{{}}的方式，我们可以将 $scope 对象当作一个参数传递，这种方式便于我们修改页面上的文字，参数。
+本次project中，我在实现功能点的时候，最大的感悟就是，Scope函数和变量的优势，父子标签页面间变量传递非常方便，下级作用域中可以调用上级作用域中的 变量 和 函数，这一优点，大大简化了我们在构造 function 时传递参数的数量，无需多次传递统一变量。
+
+4、AngularJS ng-repeat
+ng-repeat指令生效在需要循环内容的元素上，items和控制器上的变量名对应，item是为数组中单个对象起的别名。$index可以返回当前引用对象的序号，从0开始，另外还有$first、$middle、$last可以返回布尔值，用于告诉你当前元素是否是集合中的第一个中间的最后一个元素。
+本次project中，ng-repeat无疑是一个巨大的“功臣”。在生成景观的列表的时候，我们只需要在 controller 的 $scope 中定义好景点列表的值，如：$scope.spotList ，然后，在生成列表视图的时候，我们可以调用 ng-repeat 方式，进行页面生成。
+代码如下：
+<ion-view>
+    <ion-content class="padding">
+        <ion-item class="item item-avatar" ng-repeat="spot in spotList" ng-click="goSpot(spot)">
+            <p>{{spot.spotName}}</p>
+            <p>{{spot.nameString + " " + spot.rating}}</p>
+        </ion-item>
+    </ion-content>
+</ion-view>
+短短几行代码，就是在页面中生成整个的景观列表。
+
+###地图显示：百度地图API。
+百度地图JavaScript API是一套由JavaScript语言编写的应用程序接口，可帮助您在网站中构建功能丰富、交互性强的地图应用，支持PC端和移动端基于浏览器的地图应用开发，且支持HTML5特性的地图开发。
+对于百度地图API的调用方式，百度官网有各种实例，这里我就不一一列举了。我来谈谈我调用百度地图API的直观感受。
+
+###心得体会————朱宇奇
+百度地图API，调用非常简便，但是，我在project的实现过程中，在这方面遇到的问题最多的，是百度地图API与Ionic框架布局的冲突。
+这一冲突，主要体现在，两者布局的z-index上。在写project过程中，我发现许多百度地图API自带的监听事件，在百度官网的测试中，是可以监听到的，但是，在加入ionic框架以后，会出现点击页面，事件无法监听的现象。通过直接观察百度地图API源码发现，应该是因为ionic的布局，使得百度地图API的某一个图层被置于了下方，所以，百度地图API自带的click事件监听无法被监听到，只有地图上的marker的监听事件依旧有效。
+然而，我们的project要求实现景观评论的标签添加，以及线路规划，都需要在地图上进行点击事件。
+这个问题，困扰了我很久，最终，我通过在地图表面添加覆盖层，自己重写AddClickListener的方式，终于能够监听到百度地图的点击事件，最终，顺利完成了本次project。
 
 ### 后端
 使用SM框架实现，并采用了Jackson JSON Processor、MyBatis Generator和MyBatis-Spring-Boot-Starter。使用MySQL作为数据库。
