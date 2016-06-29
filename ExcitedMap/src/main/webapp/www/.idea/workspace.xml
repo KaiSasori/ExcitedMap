@@ -36,16 +36,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/partials/detail.html">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/partials/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.34954956" vertical-offset="4575" max-vertical-offset="5244">
-              <caret line="251" column="80" selection-start-line="251" selection-start-column="80" selection-end-line="251" selection-end-column="80" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#ion-scroll#2;n#ion-view#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#iframe#0;n#div#3;n#div#0;n#ion-scroll#2;n#ion-view#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#ion-view#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-8.821428" vertical-offset="57" max-vertical-offset="817">
+              <caret line="16" column="53" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="53" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -53,8 +49,18 @@
       <file leaf-file-name="app.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/app.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2579" max-vertical-offset="4997">
-              <caret line="146" column="17" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="513" max-vertical-offset="5035">
+              <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mine.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/partials/mine.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.55495495" vertical-offset="243" max-vertical-offset="798">
+              <caret line="29" column="102" selection-start-line="29" selection-start-column="102" selection-end-line="29" selection-end-column="102" />
               <folding />
             </state>
           </provider>
@@ -88,9 +94,9 @@
         <option value="$PROJECT_DIR$/partials/here.html" />
         <option value="$PROJECT_DIR$/js/controllers.js" />
         <option value="$PROJECT_DIR$/partials/command.html" />
-        <option value="$PROJECT_DIR$/partials/mine.html" />
-        <option value="$PROJECT_DIR$/css/app.css" />
         <option value="$PROJECT_DIR$/partials/detail.html" />
+        <option value="$PROJECT_DIR$/css/app.css" />
+        <option value="$PROJECT_DIR$/partials/mine.html" />
       </list>
     </option>
   </component>
@@ -469,12 +475,12 @@
       <workItem from="1465630973877" duration="488000" />
       <workItem from="1466840523438" duration="2247000" />
       <workItem from="1466913461262" duration="6813000" />
-      <workItem from="1467178677940" duration="1074000" />
+      <workItem from="1467178677940" duration="2122000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69232000" />
+    <option name="totallyTimeSpent" value="70280000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -770,13 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/partials/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.857142" vertical-offset="0" max-vertical-offset="1140">
-          <caret line="16" column="89" selection-start-line="13" selection-start-column="16" selection-end-line="16" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/partials/register.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47927928" vertical-offset="0" max-vertical-offset="703">
@@ -861,22 +860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/partials/mine.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23963964" vertical-offset="0" max-vertical-offset="798">
-          <caret line="7" column="65" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.857142" vertical-offset="104" max-vertical-offset="646">
-          <caret line="20" column="62" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/partials/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.701107" vertical-offset="0" max-vertical-offset="817">
@@ -893,14 +876,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/app.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2579" max-vertical-offset="4997">
-          <caret line="146" column="17" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/partials/detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34954956" vertical-offset="4575" max-vertical-offset="5244">
@@ -910,6 +885,38 @@
             <element signature="n#style#0;n#iframe#0;n#div#3;n#div#0;n#ion-scroll#2;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#ion-view#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.857142" vertical-offset="104" max-vertical-offset="646">
+          <caret line="20" column="62" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/partials/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.821428" vertical-offset="57" max-vertical-offset="817">
+          <caret line="16" column="53" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="513" max-vertical-offset="5035">
+          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/partials/mine.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55495495" vertical-offset="243" max-vertical-offset="798">
+          <caret line="29" column="102" selection-start-line="29" selection-start-column="102" selection-end-line="29" selection-end-column="102" />
+          <folding />
         </state>
       </provider>
     </entry>

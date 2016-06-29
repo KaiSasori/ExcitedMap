@@ -39,10 +39,11 @@
 
 .list-inset{
     margin-left: 15px;
-    margin-right: 305px;
+    margin-right: 15px;
 }
 
 .list-button{
+    top: 120px;
     width: 100px;
     height: 40px;
     position: absolute;
@@ -62,6 +63,7 @@
 }
 
 .home-checkbox{
+    top: 120px;
     width: 200px;
     height: 200px;
     position: absolute;
