@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101317049" data-redirecturi="http://map.tunnel.qydev.com/www/jump.html" charset="utf-8"></script>
+        <script type="text/javascript" src="../lib/jquery/jquery-2.2.3.min.js"></script>
+    </head>
+    <h1>正在为您跳转，请稍后</h1>
+        
+        <script type="text/javascript">
+            if(QC.Login.check()){//如果已登录
+	        QC.Login.getMe(function(openId, accessToken){
+		         $.ajax({
+                 type:"POST",
+                 url:"http://map.tunnel.qydev.com/user/loginByQQ?openId="+openId +"&accessToken=qwertyuiop",
+                 processData : false,
+                 contentType : "application/json; charset=utf-8",
+                 success : function(data){
+                     window.sessionStorage.currentUserId = data.userId;
+                     window.sessionStorage.currentUserName = data.userName;
+                     window.sessionStorage.currentUserAvatarPath = data.userAvatarPath;
+                     window.sessionStorage.currentUserEmail = data.userEmail;
+                     alert("userId="+window.sessionStorage.currentUserEmail);
+                     
+                     window.location.href="http://map.tunnel.qydev.com/www/index.html#/tab/mine"; 
+                 },
+                statusCode : {
+                    
+                    400 : function() {
+                        alert("400");
+                    },
+                    
+                }
+                });
+	        });
+            
+           var para = {name : "niniwa22"};
+
+            QC.api("add_idol", para)
+	            .success(function(s){//成功回调
+		        alert("欢迎收听excitedmap的微博");
+	        })
+	        
+	    
+    
+
+            }
+
+
+        </script>
+
+</html>
