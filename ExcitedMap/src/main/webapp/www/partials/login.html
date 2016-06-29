@@ -42,8 +42,11 @@
                  contentType : "application/json; charset=utf-8",
                  success : function(data){
                      window.sessionStorage.currentUserId = data.userId;
-                     alert("userId="+window.sessionStorage.currentUserId);
-                     var currentUserId = data.userId;
+                     window.sessionStorage.currentUserName = data.userName;
+                     window.sessionStorage.currentUserAvatarPath = data.userAvatarPath;
+                     window.sessionStorage.currentUserEmail = data.userEmail;
+                     alert("userId="+window.sessionStorage.currentUserEmail);
+                     
                      window.location.href="http://map.tunnel.qydev.com/www/index.html#/tab/mine"; 
                  },
                 statusCode : {

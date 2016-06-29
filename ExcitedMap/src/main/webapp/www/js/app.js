@@ -55,7 +55,8 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
             url: "/mine",
             views: {
                 'menuContent': {
-                    templateUrl: "partials/mine.html"
+                    templateUrl: "partials/mine.html",
+                    controller: 'mineCtr'
                 }
             },
             authStatus: false

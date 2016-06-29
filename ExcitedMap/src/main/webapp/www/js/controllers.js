@@ -362,9 +362,9 @@ angular.module('myApp.controllers', [])
 
         //mine页面
         $scope.userSpotList = [];
-        $scope.currentUserId = -1;
+        $rootScope.currentUserId = -1;
         $scope.goMine = function(){
-            $scope.currentUserId = window.sessionStorage.currentUserId;
+            $rootScope.currentUserId = window.sessionStorage.currentUserId;
             $scope.currentUserName = window.sessionStorage.currentUserName;
             $scope.currentUserEmail = window.sessionStorage.currentUserEmail;
             $scope.currentUserAvatarPath = window.sessionStorage.currentUserAvatarPath;
@@ -372,8 +372,8 @@ angular.module('myApp.controllers', [])
         }
 
         $scope.mineClick = function(){
-            console.log("currentUserId: " + $scope.currentUserId);
-            if ($scope.currentUserId > 0){
+            console.log("currentUserId: " + $rootScope.currentUserId);
+            if ($rootScope.currentUserId > 0){
                 $state.go('tabs.mine');
             }
             else{
@@ -400,7 +400,7 @@ angular.module('myApp.controllers', [])
                 contentType : "application/json; charset=utf-8",
                 success : function(data1) {// data is list<spot>
                     alert("登出成功");
-                    $scope.currentUserId = -1;
+                    $rootScope.currentUserId = -1;
                     $state.go('tabs.login');
                 },
             });
@@ -1838,4 +1838,13 @@ angular.module('myApp.controllers', [])
         map.centerAndZoom(new BMap.Point(121.484, 31.195), 11);
         map.addControl(new BMap.MapTypeControl());
         map.setCurrentCity("上海");
+})
+
+.controller('mineCtr', function($scope,$state,$rootScope) {
+        $rootScope.currentUserId = window.sessionStorage.currentUserId;
+            $scope.currentUserName = window.sessionStorage.currentUserName;
+            $scope.currentUserEmail = window.sessionStorage.currentUserEmail;
+            $scope.currentUserAvatarPath = window.sessionStorage.currentUserAvatarPath;
+            console.log("denglu : " + window.sessionStorage.currentUserId);
+            $state.go('tabs.mine');
 })
