@@ -143,6 +143,11 @@
     border-bottom: 3px solid cornflowerblue;
 }
 
+.frame{
+    height: 800px;
+    border-bottom: 3px solid cornflowerblue;
+}
+
 .rating{
     width:80px;
     height:16px;
@@ -243,5 +248,11 @@ ul.rating li.five a:hover {background-position:0 -160px}
     position: absolute;
     width: 100px;
     right: 90px;
+    top: 20px;
+}
+#share_button{
+    position: absolute;
+    width: 100px;
+    right: 210px;
     top: 20px;
 }
