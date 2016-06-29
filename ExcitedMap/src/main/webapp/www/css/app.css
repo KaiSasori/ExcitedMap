@@ -14,20 +14,26 @@
     height: 100%;
 }
 .box h1  {
-    color: #fff;
+    color: black;
+    margin-bottom: 10%;
 }
+
+
 
 .A {
-    background-color: purple;
-}
-
-.B {
-    background-color: blue;
+   
+    background-image: url(../img/showA.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 
 .C {
-    background-color: pink;
+    background-image: url(../img/showB.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
 }
+
+
 
 .btn-start {
     top: initial;
