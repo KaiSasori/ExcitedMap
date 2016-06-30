@@ -52,6 +52,8 @@ CREATE TABLE `spot_label` (
   `user_id` int(11) NOT NULL,
   `spot_label_type` int(1) NOT NULL,
   `spot_label_description` varchar(50) NOT NULL,
+  `spot_label_coordinate_x` DOUBLE PRECISION,
+  `spot_label_coordinate_y` DOUBLE PRECISION,
   PRIMARY KEY (`spot_label_id`)
 ) DEFAULT CHARSET=utf8;
 
