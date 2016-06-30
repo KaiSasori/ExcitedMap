@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void registerUser(User user) throws DuplicateKeyException {
-		user.setUserAvatarPath("default.jpg");
+		user.setUserAvatarPath("img/avatar/default.jpg");
 		userDao.insertSelective(user);
 	}
 
