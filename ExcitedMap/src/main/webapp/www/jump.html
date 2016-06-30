@@ -15,12 +15,12 @@
                  contentType : "application/json; charset=utf-8",
                  success : function(data){
                      window.sessionStorage.currentUserId = data.userId;
-                     window.sessionStorage.currentUserName = data.userName;
+                     
                      window.sessionStorage.currentUserAvatarPath = data.userAvatarPath;
                      window.sessionStorage.currentUserEmail = data.userEmail;
-                     alert("userId="+window.sessionStorage.currentUserEmail);
+                     //alert("userId="+window.sessionStorage.currentUserEmail);
                      
-                     window.location.href="http://map.tunnel.qydev.com/www/index.html#/tab/mine"; 
+                    
                  },
                 statusCode : {
                     
@@ -39,7 +39,14 @@
 		        alert("欢迎收听excitedmap的微博");
 	        })
 	        
-	    
+	        QC.api("get_user_info", {}).success(function(s){
+                
+                window.sessionStorage.currentUserName = s.data.nickname;
+                alert("获取用户信息成功！当前用户昵称为："+window.sessionStorage.currentUserName);
+                window.location.href="http://map.tunnel.qydev.com/www/index.html#/tab/mine"; 
+
+            })
+
     
 
             }
