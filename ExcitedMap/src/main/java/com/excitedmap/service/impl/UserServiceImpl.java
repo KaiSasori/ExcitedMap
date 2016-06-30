@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUserAvatarPath(HttpServletRequest request, MultipartFile file, User user) {
+	public String updateUserAvatarPath(HttpServletRequest request, MultipartFile file, User user) {
 		String uploadRootPath = request.getServletContext().getRealPath("img/avatar");
 		File uploadRootDir = new File(uploadRootPath);
 		if (!uploadRootDir.exists()) {
@@ -59,8 +59,10 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			System.out.println("Error Write file: " + name);
 		}
-		user.setUserAvatarPath("img/avatar" + File.separator + name);
+		String newAvatarPath = "img/avatar" + File.separator + name;
+		user.setUserAvatarPath(newAvatarPath);
 		userDao.updateByPrimaryKeySelective(user);
+		return newAvatarPath;
 	}
 
 	@Override

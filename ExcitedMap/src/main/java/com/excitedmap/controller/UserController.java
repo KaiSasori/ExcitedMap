@@ -100,7 +100,6 @@ public class UserController {
 		}
 	}
 
-	// 更新用户信息
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<Void> executeUpdateUser(HttpServletRequest request, @RequestBody User user) {
 		userService.updateUser(user);
@@ -148,10 +147,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/avatar", method = RequestMethod.POST)
-	public ResponseEntity<Void> executeUploadAvatar(HttpServletRequest request,
+	public ResponseEntity<String> executeUploadAvatar(HttpServletRequest request,
 			@RequestParam("file") MultipartFile file) {
 		User user = (User) request.getSession().getAttribute("loggedInUser");
-		userService.updateUserAvatarPath(request, file, user);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<String>(userService.updateUserAvatarPath(request, file, user), HttpStatus.OK);
 	}
 }
