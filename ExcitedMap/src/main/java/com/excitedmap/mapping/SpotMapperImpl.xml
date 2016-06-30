@@ -3,7 +3,7 @@
 <mapper namespace="com.excitedmap.dao.SpotMapperImpl" >
   <resultMap id="ResultMapWithBLOBs" type="Spot" extends="com.excitedmap.dao.SpotMapper.ResultMapWithBLOBs" >
   </resultMap>
-  <resultMap id="BaseResultMap" type="SpotImpl" extends="com.excitedmap.dao.SpotMapper.BaseResultMap" >
+  <resultMap id="BaseResultMap" type="SpotImpl" extends="com.excitedmap.dao.SpotMapper.ResultMapWithBLOBs" >
   	<result column="spot_id_favorite_count" property="spotFavoriteCount" jdbcType="INTEGER" />
   	<result column="spot_id_wish_count" property="spotWishCount" jdbcType="INTEGER" />
   	<result column="spot_id_footprint_count" property="spotFootprintCount" jdbcType="INTEGER" />
@@ -95,7 +95,7 @@
 	select * from spot where ABS(spot_coordinate_x - #{midCoordinateX}) &lt;= #{radius} and ABS(spot_coordinate_y - #{midCoordinateY}) &lt;= #{radius};
   </select>
   <select id="selectByUserCenterPointAndRadiusOrderByPopularityWithLimit" resultMap="BaseResultMap" >
-  	select A.spot_id, spot_name, spot_category_id, (ifnull(spot_id_footprint_count,0)+ifnull(spot_id_wish_count,0)+ifnull(spot_id_favorite_count,0)) as spot_popularity from spot as A
+  	select A.spot_id, spot_name, spot_category_id, spot_address, spot_description, spot_coordinate_x, spot_coordinate_y, (ifnull(spot_id_footprint_count,0)+ifnull(spot_id_wish_count,0)+ifnull(spot_id_favorite_count,0)) as spot_popularity from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_footprint_count from footprint GROUP BY spot_id) as B on A.spot_id = B.spot_id
     left join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as C on A.spot_id = C.spot_id
     left join (SELECT spot_id, COUNT(*) as spot_id_favorite_count from favorite GROUP BY spot_id) as D on A.spot_id = D.spot_id
@@ -103,25 +103,25 @@
     order by spot_popularity DESC LIMIT #{limit};
   </select>
   <select id="selectByUserCenterPointAndRadiusOrderByFavoriteCountWithLimit" resultMap="BaseResultMap" >
-  	select A.spot_id, spot_name, spot_category_id, ifnull(B.spot_id_favorite_count,0) as spot_id_favorite_count from spot as A
+  	select A.spot_id, spot_name, spot_category_id, spot_address, spot_description, spot_coordinate_x, spot_coordinate_y, ifnull(B.spot_id_favorite_count,0) as spot_id_favorite_count from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_favorite_count from favorite GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where ABS(spot_coordinate_x - #{userCoordinateX}) &lt;= #{radius} and ABS(spot_coordinate_y - #{userCoordinateY}) &lt;= #{radius}
     order by spot_id_favorite_count DESC LIMIT #{limit};
   </select>
   <select id="selectByUserCenterPointAndRadiusOrderByFootprintCountWithLimit" resultMap="BaseResultMap" >
-  	select A.spot_id, spot_name, spot_category_id, ifnull(B.spot_id_footprint_count, 0) as spot_id_footprint_count from spot as A
+  	select A.spot_id, spot_name, spot_category_id, spot_address, spot_description, spot_coordinate_x, spot_coordinate_y, ifnull(B.spot_id_footprint_count, 0) as spot_id_footprint_count from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_footprint_count from footprint GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where ABS(spot_coordinate_x - #{userCoordinateX}) &lt;= #{radius} and ABS(spot_coordinate_y - #{userCoordinateY}) &lt;= #{radius}
     order by spot_id_footprint_count DESC LIMIT #{limit};
   </select>
   <select id="selectByUserCenterPointAndRadiusOrderByWishCountWithLimit" resultMap="BaseResultMap" >
-  	select A.spot_id, spot_name, spot_category_id, ifnull(B.spot_id_wish_count,0) as spot_id_wish_count from spot as A
+  	select A.spot_id, spot_name, spot_category_id, spot_address, spot_description, spot_coordinate_x, spot_coordinate_y, ifnull(B.spot_id_wish_count,0) as spot_id_wish_count from spot as A
     left join (SELECT spot_id, COUNT(*) as spot_id_wish_count from wish GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where ABS(spot_coordinate_x - #{userCoordinateX}) &lt;= #{radius} and ABS(spot_coordinate_y - #{userCoordinateY}) &lt;= #{radius}
     order by spot_id_wish_count DESC LIMIT #{limit};
   </select>
   <select id="selectByUserCenterPointAndRadiusOrderByAverageReviewRatingWithLimit" resultMap="BaseResultMap" >
-  	select A.spot_id, spot_name, spot_category_id, ifnull(B.review_rating_avg, 0) as review_rating_avg from spot as A
+  	select A.spot_id, spot_name, spot_category_id, spot_address, spot_description, spot_coordinate_x, spot_coordinate_y, ifnull(B.review_rating_avg, 0) as review_rating_avg from spot as A
   	left join (select spot_id, avg(review_rating) as review_rating_avg from review GROUP BY spot_id) as B on A.spot_id = B.spot_id
 	where ABS(spot_coordinate_x - #{userCoordinateX}) &lt;= #{radius} and ABS(spot_coordinate_y - #{userCoordinateY}) &lt;= #{radius}
     order by review_rating_avg DESC LIMIT #{limit};
