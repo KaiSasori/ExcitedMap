@@ -245,10 +245,10 @@ angular.module('myApp.controllers', [])
                         var spot = {};
                         spot.spotId = data[i].spotId;
                         spot.spotName = data[i].spotName;
-                        // spot.spotAddress = data[i].spotAddress;
-                        // spot.spotDescription = data[i].spotDescription;
-                        // spot.spotCoordinateX = data[i].spotCoordinateX;
-                        // spot.spotCoordinateY = data[i].spotCoordinateY;
+                        spot.spotAddress = data[i].spotAddress;
+                        spot.spotDescription = data[i].spotDescription;
+                        spot.spotCoordinateX = data[i].spotCoordinateX;
+                        spot.spotCoordinateY = data[i].spotCoordinateY;
                         //console.log(spotName);
                         if (index == 1){
                             spot.rating = data[i].averageReviewRating;
@@ -435,6 +435,14 @@ angular.module('myApp.controllers', [])
                 $.ajax(settings).done(function(response){
                     console.log(response);
                     alert("头像更换成功！");
+                    var afterAvatar = response.replace(/\"/g, "");
+                    console.log(afterAvatar);
+                    $scope.currentUserAvatarPath = afterAvatar;
+                    window.sessionStorage.currentUserAvatarPath = afterAvatar;
+                    console.log($scope.currentUserAvatarPath);
+                    $scope.$apply();
+                    window.location.replace("http://localhost:8080/www/index.html#/tab/mine");
+                    window.location.reload();
                 });
             }else{
                 alert("请选择图片！");
@@ -1714,6 +1722,8 @@ angular.module('myApp.controllers', [])
 
         $scope.iconNumber = 0;
         $scope.iconDescription = "";
+        $scope.labelCoordinateX = 0;
+        $scope.labelCoordinateY = 0;
 
         $scope.bounds = [[],
                         [121.426311,31.224952,121.428926,31.225847,121.428231,31.228703,121.421652,31.229645,121.42205,31.227167],
@@ -1756,6 +1766,8 @@ angular.module('myApp.controllers', [])
                 //alert(e.point.lng + "," + e.point.lat);
                 //判断iconNumber
                 if ($scope.iconNumber != 0){
+                    $scope.labelCoordinateX = e.point.lng;
+                    $scope.labelCoordinateY = e.point.lat;
                     var pt = new BMap.Point(e.point.lng,e.point.lat);
                     var myIcon = new BMap.Icon("./img/icon/"+$scope.iconNumber+".png", new BMap.Size(29,29));
                     var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
@@ -1803,9 +1815,11 @@ angular.module('myApp.controllers', [])
                         data : JSON.stringify({
                             spotId: $scope.spotId,
                             spotLabelType: $scope.iconNumber,
-                            spotLabelDescription: $scope.iconDescription
+                            spotLabelDescription: $scope.iconDescription,
                             //添加xy坐标
                             //TODO
+                            spotLabelCoordinateX: $scope.labelCoordinateX,
+                            spotLabelCoordinateY: $scope.labelCoordinateY
                         }),
                         contentType : "application/json; charset=utf-8",
                         dataType : "json",
@@ -1824,7 +1838,57 @@ angular.module('myApp.controllers', [])
 
         //从数据库获取icon
         //TODO
+        $.ajax({
+            type : "GET",
+            url : "/spot/" + $scope.spotId + "/label",
+            processData : false,
+            contentType : "application/json; charset=utf-8",
+            success : function(data) {// data is list<spot>
+                for(var i=0; i<data.length; i++){
+                    //添加label
+                    if (data[i].spotLabelType != 0){
+                        var pt = new BMap.Point(data[i].spotLabelCoordinateX, data[i].spotLabelCoordinateY);
+                        var myIcon = new BMap.Icon("./img/icon/"+data[i].spotLabelType+".png", new BMap.Size(29,29));
+                        var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+                        //添加悬浮框按钮
+                        var content = data[i].spotLabelDescription;
+                            
 
+
+                        map.addOverlay(marker2);              // 将标注添加到地图中
+                        addClickHandler2(content,marker2,data[i].spotLabelType);
+
+                        function addClickHandler2(content,marker,iconNumber){
+                            
+                            marker.addEventListener("click",function(e){
+                                if (iconMarkerClickTime != iconNumber){
+                                    openInfo(content,e);
+                                    iconMarkerClickTime = iconNumber;
+                                }
+                                else if(iconMarkerClickTime == iconNumber){
+                                    map.closeInfoWindow();
+                                    iconMarkerClickTime = 0;
+                                }
+                                
+                            });
+                        }
+                        function openInfo(content,e){
+                            var p = e.target;
+                            var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                            var opts = {
+                                width : 20,     // 信息窗口宽度
+                                height: 20,     // 信息窗口高度
+                                title : "评价信息：" , // 信息窗口标题
+                                enableMessage:true,//设置允许信息窗发送短息
+                                enableCloseOnClick:true
+                            };
+                            var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+                            map.openInfoWindow(infoWindow,point); //开启信息窗口
+                        }
+                    }
+                }
+            },
+        });
 
 
 

@@ -53,6 +53,7 @@ angular.module('myApp',['ionic', 'myApp.directives', 'myApp.filters', 'myApp.ser
 
         .state('tabs.mine', {
             url: "/mine",
+            cache:'false',
             views: {
                 'menuContent': {
                     templateUrl: "partials/mine.html",
