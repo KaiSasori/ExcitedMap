@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.excitedmap.dao.ReviewMapperImpl;
 import com.excitedmap.dao.ReviewPhotoMapperImpl;
+import com.excitedmap.dao.SpotPhotoMapperImpl;
 import com.excitedmap.pojo.Review;
 import com.excitedmap.pojo.ReviewImpl;
 import com.excitedmap.pojo.ReviewPhoto;
+import com.excitedmap.pojo.SpotPhoto;
 import com.excitedmap.service.ReviewService;
 
 @Service("reviewService")
@@ -26,6 +28,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewMapperImpl reviewDao;
 	@Resource
 	private ReviewPhotoMapperImpl reviewPhotoDao;
+	@Resource
+	private SpotPhotoMapperImpl spotPhotoDao;
 
 	@Override
 	public List<Review> getReviewListByUserId(int userId) {
@@ -46,6 +50,10 @@ public class ReviewServiceImpl implements ReviewService {
 			ReviewPhoto reviewPhoto = reviewPhotoList.get(i);
 			reviewPhoto.setReviewId(review.getReviewId());
 			reviewPhotoDao.updateByPrimaryKeySelective(reviewPhoto);
+			SpotPhoto spotPhoto = new SpotPhoto();
+			spotPhoto.setSpotId(review.getSpotId());
+			spotPhoto.setSpotPhotoPath(reviewPhoto.getReviewPhotoPath());
+			spotPhotoDao.insertSelective(spotPhoto);
 		}
 	}
 
