@@ -5,25 +5,22 @@ A map that makes you Excited!
 
 用户可以用它来获取周围的旅游景观的多媒体信息，查看别人的评价并发布自己的评价。另外，还有部分社交功能，如分享景点、标记自己喜欢的景点等。
 ## 采用的技术
-### 前端
-### 负责成员：高金凯、朱宇奇
+### 前端（负责成员：高金凯、朱宇奇）
 高金凯：
-负责内容：
-1、使用AngularJS前端框架，完成静态页面的实现。并且负责页面的设计与美化。
-2、自学Ionic，完成手机端的布局和应用。
++ 使用AngularJS前端框架，完成静态页面的实现。并且负责页面的设计与美化。
++ 自学Ionic，完成手机端的布局和应用。
 
 朱宇奇：
-负责内容：
-1、使用AngularJS前端框架，在高金凯同学静态页面的框架上，实现本Project所有的功能点。
-2、自学百度API，熟练调用API完成功能点，并重写了部分百度API与Ionic框架冲突的部分函数，使功能点可以顺利完成。
-3、通过JavaScript，完成与后端接口的调用。
++ 使用AngularJS前端框架，在高金凯同学静态页面的框架上，实现本Project所有的功能点。
++ 自学百度API，熟练调用API完成功能点，并重写了部分百度API与Ionic框架冲突的部分函数，使功能点可以顺利完成。
++ 通过JavaScript，完成与后端接口的调用。
 
 ###实现思路：
 
-###前端框架AngularJS。
+####前端框架AngularJS
 这是我第一次在实战中使用AngularJS在项目中进行开发，下面我来谈谈自己project过程中的对AngularJS感悟和思考。
 
-###心得体会————朱宇奇
+####心得体会————朱宇奇
 1、AngularJS 路由
 AngularJS 路由 允许我们通过不同的URL访问不同的内容。
 通过AngularJS可以实现多视图的单页Web应用（single page web application，SPA）。
@@ -64,7 +61,7 @@ ng-repeat指令生效在需要循环内容的元素上，items和控制器上的
 然而，我们的project要求实现景观评论的标签添加，以及线路规划，都需要在地图上进行点击事件。
 这个问题，困扰了我很久，最终，我通过在地图表面添加覆盖层，自己重写AddClickListener的方式，终于能够监听到百度地图的点击事件，最终，顺利完成了本次project。
 
-### 后端
+### 后端（负责成员：周信安）
 使用SM框架实现，并采用了Jackson JSON Processor、MyBatis Generator和MyBatis-Spring-Boot-Starter。使用MySQL作为数据库。
 + Spring Boot是最新推出的便于Spring应用开发的微框架，预配置了一系列Spring组件和其他常用开发环境的依赖（如MySQL Connector/J），同时内嵌Tomcat，免去了配环境的痛苦，提高了项目的独立性。而且，Spring Boot支持使用`public static void main()`来启动服务器，启动时间比系统环境自带的Tomcat更短。另外，在服务器运行时修改的静态资源可以实时映射到服务器中，不需要重启服务器，也不会有奇奇怪怪的缓存问题，体验十分愉悦。本项目使用的`@RestController`是Spring Web组件的一部分，所以也可以说是使用了SSM框架（Spring + Spring MVC + MyBatis）。Spring Boot只是方便了Spring + Spring MVC的开发，并不提供额外功能。
 + MyBatis可以让开发者在配置文件中写好SQL语句，并用接口（interface）的方式方便地设定好从数据库返回的内容和类型，避免了手写大量重复的JDBC代码。MyBatis-Spring-Boot-Starter是MyBatis为Spring Boot推出的整合模块，可以将MyBatis的功能无缝整合到Spring Boot中。最后的效果是，不用再手动去生成数据库的连接池并在需要使用数据库时每次从池中取得一个连接，用完了再释放连接。只需要调用[Mapper接口](./ExcitedMap/src/main/java/com/excitedmap/dao)就能实现查询。精力就可以更加集中在业务实现上，而不是底层细节上。同时，还采用了MyBatis Generator，它可以在设计好数据库表结构后，直接逆向生成[POJO](./ExcitedMap/src/main/java/com/excitedmap/pojo)、[MyBatis XML Mapper](./ExcitedMap/src/main/java/com/excitedmap/mapping)（即保存SQL语句的XML文件）、以及[Mapper接口](./ExcitedMap/src/main/java/com/excitedmap/dao)，这就是数据库“逆向工程”的概念。这样可以免去编写大量POJO和基本增删查改（CRUD）SQL语句的不必要的重复劳动。由MyBatis Generator自动生成的POJO，对于单表操作（如直接读取一个用户的信息），是足够用的。但对于复杂的操作（如通过用户ID取得用户的所有足迹）还是不行的。这时，可以再使用继承简单POJO的方式编写更加复杂的POJO（如本项目中的[SpotImpl.java](./ExcitedMap/src/main/java/com/excitedmap/pojo/SpotImpl.java)），同时，再编写相应的[MyBatis XML Mapper](./ExcitedMap/src/main/java/com/excitedmap/mapping)（文件名以Impl结尾的是自己写的，其它是自动生成的），并继承自动生成的简单XML，这样就可以做到高度重用自动生成的代码，且有着将自动生成代码和手写代码清晰地分离的好处，便于以后数据库表结构修改时可以重新自动生成代码，而不影响自己实现的业务逻辑SQL语句。
@@ -73,7 +70,7 @@ ng-repeat指令生效在需要循环内容的元素上，items和控制器上的
 + 本项目做到了良好的前后端分离。前端和后端之间用AJAX通信，服务器端不生成动态页面，前端通过调用后端RESTful API来增删查改资源。使用session（即cookie）作为权限认证的方法。对于无权访问的功能（如在没有登陆的情况下想要发表评论），后端将会返回合适的HTTP状态码（如`401 Unauthorized`）。
 + 本项目中，所有需要对数据库进行多步操作的业务逻辑都实现了原子化。比如，在[ReviewServiceImpl.java](./ExcitedMap/src/main/java/com/excitedmap/service/impl/ReviewServiceImpl.java#L41)中，`addReview`方法使用了由Spring提供的`@Transactional`注解，可以将一个方法中的所有数据库操作合并原子化。在复杂业务逻辑中，如果不这么做可能导致数据库产生不一致（inconsistency）。该注解的使用需要[配置事务管理](./ExcitedMap/src/main/resources/spring-mybatis.xml#L53)。
 
-### 项目管理
+### 项目管理（负责成员：周信安）
 由于大型工程要使用大量的依赖包，依靠手动下载各个包再手动添加到Build Path的方法不能满足组员们之间协作的需求，因为组员们使用不同的平台和不同的IDE。更重要的是，这样不易于在多平台上移植本项目，也不易于管理依赖包的版本。所以，本项目采用了Maven来管理依赖包。在[pom.xml](./ExcitedMap/pom.xml)中，通过添加需要的依赖包名字及其版本，Maven就可以自动通过Maven Central Repository获取到依赖包并添加到工程中。这样，就避免了依赖包和项目文件一起打包占用额外空间，而且代码在多平台上移植困难的问题。
 
 本项目中，组员们使用Github进行协作。一些组员第一次接触Github和git，在组员的互相帮助下，学会了Github和git的基本使用方法，为项目的顺利完成节约了大量的时间和精力。
@@ -84,16 +81,23 @@ ng-repeat指令生效在需要循环内容的元素上，items和控制器上的
 + 接着，可能需要让Maven下载项目的依赖包（在Eclipse中右击已导入的工程->Maven->Update Project）。
 + 最后，在Eclipse中打开[Application.java](./ExcitedMap/src/main/java/com/excitedmap/Application.java)，点击Run即可。
 
-## 心得体会
+###心得体会————周信安
+在本项目中，我主要负责后端的设计，以及项目管理的工作。
++ 后端的设计思路已经在前文中详细解释。
++ 将工作按照个人特长和喜好合理分配给各个组员，在项目进展受阻的时候及时调整分工。
++ 协调、监督项目进度，定期走查，跟踪项目质量。
++ 给组员及时的技术指导。
+
+在这次Project中，我担任组长的角色。因此，除了技术层面的内容，我还体验了一下当项目经理的感觉。经过这次的Project，我锻炼了协调、沟通、领导能力。我一直叮嘱组员们平时要多努力，不要在期末赶进度。在我的管理下，我组的进度一直很令人满意，因为我们每周都会召开一次会议，并安排一次走查。除了问题，尽量当面解决，这样比较高效。我们还采用了敏捷模型，这对项目的高质量、高效率完成是十分有益的。
 
 ###心得体会————侯天朗
 
 ####工作内容
 在本项目中，我做得工作涉及的面比较广，主要有以下四部分：
-+	各个加分点的实现（第三方登录、自动化测试、3D模型上传和显示等等）
-+	前端的注册登录功能
-+	网站引导页和关于页面的编写
-+	后端一部分service和controller模块的实现。
++ 各个加分点的实现（第三方登录、自动化测试、3D模型上传和显示等等）
++ 前端的注册登录功能
++ 网站引导页和关于页面的编写
++ 后端一部分service和controller模块的实现。
 
 ####遇到的问题和解决方法
 问题1：QQ为了保证用户信息安全，不允许将localhost:8080作为网站地址和回调地址，怎么处理?
@@ -117,6 +121,6 @@ ng-repeat指令生效在需要循环内容的元素上，items和控制器上的
 
 首先，新框架的推出改善了生产环境。之前Spring MVC+Hibernate给我的印象不太友好（配置复杂、启动慢、修改代码后需要手动重启等等），但这次Spring Boot框架的出现无疑大大减轻了程序员配置环境的压力，提升了修改代码的效率。
 
-其次，通过后台的编写，我在实战中第一次运用了RESTful的架构风格，对课堂所学知识有了直观的认识。感谢周信安同学有关RESTFUL风格编码方面对我的指导。
+其次，通过后台的编写，我在实战中第一次运用了RESTful的架构风格，对课堂所学知识有了直观的认识。感谢周信安同学有关RESTful风格编码方面对我的指导。
 
 再次，我第一次使用AngularJS框架，所以刚开始在写前端注册登录页面的时候比较茫然，感谢另外一组的陈高星同学的讲解，我明白了如何使用这个框架，每个模块的作用是什么，如何绑定数据和按钮等等。在后期第三方登录整合到框架的过程中，感谢朱宇琦同学的帮助。
